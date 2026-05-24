@@ -9,38 +9,168 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppSignalsRouteImport } from './routes/app.signals'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppPricingRouteImport } from './routes/app.pricing'
+import { Route as AppLootRouteImport } from './routes/app.loot'
+import { Route as AppForecastRouteImport } from './routes/app.forecast'
+import { Route as AppDiscordRouteImport } from './routes/app.discord'
+import { Route as AppAssistantRouteImport } from './routes/app.assistant'
+import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
 
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSignalsRoute = AppSignalsRouteImport.update({
+  id: '/signals',
+  path: '/signals',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPricingRoute = AppPricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppLootRoute = AppLootRouteImport.update({
+  id: '/loot',
+  path: '/loot',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppForecastRoute = AppForecastRouteImport.update({
+  id: '/forecast',
+  path: '/forecast',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDiscordRoute = AppDiscordRouteImport.update({
+  id: '/discord',
+  path: '/discord',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAssistantRoute = AppAssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/analytics': typeof AppAnalyticsRoute
+  '/app/assistant': typeof AppAssistantRoute
+  '/app/discord': typeof AppDiscordRoute
+  '/app/forecast': typeof AppForecastRoute
+  '/app/loot': typeof AppLootRoute
+  '/app/pricing': typeof AppPricingRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/signals': typeof AppSignalsRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app/analytics': typeof AppAnalyticsRoute
+  '/app/assistant': typeof AppAssistantRoute
+  '/app/discord': typeof AppDiscordRoute
+  '/app/forecast': typeof AppForecastRoute
+  '/app/loot': typeof AppLootRoute
+  '/app/pricing': typeof AppPricingRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/signals': typeof AppSignalsRoute
+  '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/analytics': typeof AppAnalyticsRoute
+  '/app/assistant': typeof AppAssistantRoute
+  '/app/discord': typeof AppDiscordRoute
+  '/app/forecast': typeof AppForecastRoute
+  '/app/loot': typeof AppLootRoute
+  '/app/pricing': typeof AppPricingRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/signals': typeof AppSignalsRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/app/analytics'
+    | '/app/assistant'
+    | '/app/discord'
+    | '/app/forecast'
+    | '/app/loot'
+    | '/app/pricing'
+    | '/app/settings'
+    | '/app/signals'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/app/analytics'
+    | '/app/assistant'
+    | '/app/discord'
+    | '/app/forecast'
+    | '/app/loot'
+    | '/app/pricing'
+    | '/app/settings'
+    | '/app/signals'
+    | '/app'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/app/analytics'
+    | '/app/assistant'
+    | '/app/discord'
+    | '/app/forecast'
+    | '/app/loot'
+    | '/app/pricing'
+    | '/app/settings'
+    | '/app/signals'
+    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +178,102 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/signals': {
+      id: '/app/signals'
+      path: '/signals'
+      fullPath: '/app/signals'
+      preLoaderRoute: typeof AppSignalsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/pricing': {
+      id: '/app/pricing'
+      path: '/pricing'
+      fullPath: '/app/pricing'
+      preLoaderRoute: typeof AppPricingRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/loot': {
+      id: '/app/loot'
+      path: '/loot'
+      fullPath: '/app/loot'
+      preLoaderRoute: typeof AppLootRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/forecast': {
+      id: '/app/forecast'
+      path: '/forecast'
+      fullPath: '/app/forecast'
+      preLoaderRoute: typeof AppForecastRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/discord': {
+      id: '/app/discord'
+      path: '/discord'
+      fullPath: '/app/discord'
+      preLoaderRoute: typeof AppDiscordRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/assistant': {
+      id: '/app/assistant'
+      path: '/assistant'
+      fullPath: '/app/assistant'
+      preLoaderRoute: typeof AppAssistantRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/analytics': {
+      id: '/app/analytics'
+      path: '/analytics'
+      fullPath: '/app/analytics'
+      preLoaderRoute: typeof AppAnalyticsRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppAnalyticsRoute: typeof AppAnalyticsRoute
+  AppAssistantRoute: typeof AppAssistantRoute
+  AppDiscordRoute: typeof AppDiscordRoute
+  AppForecastRoute: typeof AppForecastRoute
+  AppLootRoute: typeof AppLootRoute
+  AppPricingRoute: typeof AppPricingRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppSignalsRoute: typeof AppSignalsRoute
+  AppIndexRoute: typeof AppIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppAnalyticsRoute: AppAnalyticsRoute,
+  AppAssistantRoute: AppAssistantRoute,
+  AppDiscordRoute: AppDiscordRoute,
+  AppForecastRoute: AppForecastRoute,
+  AppLootRoute: AppLootRoute,
+  AppPricingRoute: AppPricingRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppSignalsRoute: AppSignalsRoute,
+  AppIndexRoute: AppIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
