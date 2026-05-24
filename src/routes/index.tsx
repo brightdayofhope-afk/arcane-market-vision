@@ -9,6 +9,8 @@ import { useTranslation } from "react-i18next";
 import {
   Sparkles, Bot, MessageSquare, ShieldCheck, TrendingUp, Zap,
   ArrowRight, Activity, Coins, LineChart, Radar, Hammer, Database,
+  ChevronDown, Newspaper, Tv, Handshake, Star, GitCompareArrows, Globe2,
+  CreditCard, Settings, LayoutDashboard,
 } from "lucide-react";
 import heroChar from "@/assets/ami-hero.jpg";
 import arcaneBg from "@/assets/arcane-bg.jpg";
@@ -38,21 +40,7 @@ function Index() {
       />
       <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background pointer-events-none" />
 
-      {/* Nav */}
-      <header className="relative z-10 mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
-        <Logo />
-        <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-          <a href="#features" className="hover:text-foreground">{t("nav.intelligence")}</a>
-          <a href="#assistant" className="hover:text-foreground">{t("nav.ami")}</a>
-          <a href="#discord" className="hover:text-foreground">{t("nav.discord")}</a>
-          <Link to="/app/pricing" className="hover:text-foreground">{t("nav.earlyAccess")}</Link>
-        </nav>
-        <div className="flex items-center gap-2">
-          <LanguageSwitcher className="hidden sm:inline-flex" />
-          <Link to="/app"><Button variant="ghost" className="hidden sm:inline-flex">{t("nav.viewDemo")}</Button></Link>
-          <Link to="/app/pricing"><Button>{t("nav.joinEarlyAccess")}</Button></Link>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Hero */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 pt-12 pb-24 grid lg:grid-cols-2 gap-10 items-center">
@@ -285,6 +273,102 @@ function SectionHead({ eyebrow, title }: { eyebrow: string; title: string }) {
     <div className="max-w-2xl">
       <div className="text-xs uppercase tracking-[0.22em] text-primary">{eyebrow}</div>
       <h2 className="mt-2 text-3xl md:text-4xl font-semibold tracking-tight">{title}</h2>
+    </div>
+  );
+}
+
+function SiteHeader() {
+  const { t } = useTranslation();
+  const product = [
+    { to: "/app",            label: t("nav.overview"),       icon: LayoutDashboard, hint: "Market dashboard" },
+    { to: "/app/signals",    label: t("nav.auctionSignals"), icon: Radar,           hint: "Best deals · flips · risk" },
+    { to: "/app/analytics",  label: t("nav.itemAnalytics"),  icon: LineChart,       hint: "Item profile · 30d charts" },
+    { to: "/app/compare",    label: t("nav.compareItems"),   icon: GitCompareArrows,hint: "Side-by-side comparison" },
+    { to: "/app/forecast",   label: t("nav.marketForecast"), icon: Sparkles,        hint: "Patch-aware predictions" },
+    { to: "/app/loot",       label: t("nav.lootDatabase"),   icon: Database,        hint: "TBC-style catalog" },
+    { to: "/app/professions",label: t("nav.professions"),    icon: Hammer,          hint: "Crafting demand & supply" },
+    { to: "/app/realms",     label: t("nav.realmFaction"),   icon: Globe2,          hint: "Realm · faction overlays" },
+    { to: "/app/assistant",  label: t("nav.amiAssistant"),   icon: Bot,             hint: "Talk to the market" },
+    { to: "/app/watchlist",  label: t("nav.watchlist"),      icon: Star,            hint: "Tracked items" },
+  ];
+  const community = [
+    { to: "/app/discord",  label: t("nav.discord"),  icon: MessageSquare, hint: "Channel mapping · webhooks" },
+    { to: "/app/news",     label: t("nav.news"),     icon: Newspaper,     hint: "Patches & market events" },
+    { to: "/app/streams",  label: t("nav.streams"),  icon: Tv,            hint: "Live gold-makers" },
+    { to: "/app/partners", label: t("nav.partners"), icon: Handshake,     hint: "Referral revenue share" },
+  ];
+
+  return (
+    <header className="relative z-30 sticky top-0">
+      <div className="absolute inset-0 backdrop-blur-md bg-background/60 border-b border-border/60" />
+      <div className="relative mx-auto max-w-7xl px-5 h-14 flex items-center gap-6">
+        <Link to="/" className="shrink-0"><Logo /></Link>
+        <nav className="hidden lg:flex items-center gap-1 text-sm">
+          <MegaMenu label={t("nav.product")} items={product} />
+          <MegaMenu label={t("nav.community")} items={community} />
+          <Link to="/app/pricing" className="px-3 py-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/40">
+            {t("nav.pricing")}
+          </Link>
+          <Link to="/app/settings" className="px-3 py-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/40 inline-flex items-center gap-1.5">
+            <Settings className="h-3.5 w-3.5" /> {t("nav.settings")}
+          </Link>
+        </nav>
+        <div className="ml-auto flex items-center gap-2">
+          <LanguageSwitcher className="hidden sm:inline-flex" />
+          <Link to="/app" className="hidden md:inline-flex">
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+              {t("nav.login")}
+            </Button>
+          </Link>
+          <Link to="/app/pricing">
+            <Button size="sm" className="glow">
+              <CreditCard className="h-3.5 w-3.5 mr-1.5" />
+              {t("nav.joinEarlyAccess")}
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function MegaMenu({
+  label,
+  items,
+}: {
+  label: string;
+  items: { to: string; label: string; icon: typeof LayoutDashboard; hint: string }[];
+}) {
+  return (
+    <div className="relative group">
+      <button
+        type="button"
+        className="px-3 py-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/40 inline-flex items-center gap-1"
+      >
+        {label}
+        <ChevronDown className="h-3.5 w-3.5 opacity-70 transition-transform group-hover:rotate-180" />
+      </button>
+      <div
+        className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-150 absolute left-0 top-full pt-2 z-50"
+      >
+        <div className="glass-strong rounded-2xl p-3 glow-border w-[520px] grid grid-cols-2 gap-1">
+          {items.map((it) => (
+            <Link
+              key={it.to}
+              to={it.to}
+              className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-sidebar-accent/60 transition-colors"
+            >
+              <div className="h-8 w-8 rounded-md glass grid place-items-center shrink-0">
+                <it.icon className="h-4 w-4 text-primary" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-sm font-medium leading-tight">{it.label}</div>
+                <div className="text-[11px] text-muted-foreground mt-0.5 truncate">{it.hint}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
