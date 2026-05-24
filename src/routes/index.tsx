@@ -144,9 +144,9 @@ function Index() {
             <Panel title="Market Intelligence">
               <ul className="space-y-3 text-sm">
                 {[
-                  ["Tech Sector Rally", "AI chip demand drives gains", "2m"],
-                  ["Inflation Data Impact", "CPI came in lower than expected", "18m"],
-                  ["Crypto Market Surge", "Gold token breaks resistance", "45m"],
+                  ["Black Lotus spike", "EU · Spineshatter · Horde · +42% in 1h", "2m"],
+                  ["Runecloth oversupply", "Tailoring reagents cheaper across EU", "18m"],
+                  ["Thorium Bar rally", "Smelting demand up before raid reset", "45m"],
                 ].map(([a,b,c]) => (
                   <li key={a} className="flex items-start gap-3">
                     <div className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_currentColor]" />
