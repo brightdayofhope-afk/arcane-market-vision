@@ -90,14 +90,14 @@ function Overview() {
             { tone: "primary", text: t("overview.tickerRunecloth"), meta: "EU · " + t("faction.horde") },
             { tone: "gold",    text: t("overview.tickerHotfix"), meta: t("common.live").toLowerCase() },
             { tone: "danger",  text: t("overview.tickerMount"), meta: "-22%" },
-            { tone: "success", text: t("overview.tickerThorium"), meta: t("overview.now") },
+            { tone: "success", text: t("overview.tickerThorium"), meta: t("extras.now") },
             { tone: "primary", text: t("overview.tickerShard"), meta: t("overview.ago", { age: "5m" }) },
           ]}
         />
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <StatCard label={t("overview.totalMarkets")} value="24,581" delta={"+6.8% " + t("overview.vs24h")} icon={Activity} />
+        <StatCard label={t("overview.totalMarkets")} value="24,581" delta={"+6.8% " + t("extras.vs24h")} icon={Activity} />
         <StatCard label={t("overview.trendingUp")} value="14,329" delta="+8.2%" icon={TrendingUp} accent="success" />
         <StatCard label={t("overview.trendingDown")} value="8,732" delta="-3.6%" trend="down" icon={LineChart} accent="destructive" />
         <StatCard label={t("overview.sentiment")} value={t("overview.sentimentBullish")} icon={Sparkles} accent="gold" />
@@ -107,16 +107,16 @@ function Overview() {
         <Panel title={t("overview.priceTrends")} className="lg:col-span-2" action={<TimeTabs />}>
           <MultiLineChart
             series={[
-              { name: t("overview.seriesReagents"), color: "oklch(0.78 0.20 295)", data: [40,46,42,55,50,62,58,70,66,78,72,86,80,92] },
-              { name: t("overview.seriesRaid"), color: "oklch(0.70 0.18 230)", data: [30,34,38,36,42,46,50,54,58,60,64,68,70,74] },
-              { name: t("overview.seriesCrafted"),    color: "oklch(0.83 0.13 85)",   data: [60,58,55,52,50,48,46,45,42,40,42,44,46,48] },
+              { name: t("extras.seriesReagents"), color: "oklch(0.78 0.20 295)", data: [40,46,42,55,50,62,58,70,66,78,72,86,80,92] },
+              { name: t("extras.seriesRaid"), color: "oklch(0.70 0.18 230)", data: [30,34,38,36,42,46,50,54,58,60,64,68,70,74] },
+              { name: t("extras.seriesCrafted"),    color: "oklch(0.83 0.13 85)",   data: [60,58,55,52,50,48,46,45,42,40,42,44,46,48] },
             ]}
             height={240}
           />
           <div className="flex flex-wrap gap-4 mt-3 text-xs">
-            <Legend color="oklch(0.78 0.20 295)" label={`${t("overview.seriesReagents")} · +6.8%`} />
-            <Legend color="oklch(0.70 0.18 230)" label={`${t("overview.seriesRaid")} · +9.3%`} />
-            <Legend color="oklch(0.83 0.13 85)" label={`${t("overview.seriesCrafted")} · -2.1%`} />
+            <Legend color="oklch(0.78 0.20 295)" label={`${t("extras.seriesReagents")} · +6.8%`} />
+            <Legend color="oklch(0.70 0.18 230)" label={`${t("extras.seriesRaid")} · +9.3%`} />
+            <Legend color="oklch(0.83 0.13 85)" label={`${t("extras.seriesCrafted")} · -2.1%`} />
           </div>
         </Panel>
         <Panel title={t("overview.marketIntelligence")} action={<a className="text-xs text-primary">{t("common.viewAllArrow")}</a>}>
