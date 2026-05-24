@@ -9,6 +9,7 @@ import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SelectorChip } from "./widgets";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import { cn } from "@/lib/utils";
 
 type NavItem = { to: string; label: string; icon: typeof LayoutDashboard; group: string };
@@ -101,6 +102,7 @@ export function AppShell() {
             <SelectorChip label="Faction" value="Horde" options={["Auto","Horde","Alliance"]} />
           </div>
           <div className="ml-auto md:ml-2 flex items-center gap-2">
+            <LanguageSwitcher className="hidden md:inline-flex" />
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-4 w-4" />
               <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_currentColor]" />
