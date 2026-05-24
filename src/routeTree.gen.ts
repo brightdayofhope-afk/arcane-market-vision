@@ -20,6 +20,7 @@ import { Route as AppPricingRouteImport } from './routes/app.pricing'
 import { Route as AppLootRouteImport } from './routes/app.loot'
 import { Route as AppForecastRouteImport } from './routes/app.forecast'
 import { Route as AppDiscordRouteImport } from './routes/app.discord'
+import { Route as AppCompareRouteImport } from './routes/app.compare'
 import { Route as AppAssistantRouteImport } from './routes/app.assistant'
 import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
 
@@ -78,6 +79,11 @@ const AppDiscordRoute = AppDiscordRouteImport.update({
   path: '/discord',
   getParentRoute: () => AppRoute,
 } as any)
+const AppCompareRoute = AppCompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppAssistantRoute = AppAssistantRouteImport.update({
   id: '/assistant',
   path: '/assistant',
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/app': typeof AppRouteWithChildren
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/assistant': typeof AppAssistantRoute
+  '/app/compare': typeof AppCompareRoute
   '/app/discord': typeof AppDiscordRoute
   '/app/forecast': typeof AppForecastRoute
   '/app/loot': typeof AppLootRoute
@@ -108,6 +115,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/assistant': typeof AppAssistantRoute
+  '/app/compare': typeof AppCompareRoute
   '/app/discord': typeof AppDiscordRoute
   '/app/forecast': typeof AppForecastRoute
   '/app/loot': typeof AppLootRoute
@@ -124,6 +132,7 @@ export interface FileRoutesById {
   '/app': typeof AppRouteWithChildren
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/assistant': typeof AppAssistantRoute
+  '/app/compare': typeof AppCompareRoute
   '/app/discord': typeof AppDiscordRoute
   '/app/forecast': typeof AppForecastRoute
   '/app/loot': typeof AppLootRoute
@@ -141,6 +150,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/app/analytics'
     | '/app/assistant'
+    | '/app/compare'
     | '/app/discord'
     | '/app/forecast'
     | '/app/loot'
@@ -155,6 +165,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app/analytics'
     | '/app/assistant'
+    | '/app/compare'
     | '/app/discord'
     | '/app/forecast'
     | '/app/loot'
@@ -170,6 +181,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/app/analytics'
     | '/app/assistant'
+    | '/app/compare'
     | '/app/discord'
     | '/app/forecast'
     | '/app/loot'
@@ -265,6 +277,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDiscordRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/compare': {
+      id: '/app/compare'
+      path: '/compare'
+      fullPath: '/app/compare'
+      preLoaderRoute: typeof AppCompareRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/assistant': {
       id: '/app/assistant'
       path: '/assistant'
@@ -285,6 +304,7 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppAnalyticsRoute: typeof AppAnalyticsRoute
   AppAssistantRoute: typeof AppAssistantRoute
+  AppCompareRoute: typeof AppCompareRoute
   AppDiscordRoute: typeof AppDiscordRoute
   AppForecastRoute: typeof AppForecastRoute
   AppLootRoute: typeof AppLootRoute
@@ -299,6 +319,7 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
   AppAnalyticsRoute: AppAnalyticsRoute,
   AppAssistantRoute: AppAssistantRoute,
+  AppCompareRoute: AppCompareRoute,
   AppDiscordRoute: AppDiscordRoute,
   AppForecastRoute: AppForecastRoute,
   AppLootRoute: AppLootRoute,
