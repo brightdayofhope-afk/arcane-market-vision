@@ -37,7 +37,7 @@ export function AppShell() {
     { to: "/app/partners",   label: t("nav.partners"),        icon: Handshake,       group: "Community" },
     { to: "/app/pricing",    label: t("nav.earlyAccess"),     icon: CreditCard,      group: "Account" },
     { to: "/app/settings",   label: t("nav.settings"),        icon: Settings,        group: "Account" },
-    { to: "/app/admin",      label: "Admin",                  icon: ShieldCheck,     group: "Account" },
+    { to: "/app/admin",      label: t("nav.admin"),           icon: ShieldCheck,     group: "Account" },
   ];
 
   const groupLabels: Record<string, string> = {
@@ -93,8 +93,8 @@ export function AppShell() {
         <div className="absolute bottom-4 left-4 right-4 glass rounded-xl p-3 flex items-center gap-3">
           <div className="h-9 w-9 rounded-full bg-gradient-to-br from-primary to-accent grid place-items-center text-xs font-bold">AM</div>
           <div className="text-xs">
-            <div className="font-medium">Alex Morgan</div>
-            <div className="text-muted-foreground">Founder Plan</div>
+            <div className="font-medium">{t("header.userName")}</div>
+            <div className="text-muted-foreground">{t("header.founderPlan")}</div>
           </div>
         </div>
       </aside>
@@ -108,12 +108,12 @@ export function AppShell() {
           </Button>
           <div className="relative flex-1 max-w-xl min-w-0">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Search items, realms, signals…  (e.g. Black Lotus, Spineshatter)" className="pl-9 bg-input/40 border-border h-10" />
+            <Input placeholder={t("common.searchPlaceholder")} className="pl-9 bg-input/40 border-border h-10" />
           </div>
           <div className="ml-auto hidden md:flex items-center gap-2">
-            <SelectorChip label="Region" value="EU" options={["EU","NA","KR","TW"]} />
-            <SelectorChip label="Realm"  value="Spineshatter" options={["Spineshatter","Kazzak","Ravencrest","Sylvanas","Draenor","Tarren Mill"]} />
-            <SelectorChip label="Faction" value="Horde" options={["Auto","Horde","Alliance"]} />
+            <SelectorChip label={t("selector.region")} value="EU" options={["EU","NA","KR","TW"]} />
+            <SelectorChip label={t("selector.realm")}  value="Spineshatter" options={["Spineshatter","Kazzak","Ravencrest","Sylvanas","Draenor","Tarren Mill"]} />
+            <SelectorChip label={t("selector.faction")} value={t("faction.horde")} options={[t("faction.auto"),t("faction.horde"),t("faction.alliance")]} />
           </div>
           <div className="ml-auto md:ml-2 flex items-center gap-2">
             <LanguageSwitcher className="hidden md:inline-flex" />
@@ -124,17 +124,17 @@ export function AppShell() {
           </div>
           </div>
           <div className="h-9 -mt-1 flex items-center gap-4 text-[11px] text-muted-foreground border-t border-border/60 overflow-x-auto whitespace-nowrap scrollbar-thin">
-            <span className="inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_8px_currentColor]" /> Live · EU-Spineshatter-Horde</span>
+            <span className="inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_8px_currentColor]" /> {t("header.liveBadge")}</span>
             <span className="text-border">|</span>
-            <span className="inline-flex items-center gap-1.5"><Activity className="h-3 w-3 text-primary" /> 1,820 signals / 24h</span>
+            <span className="inline-flex items-center gap-1.5"><Activity className="h-3 w-3 text-primary" /> {t("header.signals24h", { count: "1,820" })}</span>
             <span className="text-border">|</span>
-            <span>Latency 142ms</span>
+            <span>{t("header.latency", { ms: "142" })}</span>
             <span className="text-border">|</span>
-            <span>AH scrape · 38s ago</span>
+            <span>{t("header.ahScrape", { age: "38s" })}</span>
             <span className="text-border">|</span>
-            <span className="text-success">Reagents +6.8%</span>
-            <span className="text-destructive">Mounts −3.6%</span>
-            <span className="text-gold">Sentiment bullish · 68%</span>
+            <span className="text-success">{t("header.reagentsUp")}</span>
+            <span className="text-destructive">{t("header.mountsDown")}</span>
+            <span className="text-gold">{t("header.sentiment")}</span>
           </div>
         </header>
         <main className="flex-1 p-4 md:p-6 lg:p-8">
