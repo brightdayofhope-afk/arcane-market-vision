@@ -382,7 +382,13 @@
     "amiI3Title": "Phaseweaver mount listings cooling fast.",
     "amiI3Body": "Sellers up 38%, demand down 22%. AMI recommends exiting open positions before reset."
   },
-  "_pad1": "",
+  "extras": {
+    "vs24h": "vs 24h",
+    "now": "now",
+    "seriesReagents": "Reagents Index",
+    "seriesRaid": "Raid Consumables",
+    "seriesCrafted": "Crafted Gear"
+  },
   "tableCol": {
     "type": "Type",
     "itemRealm": "Item · Realm",
