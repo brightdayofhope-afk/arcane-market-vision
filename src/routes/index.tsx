@@ -12,8 +12,9 @@ import {
   ChevronDown, Newspaper, Tv, Handshake, Star, GitCompareArrows, Globe2,
   CreditCard, Settings, LayoutDashboard,
 } from "lucide-react";
-import heroChar from "@/assets/ami-hero.jpg";
 import arcaneBg from "@/assets/arcane-bg.jpg";
+import amiHeroWide from "@/assets/ami-hero-wide.png";
+import amiBannerUltrawide from "@/assets/ami-banner-ultrawide.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -41,6 +42,20 @@ function Index() {
       <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background pointer-events-none" />
 
       <SiteHeader />
+
+      {/* Ultra-wide brand strip — desktop only, safely cropped */}
+      <div className="relative z-10 mx-auto max-w-7xl px-6 pt-6 hidden md:block">
+        <div className="relative rounded-2xl overflow-hidden glow-border h-28 lg:h-32">
+          <img
+            src={amiBannerUltrawide}
+            alt="AMI · Market Intelligence Assistant"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            loading="eager"
+            decoding="async"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/40 to-background/85" />
+        </div>
+      </div>
 
       {/* Hero */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 pt-12 pb-24 grid lg:grid-cols-2 gap-10 items-center">
@@ -83,11 +98,16 @@ function Index() {
         <div className="relative">
           <div className="absolute -inset-10 bg-[radial-gradient(closest-side,oklch(0.68_0.22_295/0.4),transparent)] blur-2xl" />
           <div className="relative glass-strong rounded-3xl p-2 glow-border">
-            <img
-              src={heroChar}
-              alt="AMI, the arcane market assistant"
-              className="rounded-2xl w-full h-[560px] object-cover object-top"
-            />
+            <div className="relative rounded-2xl overflow-hidden w-full h-[420px] md:h-[520px] lg:h-[560px]">
+              <img
+                src={amiHeroWide}
+                alt="AMI — Azeroth Market Intelligence"
+                className="absolute inset-0 w-full h-full object-cover object-center"
+                loading="eager"
+                decoding="async"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent" />
+            </div>
 
             {/* Holographic AMI helper chips — market intelligence overlays */}
             <div className="hidden md:block absolute -left-6 top-10">
