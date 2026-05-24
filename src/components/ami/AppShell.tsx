@@ -2,9 +2,10 @@ import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import {
   LayoutDashboard, Radar, LineChart, Sparkles, Bot, MessageSquare,
   Database, CreditCard, Settings, Bell, Search, Menu,
-  Star, GitCompareArrows, Globe2, Activity, Hammer,
+  Star, GitCompareArrows, Globe2, Activity, Hammer, Newspaper, Tv, Handshake,
 } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,28 +13,39 @@ import { SelectorChip } from "./widgets";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { cn } from "@/lib/utils";
 
-type NavItem = { to: string; label: string; icon: typeof LayoutDashboard; group: string };
-const nav: NavItem[] = [
-  { to: "/app",            label: "Overview",        icon: LayoutDashboard, group: "Terminal" },
-  { to: "/app/signals",    label: "Auction Signals", icon: Radar,           group: "Terminal" },
-  { to: "/app/watchlist",  label: "Watchlist",       icon: Star,            group: "Terminal" },
-  { to: "/app/analytics",  label: "Item Analytics",  icon: LineChart,       group: "Analytics" },
-  { to: "/app/compare",    label: "Compare Items",   icon: GitCompareArrows,group: "Analytics" },
-  { to: "/app/realms",     label: "Realm & Faction", icon: Globe2,          group: "Analytics" },
-  { to: "/app/professions",label: "Professions",     icon: Hammer,          group: "Analytics" },
-  { to: "/app/forecast",   label: "Market Forecast", icon: Sparkles,        group: "Analytics" },
-  { to: "/app/assistant",  label: "AMI Assistant",   icon: Bot,             group: "Intelligence" },
-  { to: "/app/discord",    label: "Discord",         icon: MessageSquare,   group: "Intelligence" },
-  { to: "/app/loot",       label: "Loot Database",   icon: Database,        group: "Intelligence" },
-  { to: "/app/pricing",    label: "Early Access",    icon: CreditCard,      group: "Account" },
-  { to: "/app/settings",   label: "Settings",        icon: Settings,        group: "Account" },
-];
-
-const groups = ["Terminal", "Analytics", "Intelligence", "Account"] as const;
-
 export function AppShell() {
+  const { t } = useTranslation();
   const path = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
+
+  type NavItem = { to: string; label: string; icon: typeof LayoutDashboard; group: string };
+  const nav: NavItem[] = [
+    { to: "/app",            label: t("nav.overview"),        icon: LayoutDashboard, group: "Terminal" },
+    { to: "/app/signals",    label: t("nav.auctionSignals"),  icon: Radar,           group: "Terminal" },
+    { to: "/app/watchlist",  label: t("nav.watchlist"),       icon: Star,            group: "Terminal" },
+    { to: "/app/analytics",  label: t("nav.itemAnalytics"),   icon: LineChart,       group: "Analytics" },
+    { to: "/app/compare",    label: t("nav.compareItems"),    icon: GitCompareArrows,group: "Analytics" },
+    { to: "/app/realms",     label: t("nav.realmFaction"),    icon: Globe2,          group: "Analytics" },
+    { to: "/app/professions",label: t("nav.professions"),     icon: Hammer,          group: "Analytics" },
+    { to: "/app/forecast",   label: t("nav.marketForecast"),  icon: Sparkles,        group: "Analytics" },
+    { to: "/app/assistant",  label: t("nav.amiAssistant"),    icon: Bot,             group: "Intelligence" },
+    { to: "/app/loot",       label: t("nav.lootDatabase"),    icon: Database,        group: "Intelligence" },
+    { to: "/app/discord",    label: t("nav.discord"),         icon: MessageSquare,   group: "Intelligence" },
+    { to: "/app/news",       label: t("nav.news"),            icon: Newspaper,       group: "Community" },
+    { to: "/app/streams",    label: t("nav.streams"),         icon: Tv,              group: "Community" },
+    { to: "/app/partners",   label: t("nav.partners"),        icon: Handshake,       group: "Community" },
+    { to: "/app/pricing",    label: t("nav.earlyAccess"),     icon: CreditCard,      group: "Account" },
+    { to: "/app/settings",   label: t("nav.settings"),        icon: Settings,        group: "Account" },
+  ];
+
+  const groupLabels: Record<string, string> = {
+    Terminal: t("nav.terminal"),
+    Analytics: t("nav.analytics"),
+    Intelligence: t("nav.intelligenceGroup"),
+    Community: t("nav.community"),
+    Account: t("nav.account"),
+  };
+  const groups = ["Terminal", "Analytics", "Intelligence", "Community", "Account"] as const;
 
   return (
     <div className="min-h-screen flex w-full">
@@ -50,7 +62,7 @@ export function AppShell() {
         <nav className="p-3 space-y-4 overflow-y-auto h-[calc(100vh-9rem)] pb-28">
           {groups.map((g) => (
             <div key={g}>
-              <div className="px-3 mb-1.5 text-[10px] uppercase tracking-[0.22em] text-muted-foreground/70">{g}</div>
+              <div className="px-3 mb-1.5 text-[10px] uppercase tracking-[0.22em] text-muted-foreground/70">{groupLabels[g]}</div>
               <div className="space-y-0.5">
                 {nav.filter((n) => n.group === g).map((item) => {
                   const active = path === item.to || (item.to !== "/app" && path.startsWith(item.to));
