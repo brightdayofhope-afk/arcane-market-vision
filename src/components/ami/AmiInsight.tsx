@@ -1,6 +1,6 @@
 import { Bot, ShieldCheck, ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import amiAvatar from "@/assets/ami-avatar.jpg";
+import amiAvatar from "@/assets/ami-logo-round.png";
 import { cn } from "@/lib/utils";
 
 export type AmiInsightProps = {

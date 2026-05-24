@@ -14,6 +14,7 @@ import { SelectorChip } from "./widgets";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { AmiCompanion, useAmiCompanion } from "./AmiCompanion";
 import { cn } from "@/lib/utils";
+import amiLogoRound from "@/assets/ami-logo-round.png";
 
 export function AppShell() {
   const { t } = useTranslation();
@@ -93,7 +94,13 @@ export function AppShell() {
           ))}
         </nav>
         <div className="absolute bottom-4 left-4 right-4 glass rounded-xl p-3 flex items-center gap-3">
-          <div className="h-9 w-9 rounded-full bg-gradient-to-br from-primary to-accent grid place-items-center text-xs font-bold">AM</div>
+          <div className="h-9 w-9 rounded-full overflow-hidden glow-border shrink-0">
+            <img
+              src={amiLogoRound}
+              alt="AMI"
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
           <div className="text-xs">
             <div className="font-medium">{t("header.userName")}</div>
             <div className="text-muted-foreground">{t("header.founderPlan")}</div>
