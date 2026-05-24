@@ -15,20 +15,4 @@ if (!i18n.isInitialized) {
     });
 }
 
-// Client-only language detection — runs after hydration so SSR and the
-// first client render always agree on "en" (prevents hydration mismatch).
-if (typeof window !== "undefined") {
-  try {
-    const stored = window.localStorage.getItem("ami-lang");
-    const nav = window.navigator.language?.toLowerCase().startsWith("ru") ? "ru" : "en";
-    const target = stored === "ru" || stored === "en" ? stored : nav;
-    if (target && target !== i18n.language) {
-      // Defer to next tick so it happens after React hydration completes.
-      queueMicrotask(() => i18n.changeLanguage(target));
-    }
-  } catch {
-    /* ignore */
-  }
-}
-
 export default i18n;
