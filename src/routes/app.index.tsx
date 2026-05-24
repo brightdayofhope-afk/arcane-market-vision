@@ -9,10 +9,10 @@ export const Route = createFileRoute("/app/")({
 
 const movers = [
   { name: "Arcane Crystal", code: "ARC", change: "+8.24%", price: "128g 45s" },
-  { name: "Dreamleaf", code: "DRL", change: "+6.91%", price: "175g 32s" },
-  { name: "Titanic Sigil", code: "TTS", change: "+5.47%", price: "248g 75s" },
-  { name: "Stormscale", code: "STS", change: "+4.32%", price: "543g 21s" },
-  { name: "Frozen Orb", code: "FZO", change: "+3.89%", price: "892g 17s" },
+  { name: "Black Lotus", code: "BLO", change: "+6.91%", price: "1,420g" },
+  { name: "Runecloth", code: "RNC", change: "+5.47%", price: "12g 75s" },
+  { name: "Thorium Bar", code: "THB", change: "+4.32%", price: "38g 21s" },
+  { name: "Large Brilliant Shard", code: "LBS", change: "+3.89%", price: "92g 17s" },
 ];
 
 const heat = [
@@ -26,7 +26,10 @@ const heat = [
 function Overview() {
   return (
     <div>
-      <PageHeader title="Market Overview" subtitle="Real-time intelligence. Smarter decisions." />
+      <PageHeader
+        title="Market Overview"
+        subtitle="EU · Spineshatter · Horde — real-time auction intelligence."
+      />
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard label="Total Markets" value="24,581" delta="+6.8% vs 24h" icon={Activity} />
@@ -39,25 +42,25 @@ function Overview() {
         <Panel title="Price Trends" className="lg:col-span-2" action={<TimeTabs />}>
           <MultiLineChart
             series={[
-              { name: "Global Markets", color: "oklch(0.78 0.20 295)", data: [40,46,42,55,50,62,58,70,66,78,72,86,80,92] },
-              { name: "Tech Sector",    color: "oklch(0.70 0.18 230)", data: [30,34,38,36,42,46,50,54,58,60,64,68,70,74] },
-              { name: "Commodities",   color: "oklch(0.83 0.13 85)",   data: [60,58,55,52,50,48,46,45,42,40,42,44,46,48] },
+              { name: "Reagents Index", color: "oklch(0.78 0.20 295)", data: [40,46,42,55,50,62,58,70,66,78,72,86,80,92] },
+              { name: "Raid Consumables", color: "oklch(0.70 0.18 230)", data: [30,34,38,36,42,46,50,54,58,60,64,68,70,74] },
+              { name: "Crafted Gear",    color: "oklch(0.83 0.13 85)",   data: [60,58,55,52,50,48,46,45,42,40,42,44,46,48] },
             ]}
             height={240}
           />
           <div className="flex flex-wrap gap-4 mt-3 text-xs">
-            <Legend color="oklch(0.78 0.20 295)" label="Global Markets · +6.8%" />
-            <Legend color="oklch(0.70 0.18 230)" label="Tech Sector · +9.3%" />
-            <Legend color="oklch(0.83 0.13 85)" label="Commodities · -2.1%" />
+            <Legend color="oklch(0.78 0.20 295)" label="Reagents Index · +6.8%" />
+            <Legend color="oklch(0.70 0.18 230)" label="Raid Consumables · +9.3%" />
+            <Legend color="oklch(0.83 0.13 85)" label="Crafted Gear · -2.1%" />
           </div>
         </Panel>
         <Panel title="Market Intelligence" action={<a className="text-xs text-primary">View all →</a>}>
           <ul className="space-y-4 text-sm">
             {([
-              [Sparkles, "Patch Hotfix Rally", "Crafted gear demand surges", "2m"],
-              [Coins, "Mat Cost Drop", "Herbs cheaper across EU realms", "18m"],
-              [Zap, "Mount Market Surge", "Rare TCG breaks resistance", "45m"],
-              [ShieldAlert, "Volatility Alert", "Oil prices drop on supply increase", "1h"],
+              [Sparkles, "Patch Hotfix Rally", "Crafted gear demand surges on Spineshatter", "2m"],
+              [Coins, "Reagent Cost Drop", "Runecloth & herbs cheaper across EU-Horde", "18m"],
+              [Zap, "Black Lotus Surge", "Alchemy flasks breaking resistance", "45m"],
+              [ShieldAlert, "Volatility Alert", "Thorium Bar supply spike — short window", "1h"],
             ] as const).map(([Icon, a, b, c]) => (
               <li key={a} className="flex items-start gap-3">
                 <div className="h-8 w-8 rounded-lg glass grid place-items-center">
@@ -115,10 +118,10 @@ function Overview() {
         <Panel title="Alerts" action={<a className="text-xs text-primary">View all →</a>}>
           <ul className="space-y-3 text-sm">
             {([
-              [ShieldAlert, "Price Alert", "ARC is above 130g", "now", "warning"],
-              [Zap, "Volume Alert", "DRL volume is 2x normal", "5m", "primary"],
-              [Star, "News Alert", "Devs minutes released", "15m", "gold"],
-              [TrendingUp, "Technical Alert", "GOLD broke resistance", "1h", "success"],
+              [ShieldAlert, "Price Alert", "Arcane Crystal above 130g (Spineshatter)", "now", "warning"],
+              [Zap, "Volume Alert", "Runecloth volume 2× normal on EU-Horde", "5m", "primary"],
+              [Star, "Patch Note", "11.x hotfix touches Inscription mats", "15m", "gold"],
+              [TrendingUp, "Technical Alert", "Large Brilliant Shard broke 90g resistance", "1h", "success"],
             ] as const).map(([Icon, a, b, c, t]) => (
               <li key={a} className="flex items-start gap-3">
                 <div className="h-8 w-8 rounded-lg glass grid place-items-center">
