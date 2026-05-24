@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Badge, PageHeader, Panel, Sparkline } from "@/components/ami/widgets";
+import { Badge, PageHeader, Panel, Sparkline, StatusPill } from "@/components/ami/widgets";
 import { Button } from "@/components/ui/button";
 import { Filter, Coins, Zap, ShieldAlert, Star, TrendingUp, TrendingDown } from "lucide-react";
 
@@ -35,7 +35,12 @@ function SignalsPage() {
       <PageHeader
         title="Auction Signals"
         subtitle="Live underpriced, flip, and forecast opportunities — refreshed every 38s."
-        actions={<Button variant="outline" className="border-border"><Filter className="h-4 w-4 mr-2" /> Filters</Button>}
+        actions={
+          <div className="flex items-center gap-2">
+            <StatusPill status="demo" />
+            <Button variant="outline" className="border-border"><Filter className="h-4 w-4 mr-2" /> Filters</Button>
+          </div>
+        }
       />
 
       <Panel className="mb-4">

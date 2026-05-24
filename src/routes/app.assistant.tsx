@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHeader, Panel, Badge } from "@/components/ami/widgets";
+import { PageHeader, Panel, Badge, StatusPill } from "@/components/ami/widgets";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, Sparkles, BookOpen, Coins, Brain, Hammer, ShieldAlert } from "lucide-react";
@@ -22,6 +22,7 @@ function AssistantPage() {
       <PageHeader
         title="AMI Assistant"
         subtitle="Ask anything about items, professions, realms or signals — grounded on live auction data."
+        actions={<StatusPill status="beta" hint="AMI-Core v3" />}
       />
 
       <div className="grid lg:grid-cols-[1fr_320px] gap-3">

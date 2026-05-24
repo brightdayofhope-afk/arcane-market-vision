@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Badge, BarRow, PageHeader, Panel, Sparkline } from "@/components/ami/widgets";
+import { Badge, BarRow, PageHeader, Panel, Sparkline, StatusPill } from "@/components/ami/widgets";
 import { CalendarClock, TrendingUp, TrendingDown, Sparkles, Hammer, Layers } from "lucide-react";
 
 export const Route = createFileRoute("/app/forecast")({
@@ -28,6 +28,7 @@ function ForecastPage() {
       <PageHeader
         title="Market Forecast"
         subtitle="Patch-aware predictions for prices, demand and supply across professions."
+        actions={<StatusPill status="planned" hint="Forecast engine in design" />}
       />
 
       <div className="grid md:grid-cols-3 gap-3 mb-3">

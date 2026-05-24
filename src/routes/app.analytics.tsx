@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHeader, Panel, MultiLineChart, Badge, StatCard, BarRow, DataTable, Sparkline } from "@/components/ami/widgets";
+import { PageHeader, Panel, MultiLineChart, Badge, StatCard, BarRow, DataTable, Sparkline, StatusPill } from "@/components/ami/widgets";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, ExternalLink, Activity, Coins, Gauge, ShieldAlert, Link2, Layers, Hammer } from "lucide-react";
@@ -15,6 +15,7 @@ function AnalyticsPage() {
       <PageHeader
         title="Item Analytics"
         subtitle="30-day price, volume, volatility and listing intelligence for any tracked item."
+        actions={<StatusPill status="demo" hint="3 realms live, 11 planned" />}
       />
 
       <Panel className="mb-4">

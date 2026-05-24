@@ -2,7 +2,7 @@ import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import {
   LayoutDashboard, Radar, LineChart, Sparkles, Bot, MessageSquare,
   Database, CreditCard, Settings, Bell, Search, Menu,
-  Star, GitCompareArrows, Globe2, Activity,
+  Star, GitCompareArrows, Globe2, Activity, Hammer,
 } from "lucide-react";
 import { useState } from "react";
 import { Logo } from "./Logo";
@@ -19,6 +19,7 @@ const nav: NavItem[] = [
   { to: "/app/analytics",  label: "Item Analytics",  icon: LineChart,       group: "Analytics" },
   { to: "/app/compare",    label: "Compare Items",   icon: GitCompareArrows,group: "Analytics" },
   { to: "/app/realms",     label: "Realm & Faction", icon: Globe2,          group: "Analytics" },
+  { to: "/app/professions",label: "Professions",     icon: Hammer,          group: "Analytics" },
   { to: "/app/forecast",   label: "Market Forecast", icon: Sparkles,        group: "Analytics" },
   { to: "/app/assistant",  label: "AMI Assistant",   icon: Bot,             group: "Intelligence" },
   { to: "/app/discord",    label: "Discord",         icon: MessageSquare,   group: "Intelligence" },

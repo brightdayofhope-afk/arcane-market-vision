@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHeader, Panel, Badge, Sparkline } from "@/components/ami/widgets";
+import { PageHeader, Panel, Badge, Sparkline, StatusPill } from "@/components/ami/widgets";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
@@ -31,6 +31,7 @@ function LootPage() {
       <PageHeader
         title="Loot Database"
         subtitle="Searchable Azeroth item catalogue with drop source, profession use and live market signal."
+        actions={<StatusPill status="planned" hint="Catalog import scheduled" />}
       />
 
       <Panel className="mb-4">
