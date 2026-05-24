@@ -95,7 +95,15 @@
     "medium": "Средний",
     "low": "Низкий",
     "all": "Все",
-    "auto": "Авто"
+    "auto": "Авто",
+    "addToWatchlist": "В вотчлист",
+    "openItemAnalytics": "Открыть аналитику предмета",
+    "discordRoute": "Маршрут Discord",
+    "newAction": "Новое",
+    "demoData": "Демо-данные",
+    "backendRequired": "Требуется бэкенд",
+    "decisionSupport": "Помощь в решении · не автоматизация",
+    "fromSignal": "Из сигнала"
   },
   "status": {
     "live": "Онлайн",
@@ -410,7 +418,16 @@
     "amiI2Title": "Материалы Начертания недооценены против изменений патча 11.x.",
     "amiI2Body": "Уверенность 76%. Межсерверный арбитраж рунической ткани Spineshatter ↔ Kazzak: ~+27% маржи.",
     "amiI3Title": "Лоты маунта Фазоткача быстро остывают.",
-    "amiI3Body": "Продавцов +38%, спрос −22%. AMI советует выйти из открытых позиций до сброса."
+    "amiI3Body": "Продавцов +38%, спрос −22%. AMI советует выйти из открытых позиций до сброса.",
+    "startHereTitle": "С чего начать",
+    "startHereSubtitle": "Три действия, чтобы получить максимум от текущего скана.",
+    "startActionSignal": "Посмотри лучший сигнал дня",
+    "startActionSignalHint": "Открой Аукционные сигналы → Лучшие сделки (маржа ≥ 18%).",
+    "startActionAmi": "Спроси AMI про риск",
+    "startActionAmiHint": "Структурный разбор уверенности, ликвидности и причин ручной проверки.",
+    "startActionWatch": "Добавь предмет в вотчлист",
+    "startActionWatchHint": "Закрепи для мониторинга или направь в канал Discord.",
+    "startCta": "Перейти"
   },
   "extras": {
     "vs24h": "за 24ч",
@@ -530,7 +547,10 @@
       "water": "Стабильный поток реагентов алхимии",
       "mount": "Лоты на 38% ниже пола · паттерн скам-возврата",
       "soul": "Сброс низших чар"
-    }
+    },
+    "decisionSupportNote": "Сигналы помогают принять решение, но не выполняют действия автоматически. Всегда проверяй аукцион перед покупкой.",
+    "addedToWatchlist": "Добавлено в вотчлист",
+    "routeToDiscord": "Направить в Discord"
   },
   "assistant": {
     "title": "AI-ассистент",
@@ -647,7 +667,13 @@
         "checkSources": "Проверить источники",
         "viewAdmin": "Открыть состояние системы"
       }
-    }
+    },
+    "nextActionsTitle": "Следующие действия",
+    "nextActionSignal": "Открыть в Сигналах",
+    "nextActionAnalytics": "Открыть аналитику предмета",
+    "nextActionWatch": "В вотчлист",
+    "nextActionDiscord": "Маршрут в Discord",
+    "demoLabel": "Демо-ответ · живой AMI-Core ещё не подключён"
   },
   "analytics": {
     "title": "Аналитика товара",
@@ -675,7 +701,16 @@
     "regionSnapshot": "Срез по региону",
     "professionUsage": "Использование в профессиях",
     "reagentUsedIn": "Реагент для 17 известных рецептов в 4 профессиях.",
-    "recentListings": "Свежие лоты · Spineshatter"
+    "recentListings": "Свежие лоты · Spineshatter",
+    "fromSignalTitle": "Из аукционного сигнала",
+    "fromSignalHint": "Ты открыл этот предмет из Сигналов. Сравни сигнал с трендом за 30 дней ниже.",
+    "askAboutItem": "Спросить AMI про этот предмет",
+    "addItemToWatchlist": "В вотчлист",
+    "relatedSignals": "Связанные сигналы",
+    "relatedProfessions": "Связанные профессии",
+    "discordPreviewTitle": "Маршрут оповещения Discord",
+    "discordPreviewHint": "Если этот предмет станет лучшей сделкой, он уйдёт сюда:",
+    "demoSelectedItem": "Демо-предмет · для живого выбора нужен бэкенд."
   },
   "loot": {
     "title": "База лута",
@@ -750,7 +785,24 @@
       "leaf": "Дремолистник · окно 8 мин",
       "mount": "Лот маунта Фазоткача",
       "digest": "Часовая сводка доставлена"
-    }
+    },
+    "flowTitle": "Как сигнал превращается в сообщение Discord",
+    "flowStep1": "AMI обнаружил сигнал",
+    "flowStep1Hint": "Auctionator + TSM согласны · маржа ≥ 18%",
+    "flowStep2": "Проверка в аналитике предмета",
+    "flowStep2Hint": "Уверенность, ликвидность, давление продавцов",
+    "flowStep3": "Объяснение от AMI",
+    "flowStep3Hint": "Риск, причины ручной проверки, следующий шаг",
+    "flowStep4": "Отправка в канал",
+    "flowStep4Hint": "Маршрутизация учитывает твои фильтры",
+    "messagePreviewTitle": "Превью сообщения",
+    "messageItem": "Arcane Crystal · Spineshatter-Horde",
+    "messageBuy": "Покупать ≤ 118g · Продавать ≈ 156g · Маржа +32%",
+    "messageRisk": "Риск низкий · Уверенность 82% · Ликвидность 84",
+    "messageFooter": "Помощь в решении · проверяй вручную перед покупкой",
+    "manualReviewBanner": "Доставка в Discord — это помощь в решении. Никогда не покупай автоматически из алерта.",
+    "premiumRoutingTitle": "Premium-правила маршрутизации",
+    "premiumRoutingReason": "Premium открывает свою маршрутизацию по миру и профессии."
   },
   "professions": {
     "title": "Рынки профессий",
@@ -977,15 +1029,32 @@
     "popLow": "Низкое"
   },
   "watchlist": {
-    "title": "Список наблюдения",
-    "subtitle": "Закреплённые товары для живого мониторинга по твоим серверам.",
-    "addPlaceholder": "Добавить товар по названию или ID…",
-    "itemsWatched": "Товаров в списке",
+    "title": "Вотчлист",
+    "subtitle": "Предметы, закреплённые для мониторинга по твоим мирам.",
+    "addPlaceholder": "Добавить предмет по имени или ID…",
+    "itemsWatched": "Под наблюдением",
     "aboveTarget": "Выше цели",
     "belowTarget": "Ниже цели",
     "alerts24": "Оповещения · 24ч",
-    "pinned": "Закреплённые товары",
-    "sortChange": "Сортировка: Изменение ↓"
+    "pinned": "Закреплённые",
+    "sortChange": "Сорт.: Δ ↓",
+    "colItem": "Предмет",
+    "colRealm": "Мир · Фракция",
+    "colPrice": "Цена",
+    "colTarget": "Цель",
+    "colChange": "Δ 24ч",
+    "colTrend": "Тренд",
+    "colConf": "Уверенность",
+    "colRisk": "Риск",
+    "colAlert": "Алерт",
+    "alertOn": "Вкл",
+    "alertOff": "Выкл",
+    "askAmi": "Спросить AMI",
+    "openAnalytics": "Аналитика",
+    "remove": "Удалить",
+    "customThresholdsTitle": "Свои пороги цены и риска",
+    "customThresholdsReason": "Premium открывает индивидуальные пороги алертов и правила маршрутизации.",
+    "manualReviewNote": "Оповещения вотчлиста — это помощь в решении. Перед покупкой проверь аукцион вручную."
   },
   "errors": {
     "notFoundTitle": "Страница не найдена",
