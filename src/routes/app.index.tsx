@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Activity, TrendingUp, LineChart, Sparkles, Coins, Zap, ShieldAlert, Star } from "lucide-react";
-import { Badge, BarRow, DataTable, LiveTicker, MultiLineChart, PageHeader, Panel, Sparkline, StatCard } from "@/components/ami/widgets";
+import { Badge, BarRow, DataTable, LiveTicker, MultiLineChart, PageHeader, Panel, SelectorChip, Sparkline, StatCard } from "@/components/ami/widgets";
 import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/app/")({
@@ -29,14 +29,7 @@ function Overview() {
     <div>
       <PageHeader
         title="Market Overview"
-        subtitle="EU · Spineshatter · Horde — real-time auction intelligence."
-        actions={
-          <div className="hidden md:flex items-center gap-2 text-xs">
-            <SelectorChip label="Region" value="EU" options={["EU","NA","KR","TW"]} />
-            <SelectorChip label="Realm" value="Spineshatter" options={["Spineshatter","Kazzak","Ravencrest","Sylvanas","Draenor"]} />
-            <SelectorChip label="Faction" value="Horde / Auto" options={["Horde / Auto","Horde","Alliance"]} />
-          </div>
-        }
+        subtitle="EU · Spineshatter · Horde — real-time auction intelligence across 14 tracked realms."
       />
 
       <div className="mb-3">
@@ -293,16 +286,5 @@ function Legend({ color, label }: { color: string; label: string }) {
       <span className="h-2 w-2 rounded-full" style={{ background: color, boxShadow: `0 0 6px ${color}` }} />
       <span className="text-muted-foreground">{label}</span>
     </div>
-  );
-}
-
-function SelectorChip({ label, value, options }: { label: string; value: string; options: string[] }) {
-  return (
-    <label className="glass rounded-md px-2.5 py-1.5 inline-flex items-center gap-2 cursor-pointer">
-      <span className="text-muted-foreground text-[10px] uppercase tracking-wider">{label}</span>
-      <select defaultValue={value} className="bg-transparent text-foreground text-xs outline-none">
-        {options.map((o) => <option key={o} value={o} className="bg-card">{o}</option>)}
-      </select>
-    </label>
   );
 }
