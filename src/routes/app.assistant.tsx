@@ -19,7 +19,10 @@ const messages = [
 function AssistantPage() {
   return (
     <div>
-      <PageHeader title="AMI Assistant" subtitle="Chat with your arcane market analyst." />
+      <PageHeader
+        title="AMI Assistant"
+        subtitle="Ask anything about items, professions, realms or signals — grounded on live auction data."
+      />
 
       <div className="grid lg:grid-cols-[1fr_320px] gap-3">
         <Panel className="!p-0 overflow-hidden">
