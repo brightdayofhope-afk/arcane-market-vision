@@ -15,6 +15,7 @@ import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppWatchlistRouteImport } from './routes/app.watchlist'
 import { Route as AppSignalsRouteImport } from './routes/app.signals'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppRealmsRouteImport } from './routes/app.realms'
 import { Route as AppPricingRouteImport } from './routes/app.pricing'
 import { Route as AppLootRouteImport } from './routes/app.loot'
 import { Route as AppForecastRouteImport } from './routes/app.forecast'
@@ -50,6 +51,11 @@ const AppSignalsRoute = AppSignalsRouteImport.update({
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRealmsRoute = AppRealmsRouteImport.update({
+  id: '/realms',
+  path: '/realms',
   getParentRoute: () => AppRoute,
 } as any)
 const AppPricingRoute = AppPricingRouteImport.update({
@@ -92,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/app/forecast': typeof AppForecastRoute
   '/app/loot': typeof AppLootRoute
   '/app/pricing': typeof AppPricingRoute
+  '/app/realms': typeof AppRealmsRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/signals': typeof AppSignalsRoute
   '/app/watchlist': typeof AppWatchlistRoute
@@ -105,6 +112,7 @@ export interface FileRoutesByTo {
   '/app/forecast': typeof AppForecastRoute
   '/app/loot': typeof AppLootRoute
   '/app/pricing': typeof AppPricingRoute
+  '/app/realms': typeof AppRealmsRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/signals': typeof AppSignalsRoute
   '/app/watchlist': typeof AppWatchlistRoute
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   '/app/forecast': typeof AppForecastRoute
   '/app/loot': typeof AppLootRoute
   '/app/pricing': typeof AppPricingRoute
+  '/app/realms': typeof AppRealmsRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/signals': typeof AppSignalsRoute
   '/app/watchlist': typeof AppWatchlistRoute
@@ -136,6 +145,7 @@ export interface FileRouteTypes {
     | '/app/forecast'
     | '/app/loot'
     | '/app/pricing'
+    | '/app/realms'
     | '/app/settings'
     | '/app/signals'
     | '/app/watchlist'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/app/forecast'
     | '/app/loot'
     | '/app/pricing'
+    | '/app/realms'
     | '/app/settings'
     | '/app/signals'
     | '/app/watchlist'
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/app/forecast'
     | '/app/loot'
     | '/app/pricing'
+    | '/app/realms'
     | '/app/settings'
     | '/app/signals'
     | '/app/watchlist'
@@ -218,6 +230,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSettingsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/realms': {
+      id: '/app/realms'
+      path: '/realms'
+      fullPath: '/app/realms'
+      preLoaderRoute: typeof AppRealmsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/pricing': {
       id: '/app/pricing'
       path: '/pricing'
@@ -270,6 +289,7 @@ interface AppRouteChildren {
   AppForecastRoute: typeof AppForecastRoute
   AppLootRoute: typeof AppLootRoute
   AppPricingRoute: typeof AppPricingRoute
+  AppRealmsRoute: typeof AppRealmsRoute
   AppSettingsRoute: typeof AppSettingsRoute
   AppSignalsRoute: typeof AppSignalsRoute
   AppWatchlistRoute: typeof AppWatchlistRoute
@@ -283,6 +303,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppForecastRoute: AppForecastRoute,
   AppLootRoute: AppLootRoute,
   AppPricingRoute: AppPricingRoute,
+  AppRealmsRoute: AppRealmsRoute,
   AppSettingsRoute: AppSettingsRoute,
   AppSignalsRoute: AppSignalsRoute,
   AppWatchlistRoute: AppWatchlistRoute,
