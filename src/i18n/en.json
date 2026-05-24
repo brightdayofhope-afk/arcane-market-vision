@@ -131,7 +131,9 @@
     "tsm": "TSM dump",
     "addon": "Custom AMI Addon",
     "discord": "Discord webhook",
-    "ami": "AMI-Core LLM"
+    "ami": "AMI-Core LLM",
+    "addonHint": "local seed",
+    "discordChannels": "{{n}} channels"
   },
   "faction": {
     "horde": "Horde",
@@ -284,7 +286,9 @@
     "reagentsUp": "Reagents +6.8%",
     "mountsDown": "Mounts −3.6%",
     "sentiment": "Sentiment bullish · 68%",
-    "founderPlan": "Founder Plan"
+    "founderPlan": "Founder Plan",
+    "userName": "Alex Morgan",
+    "contextBadge": "Context: EU · Spineshatter"
   },
   "selector": {
     "region": "Region",
@@ -305,6 +309,8 @@
     "faction": "Faction",
     "lastScan": "Last scan",
     "ago": "{{age}} ago",
+    "factionHordeAuto": "Horde · Auto",
+    "auctionIndexShort": "Auction Index",
     "plan": "Plan",
     "dataSources": "Data sources",
     "whatChanged": "What changed since last scan",
@@ -375,6 +381,13 @@
     "amiI2Body": "Confidence 76%. Cross-realm Runecloth arbitrage between Spineshatter ↔ Kazzak: ~+27% margin.",
     "amiI3Title": "Phaseweaver mount listings cooling fast.",
     "amiI3Body": "Sellers up 38%, demand down 22%. AMI recommends exiting open positions before reset."
+  },
+  "extras": {
+    "vs24h": "vs 24h",
+    "now": "now",
+    "seriesReagents": "Reagents Index",
+    "seriesRaid": "Raid Consumables",
+    "seriesCrafted": "Crafted Gear"
   },
   "tableCol": {
     "type": "Type",
@@ -810,7 +823,8 @@
     "delivery24h": "Signal delivery · last 24h",
     "featureFlags": "Feature flags",
     "userPlans": "User plans · snapshot",
-    "internal": "internal"
+    "internal": "internal",
+    "failedRow": "{{ok}} / {{fail}} failed"
   },
   "compare": {
     "title": "Compare Items",
