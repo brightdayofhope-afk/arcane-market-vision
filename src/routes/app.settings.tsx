@@ -14,7 +14,10 @@ const sel = "w-full h-10 px-3 rounded-lg bg-input/40 border border-border text-s
 function SettingsPage() {
   return (
     <div>
-      <PageHeader title="Settings" subtitle="Personalize AMI for your realm and play style." />
+      <PageHeader
+        title="Settings"
+        subtitle="Profile, realm, notifications, Discord routing and data source health."
+      />
 
       <div className="grid lg:grid-cols-2 gap-3">
         <Panel title="Profile">
