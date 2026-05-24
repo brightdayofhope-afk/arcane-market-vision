@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
-import { Bot, PanelRightOpen, PanelRightClose, Eye, EyeOff, RotateCcw, MessageSquare, Sparkles } from "lucide-react";
+import { Bot, PanelRightOpen, PanelRightClose, EyeOff, RotateCcw, MessageSquare, Sparkles, ChevronRight, ShieldAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -40,6 +40,26 @@ export function useAmiCompanion() {
   }, [mode]);
   return { mode, setMode };
 }
+
+/* ------------------------------------------------------------------
+ * 3D MODEL INTEGRATION NOTES (FOR CODEX — internal only)
+ * ------------------------------------------------------------------
+ * Asset:        ami_assistant_web_ready_current_best.glb
+ * Mount target: <div data-ami-3d-mount="..."> inside <ModelStage />
+ *
+ * Acceptable runtime implementations:
+ *   1) <model-viewer> web component (lightest, no React tree changes)
+ *   2) React Three Fiber canvas (more control, heavier)
+ *
+ * Rules:
+ *   - Reuse the existing wrapper sizing (sm/md/lg) and the rounded-xl frame.
+ *   - Keep z-index rules: companion stays z-20..30, modals z-50 must win.
+ *   - Only ONE heavy canvas alive at a time. If both floating and docked
+ *     stages mount briefly (transition), reuse a single offscreen renderer.
+ *   - No skeletal walking until the rig + animation clips ship.
+ *     First integration must support IDLE / soft HOVER breathing only.
+ *   - Stream the GLB lazily (dynamic import / suspense), never block route.
+ * ------------------------------------------------------------------ */
 
 /** Placeholder stage where the real <model-viewer> / R3F canvas will mount. */
 function ModelStage({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
@@ -111,23 +131,160 @@ function CompanionControls({ mode, setMode }: { mode: AmiMode; setMode: (m: AmiM
   );
 }
 
+/* ------------------------------------------------------------------
+ * Route-aware content
+ * ------------------------------------------------------------------ */
+
+type RouteAmi = {
+  summaryKey: string;
+  actions: { labelKey: string; to: string; intent?: string }[];
+};
+
+const ROUTE_AMI: { match: (p: string) => boolean; data: RouteAmi }[] = [
+  { match: (p) => p === "/app",                data: { summaryKey: "assistant.companion.route.overview",  actions: [
+      { labelKey: "assistant.companion.action.openSignals",  to: "/app/signals" },
+      { labelKey: "assistant.companion.action.askToday",     to: "/app/assistant", intent: "explain_page" },
+      { labelKey: "assistant.companion.action.openSources",  to: "/app/settings" },
+    ] } },
+  { match: (p) => p.startsWith("/app/signals"),    data: { summaryKey: "assistant.companion.route.signals", actions: [
+      { labelKey: "assistant.companion.askAboutSignal", to: "/app/assistant", intent: "explain_signal" },
+      { labelKey: "assistant.companion.action.openWatchlist", to: "/app/watchlist" },
+    ] } },
+  { match: (p) => p.startsWith("/app/watchlist"),  data: { summaryKey: "assistant.companion.route.watchlist", actions: [
+      { labelKey: "assistant.companion.action.openSignals", to: "/app/signals" },
+      { labelKey: "assistant.companion.action.openAnalytics", to: "/app/analytics" },
+    ] } },
+  { match: (p) => p.startsWith("/app/analytics"),  data: { summaryKey: "assistant.companion.route.analytics", actions: [
+      { labelKey: "assistant.companion.askAboutItem", to: "/app/assistant", intent: "explain_item" },
+      { labelKey: "assistant.companion.action.openWatchlist", to: "/app/watchlist" },
+    ] } },
+  { match: (p) => p.startsWith("/app/compare"),    data: { summaryKey: "assistant.companion.route.compare", actions: [
+      { labelKey: "assistant.companion.askAboutItem", to: "/app/assistant", intent: "explain_item" },
+      { labelKey: "assistant.companion.action.openAnalytics", to: "/app/analytics" },
+    ] } },
+  { match: (p) => p.startsWith("/app/realms"),     data: { summaryKey: "assistant.companion.route.realms", actions: [
+      { labelKey: "assistant.companion.action.openSignals", to: "/app/signals" },
+      { labelKey: "assistant.companion.action.openProfessions", to: "/app/professions" },
+    ] } },
+  { match: (p) => p.startsWith("/app/professions"),data: { summaryKey: "assistant.companion.route.professions", actions: [
+      { labelKey: "assistant.companion.askAboutSignal", to: "/app/assistant", intent: "explain_profession" },
+      { labelKey: "assistant.companion.action.openSignals", to: "/app/signals" },
+    ] } },
+  { match: (p) => p.startsWith("/app/forecast"),   data: { summaryKey: "assistant.companion.route.forecast", actions: [
+      { labelKey: "assistant.companion.askAboutSignal", to: "/app/assistant", intent: "explain_forecast" },
+      { labelKey: "assistant.companion.action.openSignals", to: "/app/signals" },
+    ] } },
+  { match: (p) => p.startsWith("/app/assistant"),  data: { summaryKey: "assistant.companion.route.assistant", actions: [
+      { labelKey: "assistant.companion.action.askToday", to: "/app/assistant", intent: "explain_page" },
+      { labelKey: "assistant.companion.action.openSignals", to: "/app/signals" },
+    ] } },
+  { match: (p) => p.startsWith("/app/loot"),       data: { summaryKey: "assistant.companion.route.loot", actions: [
+      { labelKey: "assistant.companion.action.openAnalytics", to: "/app/analytics" },
+      { labelKey: "assistant.companion.askAboutItem", to: "/app/assistant", intent: "explain_loot" },
+    ] } },
+  { match: (p) => p.startsWith("/app/discord"),    data: { summaryKey: "assistant.companion.route.discord", actions: [
+      { labelKey: "assistant.companion.askAboutSignal", to: "/app/assistant", intent: "explain_discord" },
+      { labelKey: "assistant.companion.action.openSignals", to: "/app/signals" },
+    ] } },
+  { match: (p) => p.startsWith("/app/news"),       data: { summaryKey: "assistant.companion.route.news", actions: [
+      { labelKey: "assistant.companion.action.openForecast", to: "/app/forecast" },
+    ] } },
+  { match: (p) => p.startsWith("/app/streams"),    data: { summaryKey: "assistant.companion.route.streams", actions: [] } },
+  { match: (p) => p.startsWith("/app/partners"),   data: { summaryKey: "assistant.companion.route.partners", actions: [
+      { labelKey: "assistant.companion.action.openPricing", to: "/app/pricing" },
+    ] } },
+  { match: (p) => p.startsWith("/app/pricing"),    data: { summaryKey: "assistant.companion.route.pricing", actions: [
+      { labelKey: "assistant.companion.action.openPricing", to: "/app/pricing" },
+    ] } },
+  { match: (p) => p.startsWith("/app/settings"),   data: { summaryKey: "assistant.companion.route.settings", actions: [
+      { labelKey: "assistant.companion.action.checkSources", to: "/app/settings" },
+    ] } },
+  { match: (p) => p.startsWith("/app/admin"),      data: { summaryKey: "assistant.companion.route.admin", actions: [
+      { labelKey: "assistant.companion.action.viewAdmin", to: "/app/admin" },
+    ] } },
+];
+
+function useRouteAmi(): RouteAmi {
+  const path = useRouterState({ select: (s) => s.location.pathname });
+  const hit = ROUTE_AMI.find((r) => r.match(path));
+  return hit?.data ?? { summaryKey: "assistant.companion.route.default", actions: [] };
+}
+
+/**
+ * Type-safe wrapper to navigate to /app/assistant with an "intent" + "topic"
+ * search context. The assistant route declares matching validateSearch, so
+ * Codex can later read this in a real handler and route to a structured
+ * answer card. Here it is purely UI-state and decoration.
+ */
+export function AskAmiLink({
+  intent,
+  topic,
+  className,
+  children,
+}: {
+  intent: string;
+  topic?: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  // Cast search because TanStack Router's typed search differs per project setup.
+  const search = { intent, ...(topic ? { topic } : {}) } as never;
+  return (
+    <Link to="/app/assistant" search={search} className={className}>
+      {children}
+    </Link>
+  );
+}
+
 function AskRail() {
   const { t } = useTranslation();
+  const route = useRouteAmi();
   return (
     <div className="mt-3">
       <div className="flex items-center gap-2">
         <div className="flex-1 h-9 rounded-lg bg-input/40 border border-border px-3 text-xs text-muted-foreground inline-flex items-center truncate">
           {t("assistant.companion.askPlaceholder")}
         </div>
-        <Link
-          to="/app/assistant"
+        <AskAmiLink
+          intent="explain_page"
           className="h-9 px-3 rounded-lg glow bg-primary/90 hover:bg-primary text-primary-foreground text-xs inline-flex items-center gap-1.5"
         >
           <MessageSquare className="h-3.5 w-3.5" /> {t("assistant.companion.ask")}
-        </Link>
+        </AskAmiLink>
       </div>
       <div className="mt-2 text-[10px] text-muted-foreground">
         {t("assistant.companion.respectsLayout")}
+      </div>
+      {route.actions.length > 0 && (
+        <ul className="mt-2 space-y-1">
+          {route.actions.map((a) =>
+            a.intent ? (
+              <li key={a.labelKey}>
+                <AskAmiLink
+                  intent={a.intent}
+                  className="flex items-center justify-between gap-2 text-[11px] glass rounded-md px-2 py-1.5 hover:text-primary"
+                >
+                  <span className="truncate">{t(a.labelKey)}</span>
+                  <ChevronRight className="h-3 w-3 text-muted-foreground" />
+                </AskAmiLink>
+              </li>
+            ) : (
+              <li key={a.labelKey}>
+                <Link
+                  to={a.to}
+                  className="flex items-center justify-between gap-2 text-[11px] glass rounded-md px-2 py-1.5 hover:text-primary"
+                >
+                  <span className="truncate">{t(a.labelKey)}</span>
+                  <ChevronRight className="h-3 w-3 text-muted-foreground" />
+                </Link>
+              </li>
+            )
+          )}
+        </ul>
+      )}
+      <div className="mt-2 text-[10px] text-muted-foreground inline-flex items-start gap-1.5">
+        <ShieldAlert className="h-3 w-3 mt-0.5 text-warning shrink-0" />
+        <span>{t("assistant.companion.manualReviewNote")}</span>
       </div>
     </div>
   );
@@ -152,6 +309,7 @@ export function AmiLauncher({ onClick }: { onClick: () => void }) {
 /** Floating card — bottom-right, never covers the sidebar or main content. */
 function FloatingCompanion({ mode, setMode }: { mode: AmiMode; setMode: (m: AmiMode) => void }) {
   const { t } = useTranslation();
+  const route = useRouteAmi();
   return (
     <div
       className="hidden lg:block fixed bottom-4 right-4 z-30 w-[300px] glass-strong rounded-2xl border border-border p-3 shadow-2xl animate-fade-in"
@@ -167,7 +325,7 @@ function FloatingCompanion({ mode, setMode }: { mode: AmiMode; setMode: (m: AmiM
       </div>
       <ModelStage size="md" />
       <div className="mt-2 text-[11px] text-muted-foreground leading-relaxed">
-        {t("assistant.companion.summary")}
+        {t(route.summaryKey)}
       </div>
       <AskRail />
     </div>
@@ -177,9 +335,10 @@ function FloatingCompanion({ mode, setMode }: { mode: AmiMode; setMode: (m: AmiM
 /** Docked rail — right side on lg+. AppShell adds matching padding so it never covers content. */
 function DockedCompanion({ mode, setMode }: { mode: AmiMode; setMode: (m: AmiMode) => void }) {
   const { t } = useTranslation();
+  const route = useRouteAmi();
   return (
     <aside
-      className="hidden lg:flex fixed right-0 top-16 bottom-0 z-20 w-80 flex-col gap-3 p-4 glass-strong border-l border-border animate-slide-in-right"
+      className="hidden lg:flex fixed right-0 top-16 bottom-0 z-20 w-80 flex-col gap-3 p-4 glass-strong border-l border-border animate-slide-in-right overflow-y-auto"
       aria-label={t("assistant.companion.presence")}
     >
       <div className="flex items-center justify-between">
@@ -191,16 +350,16 @@ function DockedCompanion({ mode, setMode }: { mode: AmiMode; setMode: (m: AmiMod
       </div>
       <ModelStage size="lg" />
       <div className="text-xs text-muted-foreground leading-relaxed">
-        {t("assistant.companion.summary")}
+        {t(route.summaryKey)}
       </div>
       <div className="mt-auto">
         <AskRail />
-        <Link
-          to="/app/assistant"
+        <AskAmiLink
+          intent="explain_page"
           className="mt-2 block text-center text-[11px] text-primary hover:underline"
         >
           {t("assistant.companion.openAssistant")} →
-        </Link>
+        </AskAmiLink>
       </div>
     </aside>
   );
