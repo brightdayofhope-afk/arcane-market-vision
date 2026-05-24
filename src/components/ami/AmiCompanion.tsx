@@ -3,6 +3,8 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { Bot, PanelRightOpen, PanelRightClose, EyeOff, RotateCcw, MessageSquare, Sparkles, ChevronRight, ShieldAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
+import amiLogoRound from "@/assets/ami-logo-round.png";
+import amiAnalyticsPoster from "@/assets/ami-analytics-poster.png";
 
 /**
  * AmiCompanion — UI scaffold for the future 3D AMI assistant.
@@ -74,17 +76,30 @@ function ModelStage({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
       data-ami-3d-mount="ami_assistant_web_ready_current_best.glb"
       aria-label="AMI 3D model stage"
     >
-      {/* Holographic backdrop */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-accent/20" />
-      <div className="absolute -inset-12 opacity-60 blur-3xl bg-[radial-gradient(circle_at_50%_60%,oklch(0.78_0.20_295/0.35),transparent_60%)]" />
-      {/* Idle silhouette — replaced by GLB later */}
+      {/* Brand backdrop — analytics poster, gently dimmed to keep UI legible */}
+      <img
+        src={amiAnalyticsPoster}
+        alt=""
+        aria-hidden
+        className="absolute inset-0 w-full h-full object-cover object-center opacity-70"
+        loading="lazy"
+        decoding="async"
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-background/30 via-transparent to-background/60" />
+      {/* Round AMI mark — placeholder for future GLB idle */}
       <div className="absolute inset-0 grid place-items-center">
         <div className="relative animate-[pulse_3.6s_ease-in-out_infinite]">
-          <div className="h-20 w-20 rounded-full bg-gradient-to-b from-primary/40 to-accent/30 grid place-items-center glow-border">
-            <Bot className="h-9 w-9 text-primary drop-shadow-[0_0_12px_currentColor]" />
+          <div className="h-20 w-20 rounded-full overflow-hidden glow-border ring-2 ring-primary/40 shadow-[0_0_24px_oklch(0.78_0.20_295/0.45)]">
+            <img
+              src={amiLogoRound}
+              alt="AMI"
+              className="h-full w-full object-cover object-center"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           <span className="absolute -top-1 left-1/2 -translate-x-1/2 h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_8px_currentColor]" />
-          <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-1 w-10 rounded-full bg-primary/40 blur-[2px]" />
+          <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-1 w-12 rounded-full bg-primary/40 blur-[2px]" />
         </div>
       </div>
       {/* Pending model badge */}
@@ -296,12 +311,16 @@ export function AmiLauncher({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="fixed bottom-4 right-4 z-30 h-12 w-12 rounded-full glass-strong glow-border grid place-items-center hover:scale-105 transition-transform"
+      className="fixed bottom-4 right-4 z-30 h-12 w-12 rounded-full overflow-hidden glass-strong glow-border grid place-items-center hover:scale-105 transition-transform"
       title={t("assistant.companion.show")}
       aria-label={t("assistant.companion.show")}
     >
-      <Bot className="h-5 w-5 text-primary" />
-      <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-success shadow-[0_0_8px_currentColor]" />
+      <img
+        src={amiLogoRound}
+        alt="AMI"
+        className="absolute inset-0 h-full w-full object-cover object-center"
+      />
+      <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-success shadow-[0_0_8px_currentColor] z-10" />
     </button>
   );
 }
@@ -371,11 +390,15 @@ function MobileCompanion() {
   return (
     <Link
       to="/app/assistant"
-      className="lg:hidden fixed bottom-4 right-4 z-30 h-12 w-12 rounded-full glass-strong glow-border grid place-items-center"
+      className="lg:hidden fixed bottom-4 right-4 z-30 h-12 w-12 rounded-full overflow-hidden glass-strong glow-border grid place-items-center"
       title={t("assistant.companion.mobileTip")}
       aria-label={t("assistant.companion.mobileTip")}
     >
-      <Bot className="h-5 w-5 text-primary" />
+      <img
+        src={amiLogoRound}
+        alt="AMI"
+        className="absolute inset-0 h-full w-full object-cover object-center"
+      />
     </Link>
   );
 }
