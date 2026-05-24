@@ -131,7 +131,9 @@
     "tsm": "Дамп TSM",
     "addon": "Аддон AMI",
     "discord": "Webhook Discord",
-    "ami": "LLM AMI-Core"
+    "ami": "LLM AMI-Core",
+    "addonHint": "локальные данные",
+    "discordChannels": "каналов: {{n}}"
   },
   "faction": {
     "horde": "Орда",
@@ -379,6 +381,13 @@
     "amiI2Body": "Уверенность 76%. Межсерверный арбитраж рунической ткани Spineshatter ↔ Kazzak: ~+27% маржи.",
     "amiI3Title": "Лоты маунта Фазоткача быстро остывают.",
     "amiI3Body": "Продавцов +38%, спрос −22%. AMI советует выйти из открытых позиций до сброса."
+  },
+  "extras": {
+    "vs24h": "за 24ч",
+    "now": "сейчас",
+    "seriesReagents": "Индекс реагентов",
+    "seriesRaid": "Расходники рейда",
+    "seriesCrafted": "Крафтовая экипировка"
   },
   "tableCol": {
     "type": "Тип",
