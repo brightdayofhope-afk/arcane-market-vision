@@ -183,7 +183,8 @@ function Index() {
             ))}
           </div>
         </Panel>
-        <Panel className="p-7" id="discord">
+        <div id="discord" />
+        <Panel className="p-7">
           <Badge tone="gold">Discord Signals</Badge>
           <h3 className="mt-3 text-2xl font-semibold">Signals where your guild already is.</h3>
           <p className="text-sm text-muted-foreground mt-2">
