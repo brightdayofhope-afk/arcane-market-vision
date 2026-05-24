@@ -3,6 +3,7 @@ import {
   LayoutDashboard, Radar, LineChart, Sparkles, Bot, MessageSquare,
   Database, CreditCard, Settings, Bell, Search, Menu,
   Star, GitCompareArrows, Globe2, Activity, Hammer, Newspaper, Tv, Handshake,
+  ShieldCheck,
 } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -36,6 +37,7 @@ export function AppShell() {
     { to: "/app/partners",   label: t("nav.partners"),        icon: Handshake,       group: "Community" },
     { to: "/app/pricing",    label: t("nav.earlyAccess"),     icon: CreditCard,      group: "Account" },
     { to: "/app/settings",   label: t("nav.settings"),        icon: Settings,        group: "Account" },
+    { to: "/app/admin",      label: "Admin",                  icon: ShieldCheck,     group: "Account" },
   ];
 
   const groupLabels: Record<string, string> = {

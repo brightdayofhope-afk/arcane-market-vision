@@ -10,6 +10,7 @@ import {
 
 import appCss from "../styles.css?url";
 import "@/i18n";
+import { I18nClient } from "@/components/ami/I18nClient";
 
 function NotFoundComponent() {
   return (
@@ -114,6 +115,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <I18nClient />
       <Outlet />
     </QueryClientProvider>
   );
