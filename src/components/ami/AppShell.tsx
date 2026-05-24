@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SelectorChip } from "./widgets";
 import { cn } from "@/lib/utils";
 
 type NavItem = { to: string; label: string; icon: typeof LayoutDashboard; group: string };
@@ -37,7 +38,7 @@ export function AppShell() {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed lg:sticky top-0 z-40 h-screen w-72 shrink-0 glass-strong border-r border-border transition-transform",
+          "fixed lg:sticky top-0 z-40 h-screen w-64 shrink-0 glass-strong border-r border-border transition-transform",
           open ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         )}
       >
@@ -89,33 +90,37 @@ export function AppShell() {
           <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(!open)}>
             <Menu className="h-5 w-5" />
           </Button>
-          <div className="relative flex-1 max-w-xl">
+          <div className="relative flex-1 max-w-xl min-w-0">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Search items, realms, signals…" className="pl-9 bg-input/40 border-border h-10" />
+            <Input placeholder="Search items, realms, signals…  (e.g. Black Lotus, Spineshatter)" className="pl-9 bg-input/40 border-border h-10" />
           </div>
-          <div className="ml-auto flex items-center gap-2">
+          <div className="ml-auto hidden md:flex items-center gap-2">
+            <SelectorChip label="Region" value="EU" options={["EU","NA","KR","TW"]} />
+            <SelectorChip label="Realm"  value="Spineshatter" options={["Spineshatter","Kazzak","Ravencrest","Sylvanas","Draenor","Tarren Mill"]} />
+            <SelectorChip label="Faction" value="Horde" options={["Auto","Horde","Alliance"]} />
+          </div>
+          <div className="ml-auto md:ml-2 flex items-center gap-2">
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-4 w-4" />
               <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_currentColor]" />
             </Button>
-            <Button variant="default" className="hidden sm:inline-flex">Add Widget</Button>
           </div>
           </div>
-          <div className="h-9 -mt-1 flex items-center gap-4 text-[11px] text-muted-foreground border-t border-border/60 overflow-x-auto whitespace-nowrap">
-            <span className="inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_8px_currentColor]" /> EU · Spineshatter · Horde</span>
+          <div className="h-9 -mt-1 flex items-center gap-4 text-[11px] text-muted-foreground border-t border-border/60 overflow-x-auto whitespace-nowrap scrollbar-thin">
+            <span className="inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_8px_currentColor]" /> Live · EU-Spineshatter-Horde</span>
             <span className="text-border">|</span>
-            <span className="inline-flex items-center gap-1.5"><Activity className="h-3 w-3 text-primary" /> 1,820 signals · 24h</span>
+            <span className="inline-flex items-center gap-1.5"><Activity className="h-3 w-3 text-primary" /> 1,820 signals / 24h</span>
             <span className="text-border">|</span>
             <span>Latency 142ms</span>
             <span className="text-border">|</span>
             <span>AH scrape · 38s ago</span>
             <span className="text-border">|</span>
             <span className="text-success">Reagents +6.8%</span>
-            <span className="text-destructive">Mounts -3.6%</span>
-            <span className="text-gold">Sentiment 68% bullish</span>
+            <span className="text-destructive">Mounts −3.6%</span>
+            <span className="text-gold">Sentiment bullish · 68%</span>
           </div>
         </header>
-        <main className="flex-1 p-4 lg:p-8">
+        <main className="flex-1 p-4 md:p-6 lg:p-8">
           <Outlet />
         </main>
       </div>

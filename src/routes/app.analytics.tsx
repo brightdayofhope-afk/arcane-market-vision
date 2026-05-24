@@ -12,7 +12,10 @@ export const Route = createFileRoute("/app/analytics")({
 function AnalyticsPage() {
   return (
     <div>
-      <PageHeader title="Item Analytics" subtitle="Deep market analysis for any tracked item." />
+      <PageHeader
+        title="Item Analytics"
+        subtitle="30-day price, volume, volatility and listing intelligence for any tracked item."
+      />
 
       <Panel className="mb-4">
         <div className="flex flex-wrap items-center gap-3">
@@ -21,7 +24,7 @@ function AnalyticsPage() {
             <Input placeholder="Search item by name or ID…" className="pl-9 h-10 bg-input/40 border-border" />
           </div>
           <Button variant="outline" className="border-border">
-            Wowhead-style lookup <ExternalLink className="ml-2 h-3.5 w-3.5" />
+            Lookup by item ID <ExternalLink className="ml-2 h-3.5 w-3.5" />
           </Button>
         </div>
       </Panel>

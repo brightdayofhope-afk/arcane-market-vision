@@ -20,7 +20,10 @@ const tiers = [
 function PricingPage() {
   return (
     <div>
-      <PageHeader title="Early Access" subtitle="Join the founders' circle before public launch." />
+      <PageHeader
+        title="Early Access"
+        subtitle="Founder seats unlock all signal channels, multi-realm tracking and the AMI assistant."
+      />
       <div className="grid md:grid-cols-3 gap-3">
         {tiers.map((t) => (
           <Panel key={t.name} className={`!p-6 relative ${t.accent ? "glow-border" : ""}`}>

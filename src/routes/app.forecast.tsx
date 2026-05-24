@@ -25,7 +25,10 @@ const forecasts = [
 function ForecastPage() {
   return (
     <div>
-      <PageHeader title="Market Forecast" subtitle="Patch-aware predictions for prices, demand and supply." />
+      <PageHeader
+        title="Market Forecast"
+        subtitle="Patch-aware predictions for prices, demand and supply across professions."
+      />
 
       <div className="grid md:grid-cols-3 gap-3 mb-3">
         {events.map((e) => (

@@ -35,13 +35,13 @@ function DiscordPage() {
       />
 
       <Panel className="mb-4">
-        <div className="grid md:grid-cols-[1fr_auto] gap-3 items-center">
-          <div>
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="min-w-0 flex-1">
             <div className="text-sm font-medium">Server webhook</div>
-            <div className="text-xs text-muted-foreground">Paste your Discord webhook to enable routing.</div>
+            <div className="text-xs text-muted-foreground">Paste your Discord webhook URL to enable channel routing.</div>
           </div>
-          <div className="flex gap-2">
-            <Input placeholder="https://discord.com/api/webhooks/…" className="bg-input/40 border-border h-10 min-w-[280px]" />
+          <div className="flex gap-2 w-full md:w-auto">
+            <Input placeholder="https://discord.com/api/webhooks/…" className="bg-input/40 border-border h-10 w-full md:min-w-[320px]" />
             <Button>Connect</Button>
           </div>
         </div>

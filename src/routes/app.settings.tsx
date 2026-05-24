@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHeader, Panel, Badge } from "@/components/ami/widgets";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Plug, Database, Bot } from "lucide-react";
+import { Plug, Database, Bot, ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/app/settings")({
   head: () => ({ meta: [{ title: "Settings · AMI" }] }),
@@ -14,7 +14,10 @@ const sel = "w-full h-10 px-3 rounded-lg bg-input/40 border border-border text-s
 function SettingsPage() {
   return (
     <div>
-      <PageHeader title="Settings" subtitle="Personalize AMI for your realm and play style." />
+      <PageHeader
+        title="Settings"
+        subtitle="Profile, realm, notifications, Discord routing and data source health."
+      />
 
       <div className="grid lg:grid-cols-2 gap-3">
         <Panel title="Profile">
@@ -61,24 +64,6 @@ function SettingsPage() {
           </ul>
         </Panel>
 
-        <Panel title="Webhook status">
-          <ul className="space-y-2 text-sm">
-            {([
-              ["#best-deals", "Healthy", "success"],
-              ["#fast-flips", "Healthy", "success"],
-              ["#risky-deals", "Warning", "warning"],
-              ["#market-stats", "Healthy", "success"],
-            ] as const).map(([c,s,t]) => (
-              <li key={c} className="flex items-center gap-3 glass rounded-lg px-3 py-2.5">
-                <span className="font-mono">{c}</span>
-                <span className="ml-auto"><Badge tone={t as any}>{s}</Badge></span>
-              </li>
-            ))}
-          </ul>
-          <div className="rune-divider my-4" />
-          <Button variant="outline" className="border-border">Re-run webhook test</Button>
-        </Panel>
-
         <Panel title="Discord connection">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-lg grid place-items-center glass glow-border"><Plug className="h-4 w-4 text-primary" /></div>
@@ -92,6 +77,7 @@ function SettingsPage() {
           <div className="flex flex-wrap gap-2">
             <Button variant="outline" size="sm" className="border-border">Reconnect</Button>
             <Button variant="outline" size="sm" className="border-border">Disconnect</Button>
+            <Link to="/app/discord" className="ml-auto"><Button variant="ghost" size="sm" className="text-primary">Manage channels <ExternalLink className="ml-1.5 h-3 w-3" /></Button></Link>
           </div>
         </Panel>
 

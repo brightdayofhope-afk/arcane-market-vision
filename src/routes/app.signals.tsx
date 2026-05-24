@@ -34,7 +34,7 @@ function SignalsPage() {
     <div>
       <PageHeader
         title="Auction Signals"
-        subtitle="Live intelligence from your tracked realms."
+        subtitle="Live underpriced, flip, and forecast opportunities — refreshed every 38s."
         actions={<Button variant="outline" className="border-border"><Filter className="h-4 w-4 mr-2" /> Filters</Button>}
       />
 
@@ -45,11 +45,19 @@ function SignalsPage() {
               <t.icon className="h-3.5 w-3.5" />{t.label}
             </button>
           ))}
-          <div className="ml-auto flex flex-wrap gap-2 text-xs">
-            {["Profession: All","Category: Reagents","Margin: ≥ 15%","Risk: ≤ Med","Confidence: ≥ 60%","Window: 1h"].map((p) => (
-              <span key={p} className="glass px-3 py-1.5 rounded-lg">{p}</span>
+        </div>
+        <div className="rune-divider my-3" />
+        <div className="flex flex-wrap gap-1.5 text-xs">
+          {[
+            "Profession: All",
+            "Category: Reagents",
+            "Margin ≥ 15%",
+            "Risk ≤ Medium",
+            "Confidence ≥ 60%",
+            "Window: 1h",
+          ].map((p) => (
+            <span key={p} className="glass px-2.5 py-1 rounded-md text-muted-foreground">{p}</span>
             ))}
-          </div>
         </div>
       </Panel>
 
