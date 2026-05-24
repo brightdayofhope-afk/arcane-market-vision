@@ -3,7 +3,7 @@ import { PageHeader, Panel, Badge, StatusPill } from "@/components/ami/widgets";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, Sparkles, BookOpen, Coins, Brain, Hammer, ShieldAlert } from "lucide-react";
-import heroChar from "@/assets/ami-hero.jpg";
+import amiAvatar from "@/assets/ami-avatar.jpg";
 
 export const Route = createFileRoute("/app/assistant")({
   head: () => ({ meta: [{ title: "AMI Assistant · AMI" }] }),
@@ -29,7 +29,7 @@ function AssistantPage() {
         <Panel className="!p-0 overflow-hidden">
           <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
             <div className="relative h-9 w-9 rounded-full overflow-hidden glow-border">
-              <img src={heroChar} alt="AMI" className="absolute inset-0 w-full h-full object-cover object-top" />
+              <img src={amiAvatar} alt="AMI" className="absolute inset-0 w-full h-full object-cover object-center" />
             </div>
             <div>
               <div className="font-medium text-sm">AMI</div>
