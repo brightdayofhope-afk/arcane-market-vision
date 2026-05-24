@@ -284,7 +284,9 @@
     "reagentsUp": "Reagents +6.8%",
     "mountsDown": "Mounts −3.6%",
     "sentiment": "Sentiment bullish · 68%",
-    "founderPlan": "Founder Plan"
+    "founderPlan": "Founder Plan",
+    "userName": "Alex Morgan",
+    "contextBadge": "Context: EU · Spineshatter"
   },
   "selector": {
     "region": "Region",
@@ -305,6 +307,8 @@
     "faction": "Faction",
     "lastScan": "Last scan",
     "ago": "{{age}} ago",
+    "factionHordeAuto": "Horde · Auto",
+    "auctionIndexShort": "Auction Index",
     "plan": "Plan",
     "dataSources": "Data sources",
     "whatChanged": "What changed since last scan",
