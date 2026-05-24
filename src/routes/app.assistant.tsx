@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHeader, Panel, Badge, StatusPill } from "@/components/ami/widgets";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send, Sparkles, BookOpen, Coins, Brain, Hammer, ShieldAlert, X, CheckCircle2 } from "lucide-react";
+import { Send, Sparkles, BookOpen, Coins, Brain, Hammer, ShieldAlert, X, CheckCircle2, Radar, LineChart, Star, MessageSquare, ChevronRight } from "lucide-react";
 import amiAvatar from "@/assets/ami-logo-round.png";
 import amiAnalyticsPoster from "@/assets/ami-analytics-poster.png";
 import { useTranslation } from "react-i18next";
@@ -173,6 +173,12 @@ function AssistantPage() {
  */
 function StructuredAnswerCard({ intent, topic }: { intent: string; topic?: string }) {
   const { t } = useTranslation();
+  const nextActions = [
+    { icon: Radar,         labelKey: "assistant.nextActionSignal",    to: "/app/signals" as const },
+    { icon: LineChart,     labelKey: "assistant.nextActionAnalytics", to: "/app/analytics" as const },
+    { icon: Star,          labelKey: "assistant.nextActionWatch",     to: "/app/watchlist" as const },
+    { icon: MessageSquare, labelKey: "assistant.nextActionDiscord",   to: "/app/discord" as const },
+  ];
   return (
     <Panel title={t(`assistant.companion.intent.${intent}`)} action={<Badge tone="primary">demo</Badge>}>
       <ul className="text-xs space-y-2.5">
@@ -197,6 +203,20 @@ function StructuredAnswerCard({ intent, topic }: { intent: string; topic?: strin
           <span className="text-muted-foreground">{t("assistant.tips.decisionSupport")}</span>
         </li>
       </ul>
+      <div className="mt-3 pt-3 border-t border-border/60">
+        <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-1.5">{t("assistant.nextActionsTitle")}</div>
+        <ul className="space-y-1">
+          {nextActions.map((a) => (
+            <li key={a.labelKey}>
+              <Link to={a.to} className="flex items-center justify-between gap-2 text-[11px] glass rounded-md px-2 py-1.5 hover:text-primary">
+                <span className="inline-flex items-center gap-1.5"><a.icon className="h-3 w-3 text-primary" />{t(a.labelKey)}</span>
+                <ChevronRight className="h-3 w-3 text-muted-foreground" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-2 text-[10px] text-muted-foreground">{t("assistant.demoLabel")}</div>
+      </div>
     </Panel>
   );
 }
