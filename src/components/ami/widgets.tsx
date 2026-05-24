@@ -1,5 +1,6 @@
 import { ArrowDown, ArrowUp, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export function PageHeader({
   title,
@@ -385,11 +386,12 @@ export function StatusPill({
   status: "live" | "demo" | "planned" | "beta";
   hint?: string;
 }) {
+  const { t } = useTranslation();
   const map = {
-    live:    { tone: "success" as const, label: "Live" },
-    demo:    { tone: "primary" as const, label: "Demo data" },
-    planned: { tone: "default" as const, label: "Planned" },
-    beta:    { tone: "gold"    as const, label: "Beta" },
+    live:    { tone: "success" as const, label: t("status.live") },
+    demo:    { tone: "primary" as const, label: t("status.demo") },
+    planned: { tone: "default" as const, label: t("status.planned") },
+    beta:    { tone: "gold"    as const, label: t("status.beta") },
   };
   const m = map[status];
   return (
