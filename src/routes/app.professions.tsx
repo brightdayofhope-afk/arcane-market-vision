@@ -93,7 +93,7 @@ function ProfessionsPage() {
 
       <div className="grid lg:grid-cols-3 gap-3">
         <Panel title={`${current.label} · 7d activity`} className="lg:col-span-2">
-          <div className="h-40"><Sparkline data={current.spark} color="oklch(0.78 0.20 295)" height={160} /></div>
+          <div className="h-40"><Sparkline data={[...current.spark]} color="oklch(0.78 0.20 295)" height={160} /></div>
           <div className="grid sm:grid-cols-3 gap-3 mt-4 text-xs">
             <Mini label="Active crafters" value="128" />
             <Mini label="Listings · 24h"  value="612" />
