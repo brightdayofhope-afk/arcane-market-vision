@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Badge, PageHeader, Panel, Sparkline } from "@/components/ami/widgets";
 import { Button } from "@/components/ui/button";
-import { Filter, Coins, Zap, ShieldAlert, Star } from "lucide-react";
+import { Filter, Coins, Zap, ShieldAlert, Star, TrendingUp, TrendingDown } from "lucide-react";
 
 export const Route = createFileRoute("/app/signals")({
   head: () => ({ meta: [{ title: "Auction Signals · AMI" }] }),
@@ -13,6 +13,8 @@ const tabs = [
   { key: "flips", label: "Fast Flips", icon: Zap },
   { key: "risky", label: "Risky Deals", icon: ShieldAlert },
   { key: "watch", label: "Watch Items", icon: Star },
+  { key: "up",    label: "Price Up Forecast", icon: TrendingUp },
+  { key: "down",  label: "Price Down Forecast", icon: TrendingDown },
 ];
 
 const signals = Array.from({ length: 9 }).map((_, i) => ({
@@ -44,7 +46,7 @@ function SignalsPage() {
             </button>
           ))}
           <div className="ml-auto flex flex-wrap gap-2 text-xs">
-            {["Profession: All","Category: All","Realm: All","Faction: Auto"].map((p) => (
+            {["Profession: All","Category: Reagents","Margin: ≥ 15%","Risk: ≤ Med","Confidence: ≥ 60%","Window: 1h"].map((p) => (
               <span key={p} className="glass px-3 py-1.5 rounded-lg">{p}</span>
             ))}
           </div>

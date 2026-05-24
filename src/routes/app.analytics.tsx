@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHeader, Panel, MultiLineChart, Badge, StatCard } from "@/components/ami/widgets";
+import { PageHeader, Panel, MultiLineChart, Badge, StatCard, BarRow, DataTable, Sparkline } from "@/components/ami/widgets";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, ExternalLink, Activity, Coins, Gauge, ShieldAlert } from "lucide-react";
+import { Search, ExternalLink, Activity, Coins, Gauge, ShieldAlert, Link2, Layers, Hammer } from "lucide-react";
 
 export const Route = createFileRoute("/app/analytics")({
   head: () => ({ meta: [{ title: "Item Analytics · AMI" }] }),
@@ -45,6 +45,13 @@ function AnalyticsPage() {
         <StatCard label="Risk index" value="Low · 0.23" icon={ShieldAlert} accent="success" />
       </div>
 
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
+        <StatCard label="Sale volume · 24h" value="1,284" delta="+38% vs 7d" icon={Activity} accent="success" />
+        <StatCard label="Active listings" value="186" delta="-12 since last scan" trend="down" icon={Layers} />
+        <StatCard label="Volatility · σ" value="0.18" icon={Gauge} accent="gold" />
+        <StatCard label="Demand forecast · 7d" value="+24%" icon={Hammer} accent="success" />
+      </div>
+
       <div className="grid lg:grid-cols-3 gap-3">
         <Panel title="Price · 30 days" className="lg:col-span-2">
           <MultiLineChart
@@ -60,6 +67,7 @@ function AnalyticsPage() {
           <Panel title="Volume trend">
             <div className="text-2xl font-semibold">+38%</div>
             <div className="text-xs text-muted-foreground">vs prior 30 days</div>
+            <div className="h-12 mt-3"><Sparkline data={[20,22,28,26,34,32,40,38,46,52,48,58,64,62,72,80]} color="oklch(0.74 0.17 150)" height={48} /></div>
           </Panel>
           <Panel title="Seller pressure">
             <Gauge className="h-4 w-4 text-warning" />
@@ -77,6 +85,40 @@ function AnalyticsPage() {
             </div>
           </Panel>
         </div>
+      </div>
+
+      <div className="grid lg:grid-cols-3 gap-3 mt-3">
+        <Panel title="Profession usage" className="lg:col-span-1">
+          <div className="space-y-2.5">
+            <BarRow label="Enchanting"   value={86} max={100} tone="primary" suffix="%" />
+            <BarRow label="Alchemy"      value={62} max={100} tone="gold" suffix="%" />
+            <BarRow label="Jewelcrafting" value={34} max={100} tone="primary" suffix="%" />
+            <BarRow label="Inscription"  value={18} max={100} tone="primary" suffix="%" />
+          </div>
+          <div className="rune-divider my-4" />
+          <div className="text-xs text-muted-foreground">Reagent for 17 known recipes across 4 professions.</div>
+        </Panel>
+
+        <Panel title="Recent listings · Spineshatter" className="lg:col-span-2" action={<Button variant="outline" size="sm" className="border-border h-7 text-xs">Open in addon <Link2 className="ml-1.5 h-3 w-3" /></Button>}>
+          <DataTable
+            dense
+            columns={[
+              { key: "seller", label: "Seller" },
+              { key: "qty", label: "Qty", align: "right" },
+              { key: "unit", label: "Unit", align: "right" },
+              { key: "total", label: "Total", align: "right" },
+              { key: "age", label: "Age", align: "right" },
+              { key: "verdict", label: "AMI" },
+            ]}
+            rows={[
+              { seller: "Grimtotem-H", qty: "12", unit: "118g", total: "1,416g", age: <span className="text-muted-foreground">2m</span>, verdict: <Badge tone="success">Snipe</Badge> },
+              { seller: "Shadowfen-H", qty: "8",  unit: "124g", total: "992g",   age: <span className="text-muted-foreground">5m</span>, verdict: <Badge tone="primary">Watch</Badge> },
+              { seller: "Ironvale-H",  qty: "20", unit: "139g", total: "2,780g", age: <span className="text-muted-foreground">11m</span>, verdict: <Badge>Fair</Badge> },
+              { seller: "Mistwood-A",  qty: "4",  unit: "162g", total: "648g",   age: <span className="text-muted-foreground">19m</span>, verdict: <Badge tone="danger">Skip</Badge> },
+              { seller: "Stormwake-H", qty: "10", unit: "121g", total: "1,210g", age: <span className="text-muted-foreground">24m</span>, verdict: <Badge tone="primary">Watch</Badge> },
+            ]}
+          />
+        </Panel>
       </div>
     </div>
   );
