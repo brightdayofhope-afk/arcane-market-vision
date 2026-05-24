@@ -3,7 +3,8 @@ import { PageHeader, Panel, Badge, StatusPill } from "@/components/ami/widgets";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, Sparkles, BookOpen, Coins, Brain, Hammer, ShieldAlert, X, CheckCircle2 } from "lucide-react";
-import amiAvatar from "@/assets/ami-avatar.jpg";
+import amiAvatar from "@/assets/ami-logo-round.png";
+import amiAnalyticsPoster from "@/assets/ami-analytics-poster.png";
 import { useTranslation } from "react-i18next";
 
 const KNOWN_INTENTS = [
@@ -81,6 +82,16 @@ function AssistantPage() {
 
       <div className="grid lg:grid-cols-[1fr_320px] gap-3">
         <Panel className="!p-0 overflow-hidden">
+          <div className="relative h-32 sm:h-40 overflow-hidden border-b border-border">
+            <img
+              src={amiAnalyticsPoster}
+              alt="AMI · Azeroth Market Intelligence"
+              className="absolute inset-0 w-full h-full object-cover object-top"
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/20" />
+          </div>
           <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
             <div className="relative h-9 w-9 rounded-full overflow-hidden glow-border">
               <img src={amiAvatar} alt="AMI" className="absolute inset-0 w-full h-full object-cover object-center" />
