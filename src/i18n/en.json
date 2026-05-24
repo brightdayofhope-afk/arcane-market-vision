@@ -131,7 +131,9 @@
     "tsm": "TSM dump",
     "addon": "Custom AMI Addon",
     "discord": "Discord webhook",
-    "ami": "AMI-Core LLM"
+    "ami": "AMI-Core LLM",
+    "addonHint": "local seed",
+    "discordChannels": "{{n}} channels"
   },
   "faction": {
     "horde": "Horde",
@@ -380,6 +382,7 @@
     "amiI3Title": "Phaseweaver mount listings cooling fast.",
     "amiI3Body": "Sellers up 38%, demand down 22%. AMI recommends exiting open positions before reset."
   },
+  "_pad1": "",
   "tableCol": {
     "type": "Type",
     "itemRealm": "Item · Realm",
