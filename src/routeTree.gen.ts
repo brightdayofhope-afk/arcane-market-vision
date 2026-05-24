@@ -13,7 +13,11 @@ import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppSignalsRouteImport } from './routes/app.signals'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppPricingRouteImport } from './routes/app.pricing'
+import { Route as AppLootRouteImport } from './routes/app.loot'
 import { Route as AppForecastRouteImport } from './routes/app.forecast'
+import { Route as AppDiscordRouteImport } from './routes/app.discord'
 import { Route as AppAssistantRouteImport } from './routes/app.assistant'
 import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
 
@@ -37,9 +41,29 @@ const AppSignalsRoute = AppSignalsRouteImport.update({
   path: '/signals',
   getParentRoute: () => AppRoute,
 } as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPricingRoute = AppPricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppLootRoute = AppLootRouteImport.update({
+  id: '/loot',
+  path: '/loot',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppForecastRoute = AppForecastRouteImport.update({
   id: '/forecast',
   path: '/forecast',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDiscordRoute = AppDiscordRouteImport.update({
+  id: '/discord',
+  path: '/discord',
   getParentRoute: () => AppRoute,
 } as any)
 const AppAssistantRoute = AppAssistantRouteImport.update({
@@ -58,7 +82,11 @@ export interface FileRoutesByFullPath {
   '/app': typeof AppRouteWithChildren
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/assistant': typeof AppAssistantRoute
+  '/app/discord': typeof AppDiscordRoute
   '/app/forecast': typeof AppForecastRoute
+  '/app/loot': typeof AppLootRoute
+  '/app/pricing': typeof AppPricingRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/signals': typeof AppSignalsRoute
   '/app/': typeof AppIndexRoute
 }
@@ -66,7 +94,11 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/assistant': typeof AppAssistantRoute
+  '/app/discord': typeof AppDiscordRoute
   '/app/forecast': typeof AppForecastRoute
+  '/app/loot': typeof AppLootRoute
+  '/app/pricing': typeof AppPricingRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/signals': typeof AppSignalsRoute
   '/app': typeof AppIndexRoute
 }
@@ -76,7 +108,11 @@ export interface FileRoutesById {
   '/app': typeof AppRouteWithChildren
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/assistant': typeof AppAssistantRoute
+  '/app/discord': typeof AppDiscordRoute
   '/app/forecast': typeof AppForecastRoute
+  '/app/loot': typeof AppLootRoute
+  '/app/pricing': typeof AppPricingRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/signals': typeof AppSignalsRoute
   '/app/': typeof AppIndexRoute
 }
@@ -87,7 +123,11 @@ export interface FileRouteTypes {
     | '/app'
     | '/app/analytics'
     | '/app/assistant'
+    | '/app/discord'
     | '/app/forecast'
+    | '/app/loot'
+    | '/app/pricing'
+    | '/app/settings'
     | '/app/signals'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
@@ -95,7 +135,11 @@ export interface FileRouteTypes {
     | '/'
     | '/app/analytics'
     | '/app/assistant'
+    | '/app/discord'
     | '/app/forecast'
+    | '/app/loot'
+    | '/app/pricing'
+    | '/app/settings'
     | '/app/signals'
     | '/app'
   id:
@@ -104,7 +148,11 @@ export interface FileRouteTypes {
     | '/app'
     | '/app/analytics'
     | '/app/assistant'
+    | '/app/discord'
     | '/app/forecast'
+    | '/app/loot'
+    | '/app/pricing'
+    | '/app/settings'
     | '/app/signals'
     | '/app/'
   fileRoutesById: FileRoutesById
@@ -144,11 +192,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSignalsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/pricing': {
+      id: '/app/pricing'
+      path: '/pricing'
+      fullPath: '/app/pricing'
+      preLoaderRoute: typeof AppPricingRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/loot': {
+      id: '/app/loot'
+      path: '/loot'
+      fullPath: '/app/loot'
+      preLoaderRoute: typeof AppLootRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/forecast': {
       id: '/app/forecast'
       path: '/forecast'
       fullPath: '/app/forecast'
       preLoaderRoute: typeof AppForecastRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/discord': {
+      id: '/app/discord'
+      path: '/discord'
+      fullPath: '/app/discord'
+      preLoaderRoute: typeof AppDiscordRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/assistant': {
@@ -171,7 +247,11 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppAnalyticsRoute: typeof AppAnalyticsRoute
   AppAssistantRoute: typeof AppAssistantRoute
+  AppDiscordRoute: typeof AppDiscordRoute
   AppForecastRoute: typeof AppForecastRoute
+  AppLootRoute: typeof AppLootRoute
+  AppPricingRoute: typeof AppPricingRoute
+  AppSettingsRoute: typeof AppSettingsRoute
   AppSignalsRoute: typeof AppSignalsRoute
   AppIndexRoute: typeof AppIndexRoute
 }
@@ -179,7 +259,11 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
   AppAnalyticsRoute: AppAnalyticsRoute,
   AppAssistantRoute: AppAssistantRoute,
+  AppDiscordRoute: AppDiscordRoute,
   AppForecastRoute: AppForecastRoute,
+  AppLootRoute: AppLootRoute,
+  AppPricingRoute: AppPricingRoute,
+  AppSettingsRoute: AppSettingsRoute,
   AppSignalsRoute: AppSignalsRoute,
   AppIndexRoute: AppIndexRoute,
 }
