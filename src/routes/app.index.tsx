@@ -32,9 +32,9 @@ function Overview() {
         subtitle="EU · Spineshatter · Horde — real-time auction intelligence."
         actions={
           <div className="hidden md:flex items-center gap-2 text-xs">
-            <span className="glass rounded-md px-2.5 py-1.5">Region <span className="text-foreground ml-1">EU</span></span>
-            <span className="glass rounded-md px-2.5 py-1.5">Realm <span className="text-foreground ml-1">Spineshatter</span></span>
-            <span className="glass rounded-md px-2.5 py-1.5">Faction <span className="text-foreground ml-1">Horde</span></span>
+            <SelectorChip label="Region" value="EU" options={["EU","NA","KR","TW"]} />
+            <SelectorChip label="Realm" value="Spineshatter" options={["Spineshatter","Kazzak","Ravencrest","Sylvanas","Draenor"]} />
+            <SelectorChip label="Faction" value="Horde / Auto" options={["Horde / Auto","Horde","Alliance"]} />
           </div>
         }
       />
@@ -293,5 +293,16 @@ function Legend({ color, label }: { color: string; label: string }) {
       <span className="h-2 w-2 rounded-full" style={{ background: color, boxShadow: `0 0 6px ${color}` }} />
       <span className="text-muted-foreground">{label}</span>
     </div>
+  );
+}
+
+function SelectorChip({ label, value, options }: { label: string; value: string; options: string[] }) {
+  return (
+    <label className="glass rounded-md px-2.5 py-1.5 inline-flex items-center gap-2 cursor-pointer">
+      <span className="text-muted-foreground text-[10px] uppercase tracking-wider">{label}</span>
+      <select defaultValue={value} className="bg-transparent text-foreground text-xs outline-none">
+        {options.map((o) => <option key={o} value={o} className="bg-card">{o}</option>)}
+      </select>
+    </label>
   );
 }

@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader, Panel, Badge } from "@/components/ami/widgets";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Plug, Database, Bot } from "lucide-react";
 
 export const Route = createFileRoute("/app/settings")({
   head: () => ({ meta: [{ title: "Settings · AMI" }] }),
@@ -76,6 +77,41 @@ function SettingsPage() {
           </ul>
           <div className="rune-divider my-4" />
           <Button variant="outline" className="border-border">Re-run webhook test</Button>
+        </Panel>
+
+        <Panel title="Discord connection">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-lg grid place-items-center glass glow-border"><Plug className="h-4 w-4 text-primary" /></div>
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-medium">AMI Bot · Spineshatter Traders</div>
+              <div className="text-xs text-muted-foreground">Connected · 6 channels mapped · last publish 38s ago</div>
+            </div>
+            <Badge tone="success">Live</Badge>
+          </div>
+          <div className="rune-divider my-4" />
+          <div className="flex flex-wrap gap-2">
+            <Button variant="outline" size="sm" className="border-border">Reconnect</Button>
+            <Button variant="outline" size="sm" className="border-border">Disconnect</Button>
+          </div>
+        </Panel>
+
+        <Panel title="Data sources">
+          <ul className="space-y-2 text-sm">
+            {([
+              ["Auctionator", "Healthy · last sync 38s ago", "success", Database],
+              ["TradeSkillMaster (TSM)", "Healthy · last sync 1m ago", "success", Database],
+              ["AMI Custom Addon", "Beta · 4 realms covered", "warning", Bot],
+            ] as const).map(([n, s, t, Icon]) => (
+              <li key={n} className="flex items-center gap-3 glass rounded-lg px-3 py-2.5">
+                <Icon className="h-4 w-4 text-primary" />
+                <div className="min-w-0">
+                  <div className="font-medium truncate">{n}</div>
+                  <div className="text-xs text-muted-foreground truncate">{s}</div>
+                </div>
+                <span className="ml-auto"><Badge tone={t as any}>{t === "warning" ? "Beta" : "OK"}</Badge></span>
+              </li>
+            ))}
+          </ul>
         </Panel>
       </div>
     </div>

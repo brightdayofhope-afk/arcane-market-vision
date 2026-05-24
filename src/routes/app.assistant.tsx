@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader, Panel, Badge } from "@/components/ami/widgets";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send, Sparkles, BookOpen, Coins, Brain } from "lucide-react";
+import { Send, Sparkles, BookOpen, Coins, Brain, Hammer, ShieldAlert } from "lucide-react";
 import heroChar from "@/assets/ami-hero.jpg";
 
 export const Route = createFileRoute("/app/assistant")({
@@ -47,7 +47,13 @@ function AssistantPage() {
           </div>
 
           <div className="px-4 pb-3 flex flex-wrap gap-2">
-            {["Ask about item","Ask about profession","Explain signal","Show today's flips"].map((p) => (
+            {[
+              "Explain this signal",
+              "Find profitable reagents",
+              "What should I watch today?",
+              "Compare Black Lotus across realms",
+              "Best flips under 200g for Alchemy",
+            ].map((p) => (
               <button key={p} className="glass px-3 py-1.5 rounded-lg text-xs hover:text-primary">{p}</button>
             ))}
           </div>
@@ -58,6 +64,20 @@ function AssistantPage() {
         </Panel>
 
         <div className="space-y-3">
+          <Panel title="Item context">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-accent grid place-items-center text-xs font-bold">AC</div>
+              <div className="min-w-0">
+                <div className="text-sm font-medium truncate">Arcane Crystal</div>
+                <div className="text-[10px] text-muted-foreground">Spineshatter · Horde · Reagent</div>
+              </div>
+            </div>
+            <ul className="text-xs space-y-1.5 mt-3">
+              <li className="flex justify-between"><span className="text-muted-foreground">Avg price</span><span>142g 80s</span></li>
+              <li className="flex justify-between"><span className="text-muted-foreground">Risk</span><span className="text-success">Low · 0.23</span></li>
+              <li className="flex justify-between"><span className="text-muted-foreground">Demand 7d</span><span className="text-success">+24%</span></li>
+            </ul>
+          </Panel>
           <Panel title="Status">
             <ul className="text-sm space-y-2">
               <li className="flex justify-between"><span className="text-muted-foreground">Model</span><span>AMI-Core · v3</span></li>
@@ -71,6 +91,8 @@ function AssistantPage() {
               <li className="flex items-center gap-2"><Coins className="h-3.5 w-3.5 text-gold" /> 24h volume +6.8%</li>
               <li className="flex items-center gap-2"><Brain className="h-3.5 w-3.5 text-accent" /> Sentiment: Bullish</li>
               <li className="flex items-center gap-2"><BookOpen className="h-3.5 w-3.5 text-muted-foreground" /> Watching 14 realms</li>
+              <li className="flex items-center gap-2"><Hammer className="h-3.5 w-3.5 text-primary" /> Top profession: Alchemy</li>
+              <li className="flex items-center gap-2"><ShieldAlert className="h-3.5 w-3.5 text-warning" /> 3 risky listings flagged</li>
             </ul>
           </Panel>
         </div>
