@@ -655,6 +655,18 @@
     "title": "Profession Markets",
     "subtitle": "Demand, supply and crafting margins across Azeroth's professions — refreshed every 38s.",
     "statusHint": "3 of 10 professions live",
+    "prof": {
+      "alchemy": "Alchemy",
+      "herbalism": "Herbalism",
+      "enchanting": "Enchanting",
+      "tailoring": "Tailoring",
+      "inscription": "Inscription",
+      "jewelcrafting": "Jewelcrafting",
+      "blacksmithing": "Blacksmithing",
+      "mining": "Mining",
+      "engineering": "Engineering",
+      "skinning": "Skinning"
+    },
     "demandIndex": "Demand index",
     "supplyIndex": "Supply index",
     "avgMargin": "Avg craft margin",

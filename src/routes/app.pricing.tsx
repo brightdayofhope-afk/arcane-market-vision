@@ -26,22 +26,22 @@ function PricingPage() {
         subtitle={t("pricing.subtitle")}
       />
       <div className="grid md:grid-cols-3 gap-3">
-        {tiers.map((t) => (
-          <Panel key={t.name} className={`!p-6 relative ${t.accent ? "glow-border" : ""}`}>
-            {t.accent && <div className="absolute -top-3 right-5"><Badge tone="primary">{/* mostPopular */}{t.name && ""}</Badge></div>}
-            <div className="text-sm uppercase tracking-[0.2em] text-muted-foreground">{t.name}</div>
+        {tiers.map((tier) => (
+          <Panel key={tier.name} className={`!p-6 relative ${tier.accent ? "glow-border" : ""}`}>
+            {tier.accent && <div className="absolute -top-3 right-5"><Badge tone="primary">{t("badge.mostPopular")}</Badge></div>}
+            <div className="text-sm uppercase tracking-[0.2em] text-muted-foreground">{tier.name}</div>
             <div className="mt-3 flex items-baseline gap-2">
-              <div className={`text-4xl font-semibold ${t.accent ? "text-gradient" : ""}`}>{t.price}</div>
-              <div className="text-xs text-muted-foreground">{t.note}</div>
+              <div className={`text-4xl font-semibold ${tier.accent ? "text-gradient" : ""}`}>{tier.price}</div>
+              <div className="text-xs text-muted-foreground">{tier.note}</div>
             </div>
             <ul className="mt-5 space-y-2 text-sm">
-              {t.features.map((f) => (
+              {tier.features.map((f) => (
                 <li key={f} className="flex items-start gap-2">
                   <Check className="h-4 w-4 text-primary mt-0.5" /> {f}
                 </li>
               ))}
             </ul>
-            <Button className={`mt-6 w-full ${t.accent ? "glow" : ""}`} variant={t.accent ? "default" : "outline"}>{t.cta}</Button>
+            <Button className={`mt-6 w-full ${tier.accent ? "glow" : ""}`} variant={tier.accent ? "default" : "outline"}>{tier.cta}</Button>
           </Panel>
         ))}
       </div>
