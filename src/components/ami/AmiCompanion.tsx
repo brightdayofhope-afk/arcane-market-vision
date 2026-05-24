@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
-import { Bot, PanelRightOpen, PanelRightClose, EyeOff, RotateCcw, MessageSquare, Sparkles, ChevronRight, ShieldAlert } from "lucide-react";
+import { PanelRightOpen, PanelRightClose, EyeOff, RotateCcw, MessageSquare, Sparkles, ChevronRight, ShieldAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
 import amiLogoRound from "@/assets/ami-logo-round.png";
 import amiAnalyticsPoster from "@/assets/ami-analytics-poster.png";
