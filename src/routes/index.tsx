@@ -10,7 +10,7 @@ import {
   Sparkles, Bot, MessageSquare, ShieldCheck, TrendingUp, Zap,
   ArrowRight, Activity, Coins, LineChart, Radar, Hammer, Database,
   ChevronDown, Newspaper, Tv, Handshake, Star, GitCompareArrows, Globe2,
-  CreditCard, Settings, LayoutDashboard,
+  CreditCard, Settings, LayoutDashboard, Globe, ShieldAlert,
 } from "lucide-react";
 import arcaneBg from "@/assets/arcane-bg.jpg";
 import amiHeroWide from "@/assets/ami-hero-wide.png";
@@ -93,6 +93,9 @@ function Index() {
             <Metric label={t("landing.metricSignals")} value="1,820" />
             <Metric label={t("landing.metricMargin")} value="+34%" />
           </div>
+
+          {/* Product status chips — communicate that AMI is an analytics product, not a fantasy toy */}
+          <ProductStatusRow />
         </div>
 
         <div className="relative">
@@ -138,17 +141,20 @@ function Index() {
         </div>
       </section>
 
+      {/* Trust / guardrail strip */}
+      <TrustStrip />
+
       {/* Benefits */}
       <section id="features" className="relative z-10 mx-auto max-w-7xl px-6 pb-24">
-        <SectionHead eyebrow="Intelligence" title="Built like a fintech terminal, tuned for Azeroth." />
+        <SectionHead eyebrow={t("landing.benefitsEyebrow")} title={t("landing.benefitsTitle")} />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
           {[
-            { icon: Coins, title: "Best Deals", text: "Live underpriced items across realms, ranked by confidence and margin." },
-            { icon: Zap, title: "Fast Flips", text: "Short-cycle opportunities with sub-hour resale windows." },
-            { icon: ShieldCheck, title: "Risk Filter", text: "Volatility, seller pressure and demand decay scored automatically." },
-            { icon: TrendingUp, title: "Forecasts", text: "Patch-aware predictions for prices, demand and supply." },
-            { icon: Bot, title: "AMI Assistant", text: "Ask in plain language — get tactical answers grounded in your data." },
-            { icon: MessageSquare, title: "Discord Signals", text: "Channels for deals, flips, risks and profession alerts." },
+            { icon: Coins,       title: t("landing.ben1Title"), text: t("landing.ben1Text") },
+            { icon: Zap,         title: t("landing.ben2Title"), text: t("landing.ben2Text") },
+            { icon: ShieldCheck, title: t("landing.ben3Title"), text: t("landing.ben3Text") },
+            { icon: TrendingUp,  title: t("landing.ben4Title"), text: t("landing.ben4Text") },
+            { icon: Bot,         title: t("landing.ben5Title"), text: t("landing.ben5Text") },
+            { icon: MessageSquare, title: t("landing.ben6Title"), text: t("landing.ben6Text") },
           ].map((f) => (
             <Panel key={f.title}>
               <div className="flex items-center gap-3">
@@ -165,26 +171,26 @@ function Index() {
 
       {/* Dashboard preview */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 pb-24">
-        <SectionHead eyebrow="Terminal" title="Your auction intelligence, at a glance." />
+        <SectionHead eyebrow={t("landing.previewEyebrow")} title={t("landing.previewTitle")} />
         <div className="mt-8 glass-strong rounded-3xl p-5 glow-border">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            <StatCard label="Total Markets" value="24,581" delta="+6.8% vs 24h" icon={Activity} />
-            <StatCard label="Trending Up" value="14,329" delta="+8.2%" icon={TrendingUp} accent="success" />
-            <StatCard label="Trending Down" value="8,732" delta="-3.6%" trend="down" icon={LineChart} accent="destructive" />
-            <StatCard label="Sentiment" value="Bullish" delta="68%" icon={Sparkles} accent="gold" />
+            <StatCard label={t("landing.previewTotal")}     value="24,581" delta="+6.8% · 24h" icon={Activity} />
+            <StatCard label={t("landing.previewUp")}        value="14,329" delta="+8.2%" icon={TrendingUp} accent="success" />
+            <StatCard label={t("landing.previewDown")}      value="8,732"  delta="-3.6%" trend="down" icon={LineChart} accent="destructive" />
+            <StatCard label={t("landing.previewSentiment")} value={t("landing.previewBullish")} delta="68%" icon={Sparkles} accent="gold" />
           </div>
           <div className="grid lg:grid-cols-3 gap-3 mt-3">
-            <Panel title="Price Trend · 24H" className="lg:col-span-2">
+            <Panel title={t("landing.previewPriceTrend")} className="lg:col-span-2">
               <div className="h-40">
                 <Sparkline data={[20,28,24,38,30,52,46,60,55,68,62,80,72,90]} color="oklch(0.78 0.20 295)" height={160} />
               </div>
             </Panel>
-            <Panel title="Market Intelligence">
+            <Panel title={t("landing.previewIntel")}>
               <ul className="space-y-3 text-sm">
                 {[
-                  ["Black Lotus spike", "EU · Spineshatter · Horde · +42% in 1h", "2m"],
-                  ["Runecloth oversupply", "Tailoring reagents cheaper across EU", "18m"],
-                  ["Thorium Bar rally", "Smelting demand up before raid reset", "45m"],
+                  [t("landing.intel1Title"), t("landing.intel1Body"), "2m"],
+                  [t("landing.intel2Title"), t("landing.intel2Body"), "18m"],
+                  [t("landing.intel3Title"), t("landing.intel3Body"), "45m"],
                 ].map(([a,b,c]) => (
                   <li key={a} className="flex items-start gap-3">
                     <div className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_currentColor]" />
@@ -204,16 +210,14 @@ function Index() {
       {/* AMI assistant + Discord */}
       <section id="assistant" className="relative z-10 mx-auto max-w-7xl px-6 pb-24 grid lg:grid-cols-2 gap-6">
         <Panel className="p-7">
-          <Badge tone="primary">AMI Assistant</Badge>
-          <h3 className="mt-3 text-2xl font-semibold">Talk to the market.</h3>
-          <p className="text-sm text-muted-foreground mt-2">
-            Ask about an item, profession, or signal. AMI grounds every answer in live auction data and patch context.
-          </p>
+          <Badge tone="primary">{t("landing.assistantBadge")}</Badge>
+          <h3 className="mt-3 text-2xl font-semibold">{t("landing.assistantTitle")}</h3>
+          <p className="text-sm text-muted-foreground mt-2">{t("landing.assistantBody")}</p>
           <div className="mt-5 space-y-3">
             {[
-              "Why is Arcane Crystal spiking on Spineshatter?",
-              "Show me 3 fast flips for Tailoring under 200g.",
-              "Explain the risk on the Mythic mount signal.",
+              t("landing.assistantQ1"),
+              t("landing.assistantQ2"),
+              t("landing.assistantQ3"),
             ].map((q) => (
               <div key={q} className="glass rounded-xl p-3 text-sm flex items-center gap-3">
                 <Bot className="h-4 w-4 text-primary" /> {q}
@@ -223,17 +227,15 @@ function Index() {
         </Panel>
         <div id="discord" />
         <Panel className="p-7">
-          <Badge tone="gold">Discord Signals</Badge>
-          <h3 className="mt-3 text-2xl font-semibold">Signals where your guild already is.</h3>
-          <p className="text-sm text-muted-foreground mt-2">
-            Route best deals, fast flips and risk alerts to dedicated channels with one click.
-          </p>
+          <Badge tone="gold">{t("landing.discordBadge")}</Badge>
+          <h3 className="mt-3 text-2xl font-semibold">{t("landing.discordTitle")}</h3>
+          <p className="text-sm text-muted-foreground mt-2">{t("landing.discordBody")}</p>
           <div className="mt-5 grid grid-cols-2 gap-3">
             {[
-              ["#best-deals", "1,284 today"],
-              ["#fast-flips", "612 today"],
-              ["#risky-deals", "92 today"],
-              ["#market-stats", "hourly"],
+              ["#best-deals",  `1,284 ${t("landing.today")}`],
+              ["#fast-flips",  `612 ${t("landing.today")}`],
+              ["#risky-deals", `92 ${t("landing.today")}`],
+              ["#market-stats", t("landing.hourly")],
             ].map(([c,n]) => (
               <div key={c} className="glass rounded-xl p-3">
                 <div className="text-sm font-medium">{c}</div>
@@ -249,15 +251,11 @@ function Index() {
         <div className="glass-strong rounded-3xl p-10 text-center glow-border relative overflow-hidden">
           <div className="absolute inset-0 opacity-50 pointer-events-none"
             style={{ background: "radial-gradient(closest-side, oklch(0.68 0.22 295 / 0.35), transparent)" }} />
-          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">
-            Join the Founders’ circle.
-          </h2>
-          <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
-            Free during closed beta. Founders keep a lifetime discount on premium analytics.
-          </p>
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">{t("landing.ctaTitle")}</h2>
+          <p className="text-muted-foreground mt-3 max-w-xl mx-auto">{t("landing.ctaBody")}</p>
           <div className="mt-6 flex justify-center gap-3">
-            <Link to="/app/pricing"><Button size="lg" className="glow">Claim Early Access</Button></Link>
-            <Link to="/app"><Button size="lg" variant="outline" className="border-border">Explore Dashboard</Button></Link>
+            <Link to="/app/pricing"><Button size="lg" className="glow">{t("landing.ctaClaim")}</Button></Link>
+            <Link to="/app"><Button size="lg" variant="outline" className="border-border">{t("landing.ctaExplore")}</Button></Link>
           </div>
         </div>
       </section>
@@ -266,12 +264,12 @@ function Index() {
         <div className="mx-auto max-w-7xl px-6 py-8 flex flex-wrap items-center justify-between gap-4 text-xs text-muted-foreground">
           <div className="flex items-center gap-3">
             <Logo withWordmark={false} />
-            <span>© {new Date().getFullYear()} AMI · Not affiliated with Blizzard Entertainment.</span>
+            <span>© {new Date().getFullYear()} AMI · {t("landing.footerNote")}</span>
           </div>
           <div className="flex gap-5">
-            <a href="#" className="hover:text-foreground">Privacy</a>
-            <a href="#" className="hover:text-foreground">Terms</a>
-            <a href="#" className="hover:text-foreground">Discord</a>
+            <a href="#" className="hover:text-foreground">{t("landing.privacy")}</a>
+            <a href="#" className="hover:text-foreground">{t("landing.terms")}</a>
+            <a href="#" className="hover:text-foreground">{t("landing.footer.discord")}</a>
           </div>
         </div>
       </footer>
@@ -288,6 +286,53 @@ function Metric({ label, value }: { label: string; value: string }) {
   );
 }
 
+function ProductStatusRow() {
+  const { t } = useTranslation();
+  const chips: { icon: typeof Globe; label: string; value: string; tone?: string }[] = [
+    { icon: Globe,       label: t("landing.status.region"), value: "EU" },
+    { icon: Globe2,      label: t("landing.status.realm"),  value: "Spineshatter" },
+    { icon: Database,    label: t("landing.status.data"),   value: t("landing.status.dataValue") },
+    { icon: LineChart,   label: t("landing.status.mode"),   value: t("landing.status.modeValue"), tone: "primary" },
+    { icon: ShieldAlert, label: t("landing.status.risk"),   value: t("landing.status.riskValue"), tone: "gold" },
+  ];
+  return (
+    <div className="mt-6 flex flex-wrap gap-2">
+      {chips.map((c) => (
+        <div key={c.label} className="glass rounded-full pl-2 pr-3 py-1.5 inline-flex items-center gap-2 text-[11px]">
+          <span className="h-5 w-5 rounded-full glass grid place-items-center">
+            <c.icon className={`h-3 w-3 ${c.tone === "gold" ? "text-gold" : c.tone === "primary" ? "text-primary" : "text-muted-foreground"}`} />
+          </span>
+          <span className="uppercase tracking-[0.14em] text-muted-foreground">{c.label}</span>
+          <span className="font-medium text-foreground">{c.value}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TrustStrip() {
+  const { t } = useTranslation();
+  const items = [
+    { icon: LineChart,   label: t("landing.trust.analyticsOnly") },
+    { icon: ShieldCheck, label: t("landing.trust.noAutomation") },
+    { icon: ShieldAlert, label: t("landing.trust.manualReview") },
+    { icon: Activity,    label: t("landing.trust.demoLive") },
+  ];
+  return (
+    <div className="relative z-10 mx-auto max-w-7xl px-6 -mt-12 mb-12">
+      <div className="glass-strong rounded-2xl px-4 py-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[11px] text-muted-foreground">
+        {items.map((it, i) => (
+          <span key={it.label} className="inline-flex items-center gap-1.5">
+            {i > 0 && <span className="text-border hidden sm:inline">·</span>}
+            <it.icon className="h-3.5 w-3.5 text-primary" />
+            <span>{it.label}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function SectionHead({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
     <div className="max-w-2xl">
@@ -300,22 +345,22 @@ function SectionHead({ eyebrow, title }: { eyebrow: string; title: string }) {
 function SiteHeader() {
   const { t } = useTranslation();
   const product = [
-    { to: "/app",            label: t("nav.overview"),       icon: LayoutDashboard, hint: "Market dashboard" },
-    { to: "/app/signals",    label: t("nav.auctionSignals"), icon: Radar,           hint: "Best deals · flips · risk" },
-    { to: "/app/analytics",  label: t("nav.itemAnalytics"),  icon: LineChart,       hint: "Item profile · 30d charts" },
-    { to: "/app/compare",    label: t("nav.compareItems"),   icon: GitCompareArrows,hint: "Side-by-side comparison" },
-    { to: "/app/forecast",   label: t("nav.marketForecast"), icon: Sparkles,        hint: "Patch-aware predictions" },
-    { to: "/app/loot",       label: t("nav.lootDatabase"),   icon: Database,        hint: "TBC-style catalog" },
-    { to: "/app/professions",label: t("nav.professions"),    icon: Hammer,          hint: "Crafting demand & supply" },
-    { to: "/app/realms",     label: t("nav.realmFaction"),   icon: Globe2,          hint: "Realm · faction overlays" },
-    { to: "/app/assistant",  label: t("nav.amiAssistant"),   icon: Bot,             hint: "Talk to the market" },
-    { to: "/app/watchlist",  label: t("nav.watchlist"),      icon: Star,            hint: "Tracked items" },
+    { to: "/app",            label: t("nav.overview"),       icon: LayoutDashboard, hint: t("landing.menu.marketDashboardHint") },
+    { to: "/app/signals",    label: t("nav.auctionSignals"), icon: Radar,           hint: t("landing.menu.signalsHint") },
+    { to: "/app/assistant",  label: t("nav.amiAssistant"),   icon: Bot,             hint: t("landing.menu.assistantHint") },
+    { to: "/app/analytics",  label: t("nav.itemAnalytics"),  icon: LineChart,       hint: t("landing.menu.analyticsHint") },
+    { to: "/app/loot",       label: t("nav.lootDatabase"),   icon: Database,        hint: t("landing.menu.lootHint") },
+    { to: "/app/forecast",   label: t("nav.marketForecast"), icon: Sparkles,        hint: t("landing.menu.forecastHint") },
+    { to: "/app/professions",label: t("nav.professions"),    icon: Hammer,          hint: t("landing.menu.professionsHint") },
+    { to: "/app/compare",    label: t("nav.compareItems"),   icon: GitCompareArrows,hint: t("landing.menu.compareHint") },
+    { to: "/app/realms",     label: t("nav.realmFaction"),   icon: Globe2,          hint: t("landing.menu.realmsHint") },
+    { to: "/app/watchlist",  label: t("nav.watchlist"),      icon: Star,            hint: t("landing.menu.watchlistHint") },
+    { to: "/app/discord",    label: t("nav.discord"),        icon: MessageSquare,   hint: t("landing.menu.discordHint") },
   ];
   const community = [
-    { to: "/app/discord",  label: t("nav.discord"),  icon: MessageSquare, hint: "Channel mapping · webhooks" },
-    { to: "/app/news",     label: t("nav.news"),     icon: Newspaper,     hint: "Patches & market events" },
-    { to: "/app/streams",  label: t("nav.streams"),  icon: Tv,            hint: "Live gold-makers" },
-    { to: "/app/partners", label: t("nav.partners"), icon: Handshake,     hint: "Referral revenue share" },
+    { to: "/app/news",     label: t("nav.news"),     icon: Newspaper,     hint: t("landing.menu.newsHint") },
+    { to: "/app/streams",  label: t("nav.streams"),  icon: Tv,            hint: t("landing.menu.streamsHint") },
+    { to: "/app/partners", label: t("nav.partners"), icon: Handshake,     hint: t("landing.menu.partnersHint") },
   ];
 
   return (
@@ -326,6 +371,9 @@ function SiteHeader() {
         <nav className="hidden lg:flex items-center gap-1 text-sm">
           <MegaMenu label={t("nav.product")} items={product} />
           <MegaMenu label={t("nav.community")} items={community} />
+          <Link to="/app/assistant" className="px-3 py-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/40 inline-flex items-center gap-1.5">
+            <Bot className="h-3.5 w-3.5" /> {t("nav.amiAssistant")}
+          </Link>
           <Link to="/app/pricing" className="px-3 py-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/40">
             {t("nav.pricing")}
           </Link>

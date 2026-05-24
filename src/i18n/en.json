@@ -276,6 +276,25 @@
       "newsHint": "Patches & market events",
       "streamsHint": "Live gold-makers",
       "partnersHint": "Referral revenue share"
+    },
+    "status": {
+      "region": "Region",
+      "realm": "Realm",
+      "data": "Data",
+      "mode": "Mode",
+      "risk": "Risk policy",
+      "modeValue": "Analytics-only",
+      "riskValue": "Manual review",
+      "dataValue": "Auctionator · TSM"
+    },
+    "trust": {
+      "analyticsOnly": "Analytics-only",
+      "noAutomation": "No automation",
+      "manualReview": "Manual review required",
+      "demoLive": "Demo / live status labeled clearly"
+    },
+    "footer": {
+      "discord": "Discord"
     }
   },
   "header": {
@@ -373,8 +392,19 @@
     "tickerMount": "Phaseweaver mount listings cooling",
     "tickerThorium": "Thorium Bar broke 35g resistance",
     "tickerShard": "Large Brilliant Shard supply spike",
-    "tabsTime": ["1H","24H","7D","30D","1Y","All"],
-    "tabsMovers": ["Gainers","Losers","Active"],
+    "tabsTime": [
+      "1H",
+      "24H",
+      "7D",
+      "30D",
+      "1Y",
+      "All"
+    ],
+    "tabsMovers": [
+      "Gainers",
+      "Losers",
+      "Active"
+    ],
     "amiI1Title": "Black Lotus is entering a pre-raid spike window.",
     "amiI1Body": "Volume up 62% over 7d on EU-Horde. Suggested action: hold listings 4–6h, expect +18–24% upside.",
     "amiI2Title": "Inscription mats undervalued vs. patch 11.x flux.",
@@ -582,40 +612,40 @@
         "explain_loot": "Explain loot entry"
       },
       "route": {
-        "overview":  "Since the last scan: 1 new Best Deal, 0 risky listings cleared, all 3 data sources healthy. Suggested next: open Auction Signals → Best Deals.",
-        "signals":   "Each signal carries margin, confidence and risk. Use the filter rail to narrow by profession or source, and review manually before acting.",
+        "overview": "Since the last scan: 1 new Best Deal, 0 risky listings cleared, all 3 data sources healthy. Suggested next: open Auction Signals → Best Deals.",
+        "signals": "Each signal carries margin, confidence and risk. Use the filter rail to narrow by profession or source, and review manually before acting.",
         "watchlist": "Items pinned here trigger alerts when they cross your targets. AMI watches price, volume and seller count.",
         "analytics": "30-day price, volume and volatility for one item. Ask AMI to explain spikes, seller pressure or demand context.",
-        "compare":   "Compare price, risk and demand side by side. AMI can summarise which item is the safer flip right now.",
-        "realms":    "Liquidity, activity and volatility per realm. Use this to pick where to list or buy first.",
+        "compare": "Compare price, risk and demand side by side. AMI can summarise which item is the safer flip right now.",
+        "realms": "Liquidity, activity and volatility per realm. Use this to pick where to list or buy first.",
         "professions": "Crafting margins by profession. AMI flags reagents to buy, hold or skip for the next 6–24h window.",
-        "forecast":  "Patch-aware predictions. Horizons are 24h / 7d / patch window. Confidence is a probability, not a guarantee.",
+        "forecast": "Patch-aware predictions. Horizons are 24h / 7d / patch window. Confidence is a probability, not a guarantee.",
         "assistant": "You are inside the assistant. Send a question or pick a quick prompt. AMI grounds answers on live auction data.",
-        "loot":      "Search drops by item, source, profession or phase. Labels: live · imported · local addon seed · demo.",
-        "discord":   "Each channel maps to a signal type. AMI routes only signals that pass your margin/confidence thresholds.",
-        "news":      "Patch notes and market anomalies curated by AMI. Use this to anticipate reagent and gear demand.",
-        "streams":   "Live broadcasts from AMI partners. Stream embeds are design-only in this preview.",
-        "partners":  "Refer guilds and creators. Lifetime revenue share on every Founder seat brought in.",
-        "pricing":   "Free Closed Beta is live. Founder seats are free for now. Premium analytics arrives after beta.",
-        "settings":  "Set region, realm, faction, notifications and Discord routing here. Check data source health if signals look stale.",
-        "admin":     "Admin only. Failed jobs, source health, Discord delivery and feature flags.",
-        "default":   "AMI is monitoring 14 realms. Ask anything about items, professions, realms or signals."
+        "loot": "Search drops by item, source, profession or phase. Labels: live · imported · local addon seed · demo.",
+        "discord": "Each channel maps to a signal type. AMI routes only signals that pass your margin/confidence thresholds.",
+        "news": "Patch notes and market anomalies curated by AMI. Use this to anticipate reagent and gear demand.",
+        "streams": "Live broadcasts from AMI partners. Stream embeds are design-only in this preview.",
+        "partners": "Refer guilds and creators. Lifetime revenue share on every Founder seat brought in.",
+        "pricing": "Free Closed Beta is live. Founder seats are free for now. Premium analytics arrives after beta.",
+        "settings": "Set region, realm, faction, notifications and Discord routing here. Check data source health if signals look stale.",
+        "admin": "Admin only. Failed jobs, source health, Discord delivery and feature flags.",
+        "default": "AMI is monitoring 14 realms. Ask anything about items, professions, realms or signals."
       },
       "action": {
-        "openSignals":    "Open Auction Signals",
-        "openAnalytics":  "Open Item Analytics",
-        "openWatchlist":  "Open Watchlist",
-        "openDiscord":    "View Discord routing",
-        "openProfessions":"Open Professions",
-        "openForecast":   "Open Forecast",
-        "openSources":    "Review data sources",
-        "openPricing":    "See plans",
-        "openLoot":       "Open Loot Database",
-        "openRealms":     "Compare realms",
-        "focusChat":      "Focus chat",
-        "askToday":       "What should I check today?",
-        "checkSources":   "Check data sources",
-        "viewAdmin":      "Open System Health"
+        "openSignals": "Open Auction Signals",
+        "openAnalytics": "Open Item Analytics",
+        "openWatchlist": "Open Watchlist",
+        "openDiscord": "View Discord routing",
+        "openProfessions": "Open Professions",
+        "openForecast": "Open Forecast",
+        "openSources": "Review data sources",
+        "openPricing": "See plans",
+        "openLoot": "Open Loot Database",
+        "openRealms": "Compare realms",
+        "focusChat": "Focus chat",
+        "askToday": "What should I check today?",
+        "checkSources": "Check data sources",
+        "viewAdmin": "Open System Health"
       }
     }
   },
