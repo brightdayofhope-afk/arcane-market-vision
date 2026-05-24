@@ -546,6 +546,23 @@
       "decisionSupport": "This is decision support, not automation.",
       "confidence": "Confidence is not certainty.",
       "verify": "Review this signal manually before acting."
+    },
+    "companion": {
+      "presence": "AMI Companion",
+      "presenceHint": "Holographic market analyst · idle",
+      "modelPending": "3D model pending",
+      "modelPendingHint": "Connects to ami_assistant_web_ready_current_best.glb",
+      "ask": "Ask AMI",
+      "askPlaceholder": "Ask AMI about a signal, item or realm…",
+      "openAssistant": "Open assistant",
+      "show": "Show AMI",
+      "hide": "Hide AMI",
+      "dock": "Dock",
+      "float": "Float",
+      "returnHome": "Return home",
+      "mobileTip": "Tap to open assistant",
+      "summary": "AMI is monitoring 14 realms. No urgent risks. 1 new Best Deal in the last 5 min.",
+      "respectsLayout": "Non-blocking · won't cover tables or modals"
     }
   },
   "analytics": {
