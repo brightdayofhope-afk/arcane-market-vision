@@ -21,7 +21,17 @@
     "terminal": "Терминал",
     "analytics": "Аналитика",
     "intelligenceGroup": "Интеллект",
-    "account": "Аккаунт"
+    "account": "Аккаунт",
+    "market": "Рынок",
+    "news": "Новости",
+    "streams": "Стримы",
+    "partners": "Партнёрская программа",
+    "pricing": "Тарифы",
+    "login": "Войти",
+    "profile": "Профиль",
+    "more": "Ещё",
+    "product": "Продукт",
+    "community": "Сообщество"
   },
   "landing": {
     "badge": "Закрытая бета · аналитика аукциона WoW",

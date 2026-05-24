@@ -7,7 +7,10 @@ export function LanguageSwitcher({ className }: { className?: string }) {
   const lang = i18n.resolvedLanguage === "ru" ? "ru" : "en";
 
   const set = (l: "en" | "ru") => {
-    if (l !== lang) i18n.changeLanguage(l);
+    if (l !== lang) {
+      i18n.changeLanguage(l);
+      try { window.localStorage.setItem("ami-lang", l); } catch { /* ignore */ }
+    }
   };
 
   return (

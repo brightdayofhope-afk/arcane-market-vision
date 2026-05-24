@@ -21,7 +21,17 @@
     "terminal": "Terminal",
     "analytics": "Analytics",
     "intelligenceGroup": "Intelligence",
-    "account": "Account"
+    "account": "Account",
+    "market": "Market",
+    "news": "News",
+    "streams": "Streams",
+    "partners": "Partner Program",
+    "pricing": "Pricing",
+    "login": "Log in",
+    "profile": "Profile",
+    "more": "More",
+    "product": "Product",
+    "community": "Community"
   },
   "landing": {
     "badge": "Closed Beta · WoW auction intelligence",
