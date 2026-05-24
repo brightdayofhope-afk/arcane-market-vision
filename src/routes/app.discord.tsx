@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHeader, Panel, Badge } from "@/components/ami/widgets";
+import { PageHeader, Panel, Badge, StatusPill } from "@/components/ami/widgets";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Hash, RefreshCcw } from "lucide-react";
@@ -31,7 +31,12 @@ function DiscordPage() {
       <PageHeader
         title="Discord Integration"
         subtitle="Route signals into the channels your guild already lives in."
-        actions={<Button variant="outline" className="border-border"><RefreshCcw className="h-4 w-4 mr-2" /> Test webhooks</Button>}
+        actions={
+          <div className="flex items-center gap-2">
+            <StatusPill status="beta" />
+            <Button variant="outline" className="border-border"><RefreshCcw className="h-4 w-4 mr-2" /> Test webhooks</Button>
+          </div>
+        }
       />
 
       <Panel className="mb-4">

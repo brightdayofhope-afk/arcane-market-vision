@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Activity, TrendingUp, LineChart, Sparkles, Coins, Zap, ShieldAlert, Star } from "lucide-react";
-import { Badge, BarRow, DataTable, LiveTicker, MultiLineChart, PageHeader, Panel, Sparkline, StatCard } from "@/components/ami/widgets";
+import { Badge, BarRow, DataTable, LiveTicker, MultiLineChart, PageHeader, Panel, Sparkline, StatCard, StatusPill } from "@/components/ami/widgets";
 import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/app/")({
@@ -30,6 +30,7 @@ function Overview() {
       <PageHeader
         title="Market Overview"
         subtitle="EU · Spineshatter · Horde — real-time auction intelligence across 14 tracked realms."
+        actions={<StatusPill status="demo" hint="Live data wiring planned" />}
       />
 
       <div className="mb-3">
