@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Activity, TrendingUp, LineChart, Sparkles, Coins, Zap, ShieldAlert, Star } from "lucide-react";
 import { Badge, BarRow, DataTable, LiveTicker, MultiLineChart, PageHeader, Panel, Sparkline, StatCard, StatusPill } from "@/components/ami/widgets";
+import { AmiInsight } from "@/components/ami/AmiInsight";
+import { useTranslation } from "react-i18next";
 import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/app/")({
@@ -25,13 +27,24 @@ const heat = [
 ] as const;
 
 function Overview() {
+  const { t } = useTranslation();
   return (
     <div>
       <PageHeader
-        title="Market Overview"
-        subtitle="EU · Spineshatter · Horde — real-time auction intelligence across 14 tracked realms."
+        title={t("overview.title")}
+        subtitle={t("overview.subtitle")}
         actions={<StatusPill status="demo" hint="Live data wiring planned" />}
       />
+
+      <div className="mb-3">
+        <AmiInsight
+          title={t("overview.amiInsightTitle")}
+          body={t("overview.amiInsightBody")}
+          tag={t("overview.amiInsightTag")}
+          primaryCta={{ label: t("overview.openSignal"), to: "/app/signals" }}
+          secondaryCta={{ label: t("overview.askAmi"), to: "/app/assistant" }}
+        />
+      </div>
 
       <div className="mb-3">
         <LiveTicker

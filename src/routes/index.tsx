@@ -3,9 +3,12 @@ import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/ami/Logo";
 import { Badge, Panel, Sparkline, StatCard } from "@/components/ami/widgets";
+import { HoloChip } from "@/components/ami/AmiInsight";
+import { LanguageSwitcher } from "@/components/ami/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 import {
   Sparkles, Bot, MessageSquare, ShieldCheck, TrendingUp, Zap,
-  ArrowRight, Activity, Coins, LineChart,
+  ArrowRight, Activity, Coins, LineChart, Radar, Hammer, Database,
 } from "lucide-react";
 import heroChar from "@/assets/ami-hero.jpg";
 import arcaneBg from "@/assets/arcane-bg.jpg";
@@ -23,6 +26,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Background atmosphere */}
@@ -38,45 +42,53 @@ function Index() {
       <header className="relative z-10 mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
         <Logo />
         <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-          <a href="#features" className="hover:text-foreground">Intelligence</a>
-          <a href="#assistant" className="hover:text-foreground">AMI</a>
-          <a href="#discord" className="hover:text-foreground">Discord</a>
-          <Link to="/app/pricing" className="hover:text-foreground">Early Access</Link>
+          <a href="#features" className="hover:text-foreground">{t("nav.intelligence")}</a>
+          <a href="#assistant" className="hover:text-foreground">{t("nav.ami")}</a>
+          <a href="#discord" className="hover:text-foreground">{t("nav.discord")}</a>
+          <Link to="/app/pricing" className="hover:text-foreground">{t("nav.earlyAccess")}</Link>
         </nav>
         <div className="flex items-center gap-2">
-          <Link to="/app"><Button variant="ghost" className="hidden sm:inline-flex">View Demo</Button></Link>
-          <Link to="/app/pricing"><Button>Join Early Access</Button></Link>
+          <LanguageSwitcher className="hidden sm:inline-flex" />
+          <Link to="/app"><Button variant="ghost" className="hidden sm:inline-flex">{t("nav.viewDemo")}</Button></Link>
+          <Link to="/app/pricing"><Button>{t("nav.joinEarlyAccess")}</Button></Link>
         </div>
       </header>
 
       {/* Hero */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 pt-12 pb-24 grid lg:grid-cols-2 gap-10 items-center">
         <div>
-          <Badge tone="primary">Closed Beta · Patch 11.x intelligence</Badge>
+          <Badge tone="primary">{t("landing.badge")}</Badge>
           <h1 className="mt-5 text-4xl md:text-6xl font-semibold tracking-tight leading-[1.05]">
-            Trade Azeroth like a
-            <span className="text-gradient"> high-frequency mage.</span>
+            {t("landing.headline1")}
+            <span className="text-gradient"> {t("landing.headline2")}</span>
           </h1>
-          <p className="mt-5 text-lg text-muted-foreground max-w-xl">
-            AMI fuses Auctionator and TSM data with an arcane AI core — surfacing best deals,
-            fast flips and market shifts, and broadcasting signals straight to your Discord.
-          </p>
+          <p className="mt-5 text-lg text-muted-foreground max-w-xl">{t("landing.subhead")}</p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <Link to="/app/pricing">
+            <Link to="/app">
               <Button size="lg" className="glow">
-                Join Early Access <ArrowRight className="ml-2 h-4 w-4" />
+                {t("landing.ctaOpenDashboard")} <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
-            <Link to="/app">
+            <Link to="/app/assistant">
               <Button size="lg" variant="outline" className="border-border bg-card/40">
-                View Demo Dashboard
+                <Bot className="mr-2 h-4 w-4" /> {t("landing.ctaAskAmi")}
+              </Button>
+            </Link>
+            <Link to="/app/discord">
+              <Button size="lg" variant="outline" className="border-border bg-card/40">
+                <MessageSquare className="mr-2 h-4 w-4" /> {t("landing.ctaDiscord")}
+              </Button>
+            </Link>
+            <Link to="/app/loot">
+              <Button size="lg" variant="ghost" className="text-muted-foreground hover:text-foreground">
+                <Database className="mr-2 h-4 w-4" /> {t("landing.ctaLoot")}
               </Button>
             </Link>
           </div>
           <div className="mt-10 grid grid-cols-3 gap-4 max-w-md">
-            <Metric label="Items tracked" value="24,581" />
-            <Metric label="Signals / day" value="1,820" />
-            <Metric label="Avg margin" value="+34%" />
+            <Metric label={t("landing.metricItems")} value="24,581" />
+            <Metric label={t("landing.metricSignals")} value="1,820" />
+            <Metric label={t("landing.metricMargin")} value="+34%" />
           </div>
         </div>
 
@@ -88,11 +100,29 @@ function Index() {
               alt="AMI, the arcane market assistant"
               className="rounded-2xl w-full h-[560px] object-cover object-top"
             />
+
+            {/* Holographic AMI helper chips — market intelligence overlays */}
+            <div className="hidden md:block absolute -left-6 top-10">
+              <HoloChip icon={Activity} label={t("landing.holoMarketPulse")} hint={t("landing.holoMarketPulseHint")} />
+            </div>
+            <div className="hidden md:block absolute -right-6 top-24">
+              <HoloChip icon={Radar} label={t("landing.holoRiskRadar")} hint={t("landing.holoRiskRadarHint")} />
+            </div>
+            <div className="hidden md:block absolute -left-8 top-1/2">
+              <HoloChip icon={Coins} label={t("landing.holoBestDeals")} hint={t("landing.holoBestDealsHint")} />
+            </div>
+            <div className="hidden md:block absolute -right-8 top-[62%]">
+              <HoloChip icon={Hammer} label={t("landing.holoProfDemand")} hint={t("landing.holoProfDemandHint")} />
+            </div>
+            <div className="hidden md:block absolute left-1/2 -translate-x-1/2 -bottom-4">
+              <HoloChip icon={MessageSquare} label={t("landing.holoDiscordDigest")} hint={t("landing.holoDiscordDigestHint")} />
+            </div>
+
             <div className="absolute left-6 bottom-6 right-6 glass rounded-xl px-4 py-3 flex items-center gap-3">
               <div className="h-2 w-2 rounded-full bg-success shadow-[0_0_8px_currentColor]" />
               <div className="text-xs">
-                <div className="font-medium">AMI is online</div>
-                <div className="text-muted-foreground">Watching 14 realms · 6 categories</div>
+                <div className="font-medium">{t("landing.amiOnline")}</div>
+                <div className="text-muted-foreground">{t("landing.amiWatching")}</div>
               </div>
               <Bot className="ml-auto h-4 w-4 text-primary" />
             </div>
