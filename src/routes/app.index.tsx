@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Activity, TrendingUp, LineChart, Sparkles, Coins, Zap, ShieldAlert, Star } from "lucide-react";
 import { Badge, BarRow, DataTable, LiveTicker, MultiLineChart, PageHeader, Panel, Sparkline, StatCard, StatusPill } from "@/components/ami/widgets";
 import { AmiInsight } from "@/components/ami/AmiInsight";
+import { PlanBadge, DataSourceStatus, AccessLock, ConfidenceBar, RiskMeter } from "@/components/ami/access";
 import { useTranslation } from "react-i18next";
 import { Link } from "@tanstack/react-router";
 
@@ -33,8 +34,44 @@ function Overview() {
       <PageHeader
         title={t("overview.title")}
         subtitle={t("overview.subtitle")}
-        actions={<StatusPill status="demo" hint="Live data wiring planned" />}
+        actions={
+          <div className="flex items-center gap-2">
+            <PlanBadge plan="founder" />
+            <StatusPill status="demo" hint="Live data wiring planned" />
+          </div>
+        }
       />
+
+      {/* Pre-flight strip: Account · Data Sources · What changed since last scan */}
+      <div className="grid lg:grid-cols-3 gap-3 mb-3">
+        <Panel title="Session">
+          <ul className="text-xs space-y-1.5">
+            <li className="flex justify-between"><span className="text-muted-foreground">Region</span><span>EU</span></li>
+            <li className="flex justify-between"><span className="text-muted-foreground">Realm</span><span>Spineshatter</span></li>
+            <li className="flex justify-between"><span className="text-muted-foreground">Faction</span><span>Horde · Auto</span></li>
+            <li className="flex justify-between"><span className="text-muted-foreground">Last scan</span><span className="text-success">38s ago</span></li>
+            <li className="flex justify-between"><span className="text-muted-foreground">Plan</span><PlanBadge plan="founder" /></li>
+          </ul>
+        </Panel>
+        <Panel title="Data sources">
+          <DataSourceStatus
+            rows={[
+              { name: "Auctionator",    kind: "auctionator", status: "live",  hint: "38s ago" },
+              { name: "TSM",            kind: "tsm",         status: "stale", hint: "14m ago" },
+              { name: "Custom Addon",   kind: "addon",       status: "demo",  hint: "local seed" },
+              { name: "Discord",        kind: "discord",     status: "live",  hint: "4 channels" },
+            ]}
+          />
+        </Panel>
+        <Panel title="What changed since last scan">
+          <ul className="text-xs space-y-2">
+            <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_6px_currentColor]" /><div><div className="font-medium">+12 new best deals</div><div className="text-muted-foreground">Reagents · margin ≥ 18%</div></div></li>
+            <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-warning shadow-[0_0_6px_currentColor]" /><div><div className="font-medium">3 risky listings flagged</div><div className="text-muted-foreground">Mythic mount · manual review</div></div></li>
+            <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_6px_currentColor]" /><div><div className="font-medium">Black Lotus −38% vs market</div><div className="text-muted-foreground">Spineshatter-Horde · 12m window</div></div></li>
+            <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_6px_currentColor]" /><div><div className="font-medium">Patch 11.1 reagent demand +22%</div><div className="text-muted-foreground">Alchemy &amp; Inscription</div></div></li>
+          </ul>
+        </Panel>
+      </div>
 
       <div className="mb-3">
         <AmiInsight
@@ -271,6 +308,40 @@ function Overview() {
             <BarRow label="Tarren Mill"  value={42} max={100} tone="danger" />
           </div>
         </Panel>
+      </div>
+
+      {/* Premium-locked example: cross-realm arbitrage forecast */}
+      <div className="grid lg:grid-cols-2 gap-3 mt-3">
+        <Panel title="Signal quality · last 24h">
+          <div className="grid grid-cols-2 gap-4">
+            <ConfidenceBar value={74} label="Avg confidence" />
+            <RiskMeter value={32} label="Avg risk" />
+            <ConfidenceBar value={68} label="Liquidity" />
+            <RiskMeter value={18} label="Volatility" />
+          </div>
+          <div className="text-[10px] text-muted-foreground mt-3">
+            Aggregated across 1,820 signals · EU-Spineshatter-Horde · last 24h.
+          </div>
+        </Panel>
+        <AccessLock level="premium" reason="Cross-realm arbitrage forecast unlocks with Premium." cta="See plans" to="/app/pricing">
+          <Panel title="Cross-realm arbitrage · 7d">
+            <DataTable
+              dense
+              columns={[
+                { key: "item",  label: "Item" },
+                { key: "from",  label: "From" },
+                { key: "to",    label: "To" },
+                { key: "gap",   label: "Gap", align: "right" },
+                { key: "conf",  label: "Conf.", align: "right" },
+              ]}
+              rows={[
+                { item: "Runecloth",        from: "Spineshatter", to: "Kazzak",     gap: "+27%", conf: "76%" },
+                { item: "Arcane Crystal",   from: "Kazzak",       to: "Ravencrest", gap: "+18%", conf: "71%" },
+                { item: "Large Brilliant",  from: "Sylvanas",     to: "Draenor",    gap: "+22%", conf: "64%" },
+              ]}
+            />
+          </Panel>
+        </AccessLock>
       </div>
     </div>
   );
