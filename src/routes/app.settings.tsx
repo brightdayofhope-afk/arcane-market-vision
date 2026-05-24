@@ -57,9 +57,9 @@ function SettingsPage() {
             </Field>
             <Field label={t("settings.faction")}>
               <select className={sel} defaultValue="Horde">
-                <option>{t("common.auto")}</option>
-                <option>{t("realmFaction.horde", { defaultValue: "Horde" })}</option>
-                <option>{t("realmFaction.alliance", { defaultValue: "Alliance" })}</option>
+                <option>{t("faction.auto")}</option>
+                <option>{t("faction.horde")}</option>
+                <option>{t("faction.alliance")}</option>
               </select>
             </Field>
           </div>
