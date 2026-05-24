@@ -21,7 +21,7 @@ function PricingPage() {
   ];
   return (
     <div>
-      <PageHeader
+      <PageHeader amiIntent="explain_page"
         title={t("pricing.title")}
         subtitle={t("pricing.subtitle")}
       />

@@ -34,7 +34,7 @@ const stories = [
 function NewsPage() {
   return (
     <div>
-      <PageHeader
+      <PageHeader amiIntent="explain_page"
         title="Market News"
         subtitle="Patch notes, market events and Auction House anomalies — curated by AMI."
         actions={<StatusPill status="demo" />}

@@ -28,7 +28,7 @@ function SettingsPage() {
   ];
   return (
     <div>
-      <PageHeader
+      <PageHeader amiIntent="explain_page"
         title={t("settings.title")}
         subtitle={t("settings.subtitle")}
       />

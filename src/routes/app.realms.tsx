@@ -19,7 +19,7 @@ const realms = [
 function RealmsPage() {
   return (
     <div>
-      <PageHeader title="Realm & Faction Analytics" subtitle="Liquidity, activity and volatility across tracked realms." />
+      <PageHeader amiIntent="explain_page" title="Realm & Faction Analytics" subtitle="Liquidity, activity and volatility across tracked realms." />
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
         <StatCard label="Realms tracked" value="14" icon={Globe2} />

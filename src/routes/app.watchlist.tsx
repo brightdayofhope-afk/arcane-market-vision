@@ -21,7 +21,7 @@ const watch = [
 function WatchlistPage() {
   return (
     <div>
-      <PageHeader
+      <PageHeader amiIntent="explain_page"
         title="Watchlist"
         subtitle="Items pinned for live monitoring across your realms."
         actions={
