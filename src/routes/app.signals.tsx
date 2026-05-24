@@ -2,9 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Badge, PageHeader, Panel, Sparkline, StatusPill } from "@/components/ami/widgets";
 import { RiskMeter, ConfidenceBar, AccessLock } from "@/components/ami/access";
 import { Button } from "@/components/ui/button";
-import { Filter, Coins, Zap, ShieldAlert, Star, TrendingUp, TrendingDown, Bot, LineChart, ArrowUpDown, Eye, AlertTriangle } from "lucide-react";
+import { Filter, Coins, Zap, ShieldAlert, Star, TrendingUp, TrendingDown, Bot, LineChart, ArrowUpDown, Eye, AlertTriangle, MessageSquare, Info } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import { AskAmiLink } from "@/components/ami/AmiCompanion";
 
 export const Route = createFileRoute("/app/signals")({
   head: () => ({ meta: [{ title: "Auction Signals · AMI" }] }),
@@ -95,6 +96,12 @@ function SignalsPage() {
             </div>
           </Panel>
 
+          {/* Decision-support reminder */}
+          <div className="mb-3 inline-flex items-start gap-2 text-[11px] text-muted-foreground glass rounded-md px-3 py-2">
+            <Info className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
+            <span>{t("signals.decisionSupportNote")}</span>
+          </div>
+
           {/* Signal cards */}
           <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
             {signals.map((s) => {
@@ -102,6 +109,7 @@ function SignalsPage() {
               const itemName = t(`item.${s.itemKey}`);
               const factionName = t(`faction.${s.factionKey}`);
               const profName = t(`prof.${s.profKey}`);
+              const topic = `${itemName} · EU · ${s.realm} · ${factionName}`;
               return (
                 <Panel key={s.itemKey + s.realm} className="!p-4">
                   <div className="flex items-start gap-3">
@@ -131,15 +139,18 @@ function SignalsPage() {
                     </div>
                   )}
                   <div className="flex flex-wrap gap-1.5 mt-3">
-                    <Link to="/app/assistant" className="inline-flex items-center gap-1 glass rounded-md px-2 py-1 text-[11px] hover:text-primary">
+                    <AskAmiLink intent="explain_signal" topic={topic} className="inline-flex items-center gap-1 glass rounded-md px-2 py-1 text-[11px] hover:text-primary">
                       <Bot className="h-3 w-3" /> {t("signals.explainAmi")}
-                    </Link>
-                    <Link to="/app/analytics" className="inline-flex items-center gap-1 glass rounded-md px-2 py-1 text-[11px] hover:text-primary">
+                    </AskAmiLink>
+                    <Link to="/app/analytics" search={{ from: "signal", item: s.itemKey } as never} className="inline-flex items-center gap-1 glass rounded-md px-2 py-1 text-[11px] hover:text-primary">
                       <LineChart className="h-3 w-3" /> {t("signals.itemAnalytics")}
                     </Link>
-                    <button className="inline-flex items-center gap-1 glass rounded-md px-2 py-1 text-[11px] hover:text-primary">
-                      <Eye className="h-3 w-3" /> {t("signals.watchAction")}
-                    </button>
+                    <Link to="/app/watchlist" className="inline-flex items-center gap-1 glass rounded-md px-2 py-1 text-[11px] hover:text-primary">
+                      <Star className="h-3 w-3" /> {t("common.addToWatchlist")}
+                    </Link>
+                    <Link to="/app/discord" className="inline-flex items-center gap-1 glass rounded-md px-2 py-1 text-[11px] hover:text-primary">
+                      <MessageSquare className="h-3 w-3" /> {t("common.discordRoute")}
+                    </Link>
                   </div>
                 </Panel>
               );

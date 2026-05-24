@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Activity, TrendingUp, LineChart, Sparkles, Coins, Zap, ShieldAlert, Star } from "lucide-react";
+import { Activity, TrendingUp, LineChart, Sparkles, Coins, Zap, ShieldAlert, Star, ArrowRight, Radar, Bot } from "lucide-react";
 import { Badge, BarRow, DataTable, LiveTicker, MultiLineChart, PageHeader, Panel, Sparkline, StatCard, StatusPill } from "@/components/ami/widgets";
 import { AmiInsight } from "@/components/ami/AmiInsight";
 import { PlanBadge, DataSourceStatus, AccessLock, ConfidenceBar, RiskMeter } from "@/components/ami/access";
 import { useTranslation } from "react-i18next";
 import { Link } from "@tanstack/react-router";
+import { AskAmiLink } from "@/components/ami/AmiCompanion";
 
 export const Route = createFileRoute("/app/")({
   head: () => ({ meta: [{ title: "Overview · AMI" }] }),
@@ -82,6 +83,34 @@ function Overview() {
           secondaryCta={{ label: t("overview.askAmi"), to: "/app/assistant" }}
         />
       </div>
+
+      {/* Start here — compact onboarding strip */}
+      <Panel className="mb-3 !p-4">
+        <div className="flex items-start gap-3 flex-wrap">
+          <div className="min-w-0 flex-1">
+            <div className="text-sm font-semibold">{t("overview.startHereTitle")}</div>
+            <div className="text-xs text-muted-foreground">{t("overview.startHereSubtitle")}</div>
+          </div>
+          <Badge tone="primary">{t("common.newAction")}</Badge>
+        </div>
+        <div className="grid sm:grid-cols-3 gap-2 mt-3">
+          <Link to="/app/signals" className="glass rounded-xl p-3 hover:glow-border transition group">
+            <div className="flex items-center gap-2 text-sm font-medium"><Radar className="h-4 w-4 text-primary" /> {t("overview.startActionSignal")}</div>
+            <div className="text-[11px] text-muted-foreground mt-1">{t("overview.startActionSignalHint")}</div>
+            <div className="text-[11px] text-primary mt-2 inline-flex items-center gap-1">{t("overview.startCta")} <ArrowRight className="h-3 w-3" /></div>
+          </Link>
+          <AskAmiLink intent="explain_risk" className="glass rounded-xl p-3 hover:glow-border transition group">
+            <div className="flex items-center gap-2 text-sm font-medium"><Bot className="h-4 w-4 text-primary" /> {t("overview.startActionAmi")}</div>
+            <div className="text-[11px] text-muted-foreground mt-1">{t("overview.startActionAmiHint")}</div>
+            <div className="text-[11px] text-primary mt-2 inline-flex items-center gap-1">{t("overview.startCta")} <ArrowRight className="h-3 w-3" /></div>
+          </AskAmiLink>
+          <Link to="/app/watchlist" className="glass rounded-xl p-3 hover:glow-border transition group">
+            <div className="flex items-center gap-2 text-sm font-medium"><Star className="h-4 w-4 text-gold" /> {t("overview.startActionWatch")}</div>
+            <div className="text-[11px] text-muted-foreground mt-1">{t("overview.startActionWatchHint")}</div>
+            <div className="text-[11px] text-primary mt-2 inline-flex items-center gap-1">{t("overview.startCta")} <ArrowRight className="h-3 w-3" /></div>
+          </Link>
+        </div>
+      </Panel>
 
       <div className="mb-3">
         <LiveTicker

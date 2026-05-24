@@ -1,17 +1,26 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHeader, Panel, MultiLineChart, Badge, StatCard, BarRow, DataTable, Sparkline, StatusPill } from "@/components/ami/widgets";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, ExternalLink, Activity, Coins, Gauge, ShieldAlert, Link2, Layers, Hammer } from "lucide-react";
+import { Search, ExternalLink, Activity, Coins, Gauge, ShieldAlert, Link2, Layers, Hammer, Sparkles, Star, MessageSquare, Bot, Radar } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { AskAmiLink } from "@/components/ami/AmiCompanion";
 
 export const Route = createFileRoute("/app/analytics")({
   head: () => ({ meta: [{ title: "Item Analytics · AMI" }] }),
+  validateSearch: (search: Record<string, unknown>) => ({
+    from: typeof search.from === "string" ? search.from : undefined,
+    item: typeof search.item === "string" ? search.item : undefined,
+  }),
   component: AnalyticsPage,
 });
 
 function AnalyticsPage() {
   const { t } = useTranslation();
+  const { from, item } = Route.useSearch();
+  const itemKey = item ?? "arcaneCrystal";
+  const itemName = t(`item.${itemKey}`, { defaultValue: t("item.arcaneCrystal") });
+  const topic = `${itemName} · EU · Spineshatter`;
   return (
     <div>
       <PageHeader amiIntent="explain_item"
@@ -19,6 +28,19 @@ function AnalyticsPage() {
         subtitle={t("analytics.subtitle")}
         actions={<StatusPill status="demo" hint={t("analytics.statusHint")} />}
       />
+
+      {from === "signal" && (
+        <Panel className="!p-3 mb-3 flex items-center gap-3 glow-border">
+          <Sparkles className="h-4 w-4 text-primary shrink-0" />
+          <div className="text-xs min-w-0">
+            <div className="font-medium truncate">{t("analytics.fromSignalTitle")} · {itemName}</div>
+            <div className="text-muted-foreground truncate">{t("analytics.fromSignalHint")}</div>
+          </div>
+          <Link to="/app/signals" className="ml-auto text-[11px] text-primary inline-flex items-center gap-1">
+            <Radar className="h-3 w-3" /> {t("common.openInSignals")}
+          </Link>
+        </Panel>
+      )}
 
       <Panel className="mb-4">
         <div className="flex flex-wrap items-center gap-3">
@@ -34,13 +56,28 @@ function AnalyticsPage() {
 
       <div className="flex items-start gap-4 mb-4">
         <div className="h-16 w-16 rounded-xl bg-gradient-to-br from-primary to-accent grid place-items-center text-lg font-bold glow">AC</div>
-        <div>
+        <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <h2 className="text-xl font-semibold">{t("item.arcaneCrystal")}</h2>
+            <h2 className="text-xl font-semibold">{itemName}</h2>
             <Badge tone="gold">{t("badge.epic")}</Badge>
             <Badge>{t("badge.tradeGood")}</Badge>
+            {from === "signal" && <Badge tone="primary">{t("common.fromSignal")}</Badge>}
           </div>
           <p className="text-sm text-muted-foreground">{t("analytics.itemSubtitle")}</p>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            <AskAmiLink intent="explain_item" topic={topic} className="inline-flex items-center gap-1 glass rounded-md px-2 py-1 text-[11px] hover:text-primary">
+              <Bot className="h-3 w-3" /> {t("analytics.askAboutItem")}
+            </AskAmiLink>
+            <Link to="/app/watchlist" className="inline-flex items-center gap-1 glass rounded-md px-2 py-1 text-[11px] hover:text-primary">
+              <Star className="h-3 w-3" /> {t("analytics.addItemToWatchlist")}
+            </Link>
+            <Link to="/app/discord" className="inline-flex items-center gap-1 glass rounded-md px-2 py-1 text-[11px] hover:text-primary">
+              <MessageSquare className="h-3 w-3" /> {t("common.discordRoute")}
+            </Link>
+            <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground px-2 py-1">
+              <ShieldAlert className="h-3 w-3 text-warning" /> {t("analytics.demoSelectedItem")}
+            </span>
+          </div>
         </div>
       </div>
 
@@ -124,6 +161,37 @@ function AnalyticsPage() {
               { seller: "Stormwake-H", qty: "10", unit: "121g", total: "1,210g", age: <span className="text-muted-foreground">24m</span>, verdict: <Badge tone="primary">{t("common.watch")}</Badge> },
             ]}
           />
+        </Panel>
+      </div>
+
+      {/* Related signals + Discord route preview */}
+      <div className="grid lg:grid-cols-2 gap-3 mt-3">
+        <Panel title={t("analytics.relatedSignals")} action={<Link to="/app/signals" className="text-xs text-primary">{t("common.openInSignals")}</Link>}>
+          <ul className="space-y-2 text-xs">
+            {[
+              { tone: "success" as const, label: t("badge.bestDeal"), text: `${itemName} · Spineshatter · +32%` },
+              { tone: "primary" as const, label: t("badge.fastFlip"), text: `${itemName} · Kazzak · +24%` },
+              { tone: "gold" as const,    label: t("badge.watch"),    text: `${itemName} · Ravencrest · +18%` },
+            ].map((r) => (
+              <li key={r.text} className="glass rounded-lg px-3 py-2 flex items-center gap-2">
+                <Badge tone={r.tone}>{r.label}</Badge>
+                <span className="truncate">{r.text}</span>
+                <AskAmiLink intent="explain_signal" topic={r.text} className="ml-auto text-[11px] text-primary inline-flex items-center gap-1">
+                  <Bot className="h-3 w-3" /> {t("signals.explainAmi")}
+                </AskAmiLink>
+              </li>
+            ))}
+          </ul>
+        </Panel>
+        <Panel title={t("analytics.discordPreviewTitle")} action={<Link to="/app/discord" className="text-xs text-primary">{t("common.discordRoute")}</Link>}>
+          <div className="text-xs text-muted-foreground mb-2">{t("analytics.discordPreviewHint")}</div>
+          <div className="glass rounded-lg p-3 font-mono text-[11px] leading-relaxed">
+            <div className="text-primary">#best-deals</div>
+            <div className="text-foreground">{itemName} · Spineshatter-Horde</div>
+            <div className="text-success">Buy ≤ 118g · Sell ≈ 156g · Margin +32%</div>
+            <div className="text-muted-foreground">{t("discordPage.messageRisk")}</div>
+            <div className="text-[10px] text-warning mt-1">{t("discordPage.messageFooter")}</div>
+          </div>
         </Panel>
       </div>
     </div>

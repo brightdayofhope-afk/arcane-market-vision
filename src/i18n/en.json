@@ -95,7 +95,15 @@
     "medium": "Medium",
     "low": "Low",
     "all": "All",
-    "auto": "Auto"
+    "auto": "Auto",
+    "addToWatchlist": "Add to Watchlist",
+    "openItemAnalytics": "Open Item Analytics",
+    "discordRoute": "Discord route",
+    "newAction": "New",
+    "demoData": "Demo data",
+    "backendRequired": "Backend required",
+    "decisionSupport": "Decision support · not automation",
+    "fromSignal": "Came from signal"
   },
   "status": {
     "live": "Live",
@@ -410,7 +418,16 @@
     "amiI2Title": "Inscription mats undervalued vs. patch 11.x flux.",
     "amiI2Body": "Confidence 76%. Cross-realm Runecloth arbitrage between Spineshatter ↔ Kazzak: ~+27% margin.",
     "amiI3Title": "Phaseweaver mount listings cooling fast.",
-    "amiI3Body": "Sellers up 38%, demand down 22%. AMI recommends exiting open positions before reset."
+    "amiI3Body": "Sellers up 38%, demand down 22%. AMI recommends exiting open positions before reset.",
+    "startHereTitle": "Start here",
+    "startHereSubtitle": "Three suggested actions to get the most value from this scan.",
+    "startActionSignal": "Review today's best signal",
+    "startActionSignalHint": "Open Auction Signals → Best Deals (margin ≥ 18%).",
+    "startActionAmi": "Ask AMI to explain risk",
+    "startActionAmiHint": "Get a structured read on confidence, liquidity and manual-review reasons.",
+    "startActionWatch": "Add an item to Watchlist",
+    "startActionWatchHint": "Pin it for live monitoring or route it to a Discord channel.",
+    "startCta": "Go"
   },
   "extras": {
     "vs24h": "vs 24h",
@@ -530,7 +547,10 @@
       "water": "Steady Alchemy reagent flow",
       "mount": "Listings 38% under floor · recovery-scam pattern",
       "soul": "Enchanting low-tier reset"
-    }
+    },
+    "decisionSupportNote": "Signals are decision-support, not automatic actions. Always verify the auction before buying.",
+    "addedToWatchlist": "Added to Watchlist",
+    "routeToDiscord": "Route to Discord"
   },
   "assistant": {
     "title": "AI Assistant",
@@ -647,7 +667,13 @@
         "checkSources": "Check data sources",
         "viewAdmin": "Open System Health"
       }
-    }
+    },
+    "nextActionsTitle": "Related next actions",
+    "nextActionSignal": "Open in Signals",
+    "nextActionAnalytics": "Open Item Analytics",
+    "nextActionWatch": "Add to Watchlist",
+    "nextActionDiscord": "View Discord route",
+    "demoLabel": "Demo answer · live AMI-Core not yet connected"
   },
   "analytics": {
     "title": "Item Analytics",
@@ -675,7 +701,16 @@
     "regionSnapshot": "Region snapshot",
     "professionUsage": "Profession usage",
     "reagentUsedIn": "Reagent for 17 known recipes across 4 professions.",
-    "recentListings": "Recent listings · Spineshatter"
+    "recentListings": "Recent listings · Spineshatter",
+    "fromSignalTitle": "Came from signal",
+    "fromSignalHint": "You opened this item from Auction Signals. Compare the live signal against the 30-day trend below.",
+    "askAboutItem": "Ask AMI about this item",
+    "addItemToWatchlist": "Add to Watchlist",
+    "relatedSignals": "Related signals",
+    "relatedProfessions": "Related professions",
+    "discordPreviewTitle": "Discord alert route",
+    "discordPreviewHint": "If this item triggers a Best Deal, it would be routed here:",
+    "demoSelectedItem": "Demo item · backend required for live selected-item context."
   },
   "loot": {
     "title": "Loot Database",
@@ -750,7 +785,24 @@
       "leaf": "Dreamleaf · 8m window",
       "mount": "Phaseweaver mount listing",
       "digest": "Hourly digest delivered"
-    }
+    },
+    "flowTitle": "How a signal becomes a Discord message",
+    "flowStep1": "Signal detected by AMI",
+    "flowStep1Hint": "Auctionator + TSM agree · margin ≥ 18%",
+    "flowStep2": "Reviewed in Item Analytics",
+    "flowStep2Hint": "Confidence, liquidity, seller pressure",
+    "flowStep3": "Explained by AMI",
+    "flowStep3Hint": "Risk, manual-review reasons, next step",
+    "flowStep4": "Routed to channel",
+    "flowStep4Hint": "Channel mapping respects your filters",
+    "messagePreviewTitle": "Message preview",
+    "messageItem": "Arcane Crystal · Spineshatter-Horde",
+    "messageBuy": "Buy ≤ 118g · Sell ≈ 156g · Margin +32%",
+    "messageRisk": "Risk Low · Confidence 82% · Liquidity 84",
+    "messageFooter": "Decision support · verify manually before buying",
+    "manualReviewBanner": "Discord delivery is decision-support. Never auto-buy from a Discord alert.",
+    "premiumRoutingTitle": "Premium routing rules",
+    "premiumRoutingReason": "Premium unlocks per-realm + per-profession custom routing."
   },
   "professions": {
     "title": "Profession Markets",
@@ -985,7 +1037,24 @@
     "belowTarget": "Below target",
     "alerts24": "Alerts · 24h",
     "pinned": "Pinned items",
-    "sortChange": "Sort: Change ↓"
+    "sortChange": "Sort: Change ↓",
+    "colItem": "Item",
+    "colRealm": "Realm · Faction",
+    "colPrice": "Price",
+    "colTarget": "Target",
+    "colChange": "Δ 24h",
+    "colTrend": "Trend",
+    "colConf": "Conf.",
+    "colRisk": "Risk",
+    "colAlert": "Alert",
+    "alertOn": "On",
+    "alertOff": "Off",
+    "askAmi": "Ask AMI",
+    "openAnalytics": "Analytics",
+    "remove": "Remove",
+    "customThresholdsTitle": "Custom price + risk thresholds",
+    "customThresholdsReason": "Premium unlocks per-item alert thresholds and routing rules.",
+    "manualReviewNote": "Watchlist alerts are decision-support. Verify the auction before buying."
   },
   "errors": {
     "notFoundTitle": "Page not found",

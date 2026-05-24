@@ -2,8 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader, Panel, Badge, StatusPill } from "@/components/ami/widgets";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Hash, RefreshCcw } from "lucide-react";
+import { Hash, RefreshCcw, Radar, LineChart, Bot, Send, ShieldAlert, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { AccessLock } from "@/components/ami/access";
 
 export const Route = createFileRoute("/app/discord")({
   head: () => ({ meta: [{ title: "Discord Integration · AMI" }] }),
@@ -38,6 +39,40 @@ function DiscordPage() {
           </div>
         }
       />
+
+      {/* Flow + Message preview */}
+      <div className="grid lg:grid-cols-[1fr_320px] gap-3 mb-4">
+        <Panel title={t("discordPage.flowTitle")}>
+          <ol className="grid sm:grid-cols-4 gap-2 text-xs">
+            {[
+              { icon: Radar,         title: t("discordPage.flowStep1"), hint: t("discordPage.flowStep1Hint") },
+              { icon: LineChart,     title: t("discordPage.flowStep2"), hint: t("discordPage.flowStep2Hint") },
+              { icon: Bot,           title: t("discordPage.flowStep3"), hint: t("discordPage.flowStep3Hint") },
+              { icon: Send,          title: t("discordPage.flowStep4"), hint: t("discordPage.flowStep4Hint") },
+            ].map((s, i) => (
+              <li key={i} className="glass rounded-xl p-3 relative">
+                <div className="flex items-center gap-2"><s.icon className="h-4 w-4 text-primary" /><span className="text-[10px] uppercase tracking-wider text-muted-foreground">{i+1}</span></div>
+                <div className="text-sm font-medium mt-1">{s.title}</div>
+                <div className="text-[11px] text-muted-foreground mt-0.5">{s.hint}</div>
+                {i < 3 && <ArrowRight className="hidden sm:block absolute -right-2 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground" />}
+              </li>
+            ))}
+          </ol>
+          <div className="mt-3 inline-flex items-start gap-2 text-[11px] text-warning">
+            <ShieldAlert className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+            <span>{t("discordPage.manualReviewBanner")}</span>
+          </div>
+        </Panel>
+        <Panel title={t("discordPage.messagePreviewTitle")}>
+          <div className="glass rounded-lg p-3 font-mono text-[11px] leading-relaxed">
+            <div className="text-primary">#best-deals</div>
+            <div className="text-foreground">{t("discordPage.messageItem")}</div>
+            <div className="text-success">{t("discordPage.messageBuy")}</div>
+            <div className="text-muted-foreground">{t("discordPage.messageRisk")}</div>
+            <div className="text-[10px] text-warning mt-1">{t("discordPage.messageFooter")}</div>
+          </div>
+        </Panel>
+      </div>
 
       <Panel className="mb-4">
         <div className="flex flex-wrap items-center gap-3">
@@ -83,6 +118,18 @@ function DiscordPage() {
             ))}
           </ul>
         </Panel>
+      </div>
+
+      <div className="mt-3">
+        <AccessLock level="premium" reason={t("discordPage.premiumRoutingReason")} cta={t("access.seePlans")} to="/app/pricing">
+          <Panel title={t("discordPage.premiumRoutingTitle")}>
+            <ul className="text-xs space-y-2">
+              <li className="glass rounded-lg px-3 py-2">EU · Spineshatter · Alchemy → #alchemy-pro</li>
+              <li className="glass rounded-lg px-3 py-2">EU · Kazzak · Tailoring → #tailoring-pro</li>
+              <li className="glass rounded-lg px-3 py-2">EU · * · Enchanting → #enchanting-pro</li>
+            </ul>
+          </Panel>
+        </AccessLock>
       </div>
     </div>
   );
