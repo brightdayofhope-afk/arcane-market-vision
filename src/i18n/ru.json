@@ -823,7 +823,8 @@
     "delivery24h": "Доставка сигналов · за 24ч",
     "featureFlags": "Feature-флаги",
     "userPlans": "Тарифы пользователей · срез",
-    "internal": "внутреннее"
+    "internal": "внутреннее",
+    "failedRow": "{{ok}} / {{fail}} с ошибкой"
   },
   "compare": {
     "title": "Сравнение товаров",
