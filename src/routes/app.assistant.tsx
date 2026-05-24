@@ -1,13 +1,32 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHeader, Panel, Badge, StatusPill } from "@/components/ami/widgets";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send, Sparkles, BookOpen, Coins, Brain, Hammer, ShieldAlert } from "lucide-react";
+import { Send, Sparkles, BookOpen, Coins, Brain, Hammer, ShieldAlert, X, CheckCircle2 } from "lucide-react";
 import amiAvatar from "@/assets/ami-avatar.jpg";
 import { useTranslation } from "react-i18next";
 
+const KNOWN_INTENTS = [
+  "explain_page",
+  "explain_signal",
+  "explain_item",
+  "explain_risk",
+  "explain_discord",
+  "explain_profession",
+  "explain_forecast",
+  "explain_loot",
+] as const;
+type AssistantIntent = (typeof KNOWN_INTENTS)[number];
+
 export const Route = createFileRoute("/app/assistant")({
   head: () => ({ meta: [{ title: "AMI Assistant · AMI" }] }),
+  validateSearch: (search: Record<string, unknown>) => {
+    const intent = typeof search.intent === "string" && (KNOWN_INTENTS as readonly string[]).includes(search.intent)
+      ? (search.intent as AssistantIntent)
+      : undefined;
+    const topic = typeof search.topic === "string" ? search.topic : undefined;
+    return { intent, topic };
+  },
   component: AssistantPage,
 });
 
@@ -19,6 +38,7 @@ const messages = [
 
 function AssistantPage() {
   const { t } = useTranslation();
+  const { intent, topic } = Route.useSearch();
   const messages = [
     { from: "ami",  text: t("assistant.greeting") },
     { from: "user", text: t("assistant.userQ") },
@@ -38,6 +58,26 @@ function AssistantPage() {
         subtitle={t("assistant.subtitle")}
         actions={<StatusPill status="beta" hint={t("assistant.statusHint")} />}
       />
+
+      {intent && (
+        <Panel className="!p-3 mb-3 flex items-center gap-3 glow-border">
+          <Sparkles className="h-4 w-4 text-primary shrink-0" />
+          <div className="text-xs min-w-0">
+            <div className="font-medium truncate">
+              {t("assistant.companion.intentBanner", { label: t(`assistant.companion.intent.${intent}`) })}
+            </div>
+            {topic && (
+              <div className="text-muted-foreground truncate">{topic}</div>
+            )}
+          </div>
+          <Link
+            to="/app/assistant"
+            className="ml-auto inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground"
+          >
+            <X className="h-3 w-3" /> {t("assistant.companion.intentClear")}
+          </Link>
+        </Panel>
+      )}
 
       <div className="grid lg:grid-cols-[1fr_320px] gap-3">
         <Panel className="!p-0 overflow-hidden">
@@ -76,6 +116,7 @@ function AssistantPage() {
         </Panel>
 
         <div className="space-y-3">
+          {intent && <StructuredAnswerCard intent={intent} topic={topic} />}
           <Panel title={t("assistant.itemContext")}>
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-accent grid place-items-center text-xs font-bold">AC</div>
@@ -110,5 +151,41 @@ function AssistantPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+/**
+ * Structured answer card scaffold. Codex should later replace the static
+ * placeholders with real grounded outputs from AMI-Core (summary, evidence,
+ * risk, confidence, suggested next step, manual verification flag).
+ * For now, all values are demo placeholders driven by the URL intent.
+ */
+function StructuredAnswerCard({ intent, topic }: { intent: string; topic?: string }) {
+  const { t } = useTranslation();
+  return (
+    <Panel title={t(`assistant.companion.intent.${intent}`)} action={<Badge tone="primary">demo</Badge>}>
+      <ul className="text-xs space-y-2.5">
+        <li>
+          <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-0.5">{t("assistant.itemContext")}</div>
+          <div className="text-muted-foreground">{topic ?? t("assistant.contextValue")}</div>
+        </li>
+        <li>
+          <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-0.5">{t("assistant.risk")}</div>
+          <div className="text-success">{t("assistant.riskLow")}</div>
+        </li>
+        <li>
+          <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-0.5">{t("assistant.demand7d")}</div>
+          <div className="text-success">+24%</div>
+        </li>
+        <li className="flex items-start gap-1.5">
+          <ShieldAlert className="h-3.5 w-3.5 text-warning mt-0.5" />
+          <span className="text-muted-foreground">{t("assistant.tips.verify")}</span>
+        </li>
+        <li className="flex items-start gap-1.5">
+          <CheckCircle2 className="h-3.5 w-3.5 text-primary mt-0.5" />
+          <span className="text-muted-foreground">{t("assistant.tips.decisionSupport")}</span>
+        </li>
+      </ul>
+    </Panel>
   );
 }
