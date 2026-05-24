@@ -315,3 +315,64 @@ export function LiveTicker({ items }: { items: { tone: "success" | "danger" | "p
     </div>
   );
 }
+
+/** Shared region/realm/faction selector pill — used in headers across /app pages. */
+export function SelectorChip({
+  label,
+  value,
+  options,
+}: {
+  label: string;
+  value: string;
+  options: string[];
+}) {
+  return (
+    <label className="glass rounded-md px-2.5 py-1.5 inline-flex items-center gap-2 cursor-pointer">
+      <span className="text-muted-foreground text-[10px] uppercase tracking-wider">{label}</span>
+      <select
+        defaultValue={value}
+        className="bg-transparent text-foreground text-xs outline-none"
+      >
+        {options.map((o) => (
+          <option key={o} value={o} className="bg-card">
+            {o}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
+/** Inline tab strip used across signals/forecast/analytics. */
+export function TabStrip<T extends string>({
+  tabs,
+  active,
+  onChange,
+}: {
+  tabs: { key: T; label: string; icon?: LucideIcon }[];
+  active: T;
+  onChange?: (k: T) => void;
+}) {
+  return (
+    <div className="flex flex-wrap items-center gap-1.5">
+      {tabs.map((t) => {
+        const isActive = t.key === active;
+        return (
+          <button
+            key={t.key}
+            onClick={() => onChange?.(t.key)}
+            className={cn(
+              "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors",
+              isActive
+                ? "bg-primary/20 text-primary glow-border"
+                : "glass text-muted-foreground hover:text-foreground",
+            )}
+          >
+            {t.icon && <t.icon className="h-3.5 w-3.5" />}
+            {t.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
