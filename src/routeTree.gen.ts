@@ -14,6 +14,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppSignalsRouteImport } from './routes/app.signals'
 import { Route as AppForecastRouteImport } from './routes/app.forecast'
+import { Route as AppAssistantRouteImport } from './routes/app.assistant'
 import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
 
 const AppRoute = AppRouteImport.update({
@@ -41,6 +42,11 @@ const AppForecastRoute = AppForecastRouteImport.update({
   path: '/forecast',
   getParentRoute: () => AppRoute,
 } as any)
+const AppAssistantRoute = AppAssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
   id: '/analytics',
   path: '/analytics',
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/app/analytics': typeof AppAnalyticsRoute
+  '/app/assistant': typeof AppAssistantRoute
   '/app/forecast': typeof AppForecastRoute
   '/app/signals': typeof AppSignalsRoute
   '/app/': typeof AppIndexRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app/analytics': typeof AppAnalyticsRoute
+  '/app/assistant': typeof AppAssistantRoute
   '/app/forecast': typeof AppForecastRoute
   '/app/signals': typeof AppSignalsRoute
   '/app': typeof AppIndexRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/app/analytics': typeof AppAnalyticsRoute
+  '/app/assistant': typeof AppAssistantRoute
   '/app/forecast': typeof AppForecastRoute
   '/app/signals': typeof AppSignalsRoute
   '/app/': typeof AppIndexRoute
@@ -77,16 +86,24 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/analytics'
+    | '/app/assistant'
     | '/app/forecast'
     | '/app/signals'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app/analytics' | '/app/forecast' | '/app/signals' | '/app'
+  to:
+    | '/'
+    | '/app/analytics'
+    | '/app/assistant'
+    | '/app/forecast'
+    | '/app/signals'
+    | '/app'
   id:
     | '__root__'
     | '/'
     | '/app'
     | '/app/analytics'
+    | '/app/assistant'
     | '/app/forecast'
     | '/app/signals'
     | '/app/'
@@ -134,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppForecastRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/assistant': {
+      id: '/app/assistant'
+      path: '/assistant'
+      fullPath: '/app/assistant'
+      preLoaderRoute: typeof AppAssistantRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/analytics': {
       id: '/app/analytics'
       path: '/analytics'
@@ -146,6 +170,7 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteChildren {
   AppAnalyticsRoute: typeof AppAnalyticsRoute
+  AppAssistantRoute: typeof AppAssistantRoute
   AppForecastRoute: typeof AppForecastRoute
   AppSignalsRoute: typeof AppSignalsRoute
   AppIndexRoute: typeof AppIndexRoute
@@ -153,6 +178,7 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppAnalyticsRoute: AppAnalyticsRoute,
+  AppAssistantRoute: AppAssistantRoute,
   AppForecastRoute: AppForecastRoute,
   AppSignalsRoute: AppSignalsRoute,
   AppIndexRoute: AppIndexRoute,
