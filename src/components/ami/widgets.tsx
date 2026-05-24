@@ -376,3 +376,35 @@ export function TabStrip<T extends string>({
     </div>
   );
 }
+
+/** Small status pill — Live / Demo / Planned / Beta — used across pages. */
+export function StatusPill({
+  status,
+  hint,
+}: {
+  status: "live" | "demo" | "planned" | "beta";
+  hint?: string;
+}) {
+  const map = {
+    live:    { tone: "success" as const, label: "Live" },
+    demo:    { tone: "primary" as const, label: "Demo data" },
+    planned: { tone: "default" as const, label: "Planned" },
+    beta:    { tone: "gold"    as const, label: "Beta" },
+  };
+  const m = map[status];
+  return (
+    <span className="inline-flex items-center gap-2">
+      <Badge tone={m.tone}>
+        <span className={cn(
+          "h-1.5 w-1.5 rounded-full mr-1 shadow-[0_0_6px_currentColor]",
+          status === "live" && "bg-success",
+          status === "demo" && "bg-primary",
+          status === "planned" && "bg-muted-foreground",
+          status === "beta" && "bg-gold",
+        )} />
+        {m.label}
+      </Badge>
+      {hint && <span className="text-[10px] uppercase tracking-wider text-muted-foreground">{hint}</span>}
+    </span>
+  );
+}
