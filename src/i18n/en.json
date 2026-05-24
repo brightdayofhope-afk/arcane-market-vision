@@ -823,7 +823,8 @@
     "delivery24h": "Signal delivery · last 24h",
     "featureFlags": "Feature flags",
     "userPlans": "User plans · snapshot",
-    "internal": "internal"
+    "internal": "internal",
+    "failedRow": "{{ok}} / {{fail}} failed"
   },
   "compare": {
     "title": "Compare Items",
