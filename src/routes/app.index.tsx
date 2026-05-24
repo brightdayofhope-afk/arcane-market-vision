@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Activity, TrendingUp, LineChart, Sparkles, Coins, Zap, ShieldAlert, Star } from "lucide-react";
-import { Badge, MultiLineChart, PageHeader, Panel, Sparkline, StatCard } from "@/components/ami/widgets";
+import { Badge, BarRow, DataTable, LiveTicker, MultiLineChart, PageHeader, Panel, Sparkline, StatCard } from "@/components/ami/widgets";
+import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/app/")({
   head: () => ({ meta: [{ title: "Overview · AMI" }] }),
@@ -29,7 +30,27 @@ function Overview() {
       <PageHeader
         title="Market Overview"
         subtitle="EU · Spineshatter · Horde — real-time auction intelligence."
+        actions={
+          <div className="hidden md:flex items-center gap-2 text-xs">
+            <span className="glass rounded-md px-2.5 py-1.5">Region <span className="text-foreground ml-1">EU</span></span>
+            <span className="glass rounded-md px-2.5 py-1.5">Realm <span className="text-foreground ml-1">Spineshatter</span></span>
+            <span className="glass rounded-md px-2.5 py-1.5">Faction <span className="text-foreground ml-1">Horde</span></span>
+          </div>
+        }
       />
+
+      <div className="mb-3">
+        <LiveTicker
+          items={[
+            { tone: "success", text: "Black Lotus +42% in 1h", meta: "EU · Spineshatter" },
+            { tone: "primary", text: "Runecloth volume 2× normal", meta: "EU · Horde" },
+            { tone: "gold",    text: "Patch 11.x hotfix · Inscription mats", meta: "live" },
+            { tone: "danger",  text: "Phaseweaver mount listings cooling", meta: "-22%" },
+            { tone: "success", text: "Thorium Bar broke 35g resistance", meta: "now" },
+            { tone: "primary", text: "Large Brilliant Shard supply spike", meta: "5m ago" },
+          ]}
+        />
+      </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard label="Total Markets" value="24,581" delta="+6.8% vs 24h" icon={Activity} />
@@ -140,20 +161,26 @@ function Overview() {
 
       <div className="grid lg:grid-cols-2 gap-3 mt-3">
         <Panel title="Recent Signals">
-          <ul className="divide-y divide-border/60">
-            {([
-              ["Best Deal", "Arcane Crystal · Spineshatter", "+32% margin", "success"],
-              ["Fast Flip", "Dreamleaf · Kazzak", "8m window", "primary"],
-              ["Risky", "Mount: Phaseweaver", "Volatility 0.84", "danger"],
-              ["Watch", "Stormscale · Ravencrest", "Vol +210%", "gold"],
-            ] as const).map(([k, n, m, t]) => (
-              <li key={n} className="py-3 flex items-center gap-3">
-                <Badge tone={t as any}>{k}</Badge>
-                <div className="flex-1 text-sm">{n}</div>
-                <div className="text-xs text-muted-foreground">{m}</div>
-              </li>
-            ))}
-          </ul>
+          <DataTable
+            dense
+            columns={[
+              { key: "type", label: "Type" },
+              { key: "item", label: "Item · Realm" },
+              { key: "buy", label: "Buy", align: "right" },
+              { key: "sell", label: "Sell", align: "right" },
+              { key: "margin", label: "Margin", align: "right" },
+              { key: "conf", label: "Conf.", align: "right" },
+              { key: "age", label: "Age", align: "right" },
+            ]}
+            rows={[
+              { type: <Badge tone="success">Best Deal</Badge>,  item: "Arcane Crystal · Spineshatter", buy: "118g", sell: "156g", margin: <span className="text-success">+32%</span>, conf: "82%", age: <span className="text-muted-foreground">2m</span> },
+              { type: <Badge tone="primary">Fast Flip</Badge>,  item: "Runecloth · Spineshatter",       buy: "11g",  sell: "14g",  margin: <span className="text-success">+27%</span>, conf: "74%", age: <span className="text-muted-foreground">5m</span> },
+              { type: <Badge tone="gold">Watch</Badge>,         item: "Black Lotus · Kazzak",            buy: "1,180g", sell: "1,460g", margin: <span className="text-success">+24%</span>, conf: "71%", age: <span className="text-muted-foreground">8m</span> },
+              { type: <Badge tone="danger">Risky</Badge>,       item: "Phaseweaver Mount · Ravencrest",  buy: "—",    sell: "—",    margin: <span className="text-muted-foreground">Vol 0.84</span>, conf: "54%", age: <span className="text-muted-foreground">12m</span> },
+              { type: <Badge tone="success">Best Deal</Badge>,  item: "Thorium Bar · Spineshatter",      buy: "29g",  sell: "38g",  margin: <span className="text-success">+31%</span>, conf: "68%", age: <span className="text-muted-foreground">14m</span> },
+              { type: <Badge tone="primary">Fast Flip</Badge>,  item: "Large Brilliant Shard · Sylvanas", buy: "78g", sell: "94g",  margin: <span className="text-success">+20%</span>, conf: "64%", age: <span className="text-muted-foreground">21m</span> },
+            ]}
+          />
         </Panel>
         <Panel title="Discord Publish Status">
           <ul className="space-y-2">
@@ -172,6 +199,70 @@ function Overview() {
           <div className="rune-divider my-4" />
           <div className="h-16"><Sparkline data={[10,14,12,18,22,20,26,24,30,28,34,32,38]} color="oklch(0.70 0.18 230)" /></div>
           <div className="text-xs text-muted-foreground mt-2">Delivery throughput · last 24h</div>
+        </Panel>
+      </div>
+
+      <div className="grid lg:grid-cols-3 gap-3 mt-3">
+        <Panel title="Profession demand · 7d" className="lg:col-span-1">
+          <div className="space-y-2.5">
+            <BarRow label="Alchemy"      value={94} max={100} tone="gold" />
+            <BarRow label="Herbalism"    value={88} max={100} tone="success" />
+            <BarRow label="Enchanting"   value={76} max={100} tone="primary" />
+            <BarRow label="Tailoring"    value={64} max={100} tone="primary" />
+            <BarRow label="Inscription"  value={58} max={100} tone="primary" />
+            <BarRow label="Engineering"  value={38} max={100} tone="danger" />
+          </div>
+        </Panel>
+
+        <Panel title="Watchlist · top movers" className="lg:col-span-2" action={<Link to="/app/watchlist" className="text-xs text-primary">Open watchlist →</Link>}>
+          <DataTable
+            dense
+            columns={[
+              { key: "item", label: "Item" },
+              { key: "loc", label: "Realm" },
+              { key: "price", label: "Price", align: "right" },
+              { key: "target", label: "Target", align: "right" },
+              { key: "delta", label: "Δ 24h", align: "right" },
+              { key: "trend", label: "Trend" },
+            ]}
+            rows={[
+              { item: <span className="font-medium">Black Lotus</span>, loc: "Kazzak · Horde", price: "1,420g", target: "1,200g", delta: <span className="text-success">+12.4%</span>, trend: <div className="w-24 h-6"><Sparkline data={[40,42,46,50,55,60,66,70,74,80,84,88,90,94,98,102]} color="oklch(0.74 0.17 150)" height={24} /></div> },
+              { item: <span className="font-medium">Arcane Crystal</span>, loc: "Spineshatter · Horde", price: "128g", target: "100g", delta: <span className="text-success">+8.2%</span>, trend: <div className="w-24 h-6"><Sparkline data={[10,12,14,16,20,22,26,30,32,38,42,48,52,58,64,72]} color="oklch(0.74 0.17 150)" height={24} /></div> },
+              { item: <span className="font-medium">Thorium Bar</span>, loc: "Ravencrest · Alliance", price: "38g", target: "30g", delta: <span className="text-success">+4.3%</span>, trend: <div className="w-24 h-6"><Sparkline data={[20,22,24,23,26,28,30,32,34,33,36,38,40,42,44,46]} color="oklch(0.74 0.17 150)" height={24} /></div> },
+              { item: <span className="font-medium">Runecloth</span>, loc: "Spineshatter · Horde", price: "12g 75s", target: "15g", delta: <span className="text-destructive">-3.1%</span>, trend: <div className="w-24 h-6"><Sparkline data={[60,58,56,54,52,50,48,46,44,42,40,38,36,34,32,30]} color="oklch(0.66 0.22 25)" height={24} /></div> },
+            ]}
+          />
+        </Panel>
+      </div>
+
+      <div className="grid lg:grid-cols-3 gap-3 mt-3">
+        <Panel title="AMI insights" className="lg:col-span-2">
+          <ul className="space-y-3 text-sm">
+            {[
+              { tone: "primary" as const, t: "Black Lotus is entering a pre-raid spike window.", d: "Volume up 62% over 7d on EU-Horde. Suggested action: hold listings 4–6h, expect +18–24% upside." },
+              { tone: "gold"    as const, t: "Inscription mats undervalued vs. patch 11.x flux.", d: "Confidence 76%. Cross-realm Runecloth arbitrage between Spineshatter ↔ Kazzak: ~+27% margin." },
+              { tone: "danger"  as const, t: "Phaseweaver mount listings cooling fast.", d: "Sellers up 38%, demand down 22%. AMI recommends exiting open positions before reset." },
+            ].map((i) => (
+              <li key={i.t} className="glass rounded-xl p-3 flex gap-3">
+                <span className="mt-1 h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_currentColor]" />
+                <div>
+                  <div className="flex items-center gap-2"><Badge tone={i.tone}>AMI</Badge> <div className="font-medium">{i.t}</div></div>
+                  <div className="text-xs text-muted-foreground mt-1">{i.d}</div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Panel>
+
+        <Panel title="Realm liquidity" action={<Link to="/app/realms" className="text-xs text-primary">All realms →</Link>}>
+          <div className="space-y-2.5">
+            <BarRow label="Spineshatter" value={92} max={100} tone="success" />
+            <BarRow label="Kazzak"       value={88} max={100} tone="success" />
+            <BarRow label="Draenor"      value={84} max={100} tone="primary" />
+            <BarRow label="Ravencrest"   value={71} max={100} tone="primary" />
+            <BarRow label="Sylvanas"     value={65} max={100} tone="gold" />
+            <BarRow label="Tarren Mill"  value={42} max={100} tone="danger" />
+          </div>
         </Panel>
       </div>
     </div>

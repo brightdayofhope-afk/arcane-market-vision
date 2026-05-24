@@ -235,3 +235,83 @@ export function MultiLineChart({
     </div>
   );
 }
+
+/** Horizontal bar — useful for profession / category breakdowns. */
+export function BarRow({
+  label, value, max, tone = "primary", suffix,
+}: { label: string; value: number; max: number; tone?: "primary" | "success" | "danger" | "gold"; suffix?: string }) {
+  const pct = Math.max(2, Math.min(100, (value / max) * 100));
+  const toneMap: Record<string, string> = {
+    primary: "from-primary to-accent",
+    success: "from-success to-success/40",
+    danger: "from-destructive to-destructive/40",
+    gold: "from-gold to-gold/40",
+  };
+  return (
+    <div className="flex items-center gap-3 text-xs">
+      <div className="w-28 truncate text-muted-foreground">{label}</div>
+      <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden">
+        <div className={cn("h-full rounded-full bg-gradient-to-r", toneMap[tone])} style={{ width: `${pct}%` }} />
+      </div>
+      <div className="w-16 text-right font-medium">{value}{suffix ?? ""}</div>
+    </div>
+  );
+}
+
+/** Compact data table used across analytics & signals. */
+export function DataTable<T extends Record<string, React.ReactNode>>({
+  columns, rows, dense,
+}: {
+  columns: { key: keyof T & string; label: string; align?: "left" | "right" | "center"; className?: string }[];
+  rows: T[];
+  dense?: boolean;
+}) {
+  return (
+    <div className="overflow-x-auto -mx-1">
+      <table className="w-full text-xs">
+        <thead>
+          <tr className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+            {columns.map((c) => (
+              <th key={c.key} className={cn("px-2 py-2 font-normal", c.align === "right" && "text-right", c.align === "center" && "text-center", c.className)}>{c.label}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r, i) => (
+            <tr key={i} className="border-t border-border/40 hover:bg-sidebar-accent/30 transition-colors">
+              {columns.map((c) => (
+                <td key={c.key} className={cn(dense ? "px-2 py-1.5" : "px-2 py-2.5", c.align === "right" && "text-right", c.align === "center" && "text-center", c.className)}>
+                  {r[c.key]}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+/** Live activity ticker — scrolling intelligence feed. */
+export function LiveTicker({ items }: { items: { tone: "success" | "danger" | "primary" | "gold"; text: string; meta?: string }[] }) {
+  const toneMap = {
+    success: "text-success",
+    danger: "text-destructive",
+    primary: "text-primary",
+    gold: "text-gold",
+  } as const;
+  return (
+    <div className="relative overflow-hidden glass rounded-xl border border-border/60 py-2">
+      <div className="flex gap-8 whitespace-nowrap animate-[ticker_60s_linear_infinite]">
+        {[...items, ...items].map((it, i) => (
+          <span key={i} className="inline-flex items-center gap-2 text-xs">
+            <span className={cn("h-1.5 w-1.5 rounded-full shadow-[0_0_8px_currentColor]", toneMap[it.tone])} style={{ background: "currentColor" }} />
+            <span className="font-medium">{it.text}</span>
+            {it.meta && <span className="text-muted-foreground">· {it.meta}</span>}
+          </span>
+        ))}
+      </div>
+      <style>{`@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
+    </div>
+  );
+}
