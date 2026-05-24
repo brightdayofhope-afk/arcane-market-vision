@@ -12,12 +12,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SelectorChip } from "./widgets";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { AmiCompanion, useAmiCompanion } from "./AmiCompanion";
 import { cn } from "@/lib/utils";
 
 export function AppShell() {
   const { t } = useTranslation();
   const path = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
+  const { mode: amiMode, setMode: setAmiMode } = useAmiCompanion();
 
   type NavItem = { to: string; label: string; icon: typeof LayoutDashboard; group: string };
   const nav: NavItem[] = [
@@ -137,11 +139,17 @@ export function AppShell() {
             <span className="text-gold">{t("header.sentiment")}</span>
           </div>
         </header>
-        <main className="flex-1 p-4 md:p-6 lg:p-8">
+        <main
+          className={cn(
+            "flex-1 p-4 md:p-6 lg:p-8 transition-[padding]",
+            amiMode === "docked" && "lg:pr-[21rem]",
+          )}
+        >
           <Outlet />
         </main>
       </div>
       {open && <div className="fixed inset-0 z-30 bg-background/60 lg:hidden" onClick={() => setOpen(false)} />}
+      <AmiCompanion mode={amiMode} setMode={setAmiMode} />
     </div>
   );
 }
