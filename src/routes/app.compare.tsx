@@ -21,7 +21,7 @@ function Cell({ children, accent }: { children: React.ReactNode; accent?: boolea
 function ComparePage() {
   return (
     <div>
-      <PageHeader
+      <PageHeader amiIntent="explain_item"
         title="Compare Items"
         subtitle="Side-by-side price, risk, demand and forecast across tracked auctions."
         actions={<Button variant="outline" className="border-border"><Plus className="h-4 w-4 mr-1.5" /> Add item</Button>}

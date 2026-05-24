@@ -34,7 +34,7 @@ function LootPage() {
   ];
   return (
     <div>
-      <PageHeader
+      <PageHeader amiIntent="explain_loot"
         title={t("loot.title")}
         subtitle={t("loot.subtitle")}
         actions={<StatusPill status="planned" hint={t("loot.statusHint")} />}

@@ -28,7 +28,7 @@ function DiscordPage() {
   ];
   return (
     <div>
-      <PageHeader
+      <PageHeader amiIntent="explain_discord"
         title={t("discordPage.title")}
         subtitle={t("discordPage.subtitle")}
         actions={

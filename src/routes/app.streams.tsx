@@ -19,7 +19,7 @@ const streams = [
 function StreamsPage() {
   return (
     <div>
-      <PageHeader
+      <PageHeader amiIntent="explain_page"
         title="Streams"
         subtitle="Live broadcasts from AMI partners and gold-making creators."
         actions={<StatusPill status="planned" hint="Twitch / YouTube embed" />}

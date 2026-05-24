@@ -36,7 +36,7 @@ function SignalsPage() {
   const { t } = useTranslation();
   return (
     <div>
-      <PageHeader
+      <PageHeader amiIntent="explain_signal"
         title={t("signals.title")}
         subtitle={t("signals.subtitle")}
         actions={

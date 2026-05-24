@@ -13,7 +13,7 @@ function AdminPage() {
   const { t } = useTranslation();
   return (
     <div>
-      <PageHeader
+      <PageHeader amiIntent="explain_page"
         title={t("admin.title")}
         subtitle={t("admin.subtitle")}
         actions={<PlanBadge plan="admin" />}

@@ -25,7 +25,7 @@ const forecasts = [
 function ForecastPage() {
   return (
     <div>
-      <PageHeader
+      <PageHeader amiIntent="explain_forecast"
         title="Market Forecast"
         subtitle="Patch-aware predictions for prices, demand and supply across professions."
         actions={<StatusPill status="planned" hint="Forecast engine in design" />}

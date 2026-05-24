@@ -17,7 +17,7 @@ const tiers = [
 function PartnersPage() {
   return (
     <div>
-      <PageHeader
+      <PageHeader amiIntent="explain_page"
         title="Partner Program"
         subtitle="Refer guilds and creators. Earn lifetime revenue share on every Founder seat you bring."
         actions={<StatusPill status="beta" hint="Invite-only" />}

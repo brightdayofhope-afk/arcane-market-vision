@@ -14,7 +14,7 @@ function AnalyticsPage() {
   const { t } = useTranslation();
   return (
     <div>
-      <PageHeader
+      <PageHeader amiIntent="explain_item"
         title={t("analytics.title")}
         subtitle={t("analytics.subtitle")}
         actions={<StatusPill status="demo" hint={t("analytics.statusHint")} />}

@@ -73,7 +73,7 @@ function ProfessionsPage() {
 
   return (
     <div>
-      <PageHeader
+      <PageHeader amiIntent="explain_profession"
         title={t("professions.title")}
         subtitle={t("professions.subtitle")}
         actions={<StatusPill status="demo" hint={t("professions.statusHint")} />}

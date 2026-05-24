@@ -31,7 +31,7 @@ function Overview() {
   const { t } = useTranslation();
   return (
     <div>
-      <PageHeader
+      <PageHeader amiIntent="explain_page"
         title={t("overview.title")}
         subtitle={t("overview.subtitle")}
         actions={
