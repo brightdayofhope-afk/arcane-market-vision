@@ -1,16 +1,21 @@
-import { ArrowDown, ArrowUp, LucideIcon } from "lucide-react";
+import { ArrowDown, ArrowUp, LucideIcon, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
+import { AskAmiLink } from "./AmiCompanion";
 
 export function PageHeader({
   title,
   subtitle,
   actions,
+  amiIntent,
 }: {
   title: string;
   subtitle?: string;
   actions?: React.ReactNode;
+  /** When set, renders a small "Ask AMI / Explain this page" pill next to actions. */
+  amiIntent?: string;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
       <div>
@@ -21,7 +26,20 @@ export function PageHeader({
           <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>
         )}
       </div>
-      {actions && <div className="flex items-center gap-2">{actions}</div>}
+      {(actions || amiIntent) && (
+        <div className="flex items-center gap-2">
+          {amiIntent && (
+            <AskAmiLink
+              intent={amiIntent}
+              className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full glass glow-border text-xs hover:text-primary"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-primary" />
+              {t("assistant.companion.askAboutPage")}
+            </AskAmiLink>
+          )}
+          {actions}
+        </div>
+      )}
     </div>
   );
 }
