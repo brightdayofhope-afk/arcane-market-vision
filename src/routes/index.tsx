@@ -286,6 +286,53 @@ function Metric({ label, value }: { label: string; value: string }) {
   );
 }
 
+function ProductStatusRow() {
+  const { t } = useTranslation();
+  const chips: { icon: typeof Globe; label: string; value: string; tone?: string }[] = [
+    { icon: Globe,       label: t("landing.status.region"), value: "EU" },
+    { icon: Globe2,      label: t("landing.status.realm"),  value: "Spineshatter" },
+    { icon: Database,    label: t("landing.status.data"),   value: t("landing.status.dataValue") },
+    { icon: LineChart,   label: t("landing.status.mode"),   value: t("landing.status.modeValue"), tone: "primary" },
+    { icon: ShieldAlert, label: t("landing.status.risk"),   value: t("landing.status.riskValue"), tone: "gold" },
+  ];
+  return (
+    <div className="mt-6 flex flex-wrap gap-2">
+      {chips.map((c) => (
+        <div key={c.label} className="glass rounded-full pl-2 pr-3 py-1.5 inline-flex items-center gap-2 text-[11px]">
+          <span className="h-5 w-5 rounded-full glass grid place-items-center">
+            <c.icon className={`h-3 w-3 ${c.tone === "gold" ? "text-gold" : c.tone === "primary" ? "text-primary" : "text-muted-foreground"}`} />
+          </span>
+          <span className="uppercase tracking-[0.14em] text-muted-foreground">{c.label}</span>
+          <span className="font-medium text-foreground">{c.value}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TrustStrip() {
+  const { t } = useTranslation();
+  const items = [
+    { icon: LineChart,   label: t("landing.trust.analyticsOnly") },
+    { icon: ShieldCheck, label: t("landing.trust.noAutomation") },
+    { icon: ShieldAlert, label: t("landing.trust.manualReview") },
+    { icon: Activity,    label: t("landing.trust.demoLive") },
+  ];
+  return (
+    <div className="relative z-10 mx-auto max-w-7xl px-6 -mt-12 mb-12">
+      <div className="glass-strong rounded-2xl px-4 py-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[11px] text-muted-foreground">
+        {items.map((it, i) => (
+          <span key={it.label} className="inline-flex items-center gap-1.5">
+            {i > 0 && <span className="text-border hidden sm:inline">·</span>}
+            <it.icon className="h-3.5 w-3.5 text-primary" />
+            <span>{it.label}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function SectionHead({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
     <div className="max-w-2xl">
