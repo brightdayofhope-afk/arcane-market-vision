@@ -102,19 +102,19 @@ function Index() {
             />
 
             {/* Holographic AMI helper chips — market intelligence overlays */}
-            <div className="hidden md:block absolute -left-6 top-10 animate-fade-in">
+            <div className="hidden md:block absolute -left-6 top-10">
               <HoloChip icon={Activity} label={t("landing.holoMarketPulse")} hint={t("landing.holoMarketPulseHint")} />
             </div>
-            <div className="hidden md:block absolute -right-6 top-24 animate-fade-in">
+            <div className="hidden md:block absolute -right-6 top-24">
               <HoloChip icon={Radar} label={t("landing.holoRiskRadar")} hint={t("landing.holoRiskRadarHint")} />
             </div>
-            <div className="hidden md:block absolute -left-8 top-1/2 animate-fade-in">
+            <div className="hidden md:block absolute -left-8 top-1/2">
               <HoloChip icon={Coins} label={t("landing.holoBestDeals")} hint={t("landing.holoBestDealsHint")} />
             </div>
-            <div className="hidden md:block absolute -right-8 top-[62%] animate-fade-in">
+            <div className="hidden md:block absolute -right-8 top-[62%]">
               <HoloChip icon={Hammer} label={t("landing.holoProfDemand")} hint={t("landing.holoProfDemandHint")} />
             </div>
-            <div className="hidden md:block absolute left-1/2 -translate-x-1/2 -bottom-4 animate-fade-in">
+            <div className="hidden md:block absolute left-1/2 -translate-x-1/2 -bottom-4">
               <HoloChip icon={MessageSquare} label={t("landing.holoDiscordDigest")} hint={t("landing.holoDiscordDigestHint")} />
             </div>
 
