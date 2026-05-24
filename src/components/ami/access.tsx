@@ -2,17 +2,19 @@ import { Lock, Sparkles, ShieldCheck, Crown, Database, MessageSquare, Bot, Alert
 import { cn } from "@/lib/utils";
 import { Badge } from "./widgets";
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
 /** Plan badge — Guest / Beta / Founder / Premium / Admin. */
 export type Plan = "guest" | "beta" | "founder" | "premium" | "admin";
 
 export function PlanBadge({ plan, className }: { plan: Plan; className?: string }) {
+  const { t } = useTranslation();
   const map: Record<Plan, { label: string; tone: "default" | "primary" | "gold" | "success" | "danger"; icon: typeof Crown }> = {
-    guest:    { label: "Guest",    tone: "default", icon: ShieldCheck },
-    beta:     { label: "Free Beta", tone: "primary", icon: Sparkles },
-    founder:  { label: "Founder",  tone: "gold",    icon: Crown },
-    premium:  { label: "Premium",  tone: "gold",    icon: Crown },
-    admin:    { label: "Admin",    tone: "danger",  icon: ShieldCheck },
+    guest:    { label: t("plan.guest"),    tone: "default", icon: ShieldCheck },
+    beta:     { label: t("plan.beta"),     tone: "primary", icon: Sparkles },
+    founder:  { label: t("plan.founder"),  tone: "gold",    icon: Crown },
+    premium:  { label: t("plan.premium"),  tone: "gold",    icon: Crown },
+    admin:    { label: t("plan.admin"),    tone: "danger",  icon: ShieldCheck },
   };
   const m = map[plan];
   return (
@@ -28,8 +30,8 @@ export function PlanBadge({ plan, className }: { plan: Plan; className?: string 
 /** Wraps premium content with a tasteful locked overlay. */
 export function AccessLock({
   level = "founder",
-  reason = "Founder access planned",
-  cta = "Join early access",
+  reason,
+  cta,
   to = "/app/pricing",
   blur = "md",
   children,
@@ -41,13 +43,16 @@ export function AccessLock({
   blur?: "sm" | "md" | "lg";
   children: ReactNode;
 }) {
+  const { t } = useTranslation();
   const labelMap = {
-    founder: "Founder access",
-    premium: "Premium later",
-    admin:   "Admin only",
-    backend: "Backend required",
-    soon:    "Coming soon",
+    founder: t("access.founder"),
+    premium: t("access.premium"),
+    admin:   t("access.admin"),
+    backend: t("access.backend"),
+    soon:    t("access.soon"),
   };
+  const resolvedReason = reason ?? t("access.defaultReason");
+  const resolvedCta = cta ?? t("access.defaultCta");
   const blurMap = { sm: "blur-sm", md: "blur-md", lg: "blur-lg" } as const;
   return (
     <div className="relative">
@@ -59,12 +64,12 @@ export function AccessLock({
           <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
             <Lock className="h-3 w-3" /> {labelMap[level]}
           </div>
-          <div className="text-sm font-medium leading-snug">{reason}</div>
+          <div className="text-sm font-medium leading-snug">{resolvedReason}</div>
           <a
             href={to}
             className="mt-3 inline-flex items-center gap-1.5 text-xs text-primary hover:text-foreground"
           >
-            {cta} →
+            {resolvedCta} →
           </a>
         </div>
       </div>
@@ -82,6 +87,7 @@ export function DataSourceStatus({
   rows: { name: string; kind: "auctionator" | "tsm" | "addon" | "discord" | "ami"; status: SourceStatus; hint?: string }[];
   className?: string;
 }) {
+  const { t } = useTranslation();
   const iconMap = {
     auctionator: Database,
     tsm:         Database,
@@ -90,11 +96,11 @@ export function DataSourceStatus({
     ami:         Bot,
   };
   const statusMap: Record<SourceStatus, { tone: "success" | "warning" | "primary" | "default" | "danger"; label: string; icon: typeof CheckCircle2 }> = {
-    live:    { tone: "success", label: "Live",         icon: CheckCircle2 },
-    stale:   { tone: "warning", label: "Stale",        icon: RefreshCw },
-    demo:    { tone: "primary", label: "Demo",         icon: Sparkles },
-    planned: { tone: "default", label: "Planned",      icon: ShieldCheck },
-    error:   { tone: "danger",  label: "Error",        icon: AlertTriangle },
+    live:    { tone: "success", label: t("status.live"),    icon: CheckCircle2 },
+    stale:   { tone: "warning", label: t("status.stale"),   icon: RefreshCw },
+    demo:    { tone: "primary", label: t("status.demo"),    icon: Sparkles },
+    planned: { tone: "default", label: t("status.planned"), icon: ShieldCheck },
+    error:   { tone: "danger",  label: t("status.error"),   icon: AlertTriangle },
   };
   return (
     <ul className={cn("space-y-1.5", className)}>
@@ -121,7 +127,9 @@ export function DataSourceStatus({
 }
 
 /** Risk meter — 0–100. */
-export function RiskMeter({ value, label = "Risk" }: { value: number; label?: string }) {
+export function RiskMeter({ value, label }: { value: number; label?: string }) {
+  const { t } = useTranslation();
+  const lbl = label ?? t("overview.avgRisk").split(" ").pop() ?? t("compare.risk");
   const v = Math.max(0, Math.min(100, value));
   const tone = v < 33 ? "success" : v < 66 ? "warning" : "danger";
   const toneClass = {
@@ -132,7 +140,7 @@ export function RiskMeter({ value, label = "Risk" }: { value: number; label?: st
   return (
     <div>
       <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-muted-foreground">
-        <span>{label}</span>
+        <span>{lbl}</span>
         <span className={cn(
           tone === "success" && "text-success",
           tone === "warning" && "text-warning",
@@ -147,12 +155,14 @@ export function RiskMeter({ value, label = "Risk" }: { value: number; label?: st
 }
 
 /** Confidence bar — 0–100 with semantic color. */
-export function ConfidenceBar({ value, label = "Confidence" }: { value: number; label?: string }) {
+export function ConfidenceBar({ value, label }: { value: number; label?: string }) {
+  const { t } = useTranslation();
+  const lbl = label ?? t("compare.confidence");
   const v = Math.max(0, Math.min(100, value));
   return (
     <div>
       <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-muted-foreground">
-        <span>{label}</span>
+        <span>{lbl}</span>
         <span className="text-primary">{v}%</span>
       </div>
       <div className="mt-1 h-1.5 rounded-full bg-muted overflow-hidden">

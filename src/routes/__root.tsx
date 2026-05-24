@@ -9,7 +9,7 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
-import "@/i18n";
+import i18n from "@/i18n";
 import { I18nClient } from "@/components/ami/I18nClient";
 
 function NotFoundComponent() {
@@ -17,16 +17,14 @@ function NotFoundComponent() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">{i18n.t("errors.notFoundTitle")}</h2>
+        <p className="mt-2 text-sm text-muted-foreground">{i18n.t("errors.notFoundBody")}</p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Go home
+            {i18n.t("common.goHome")}
           </Link>
         </div>
       </div>
@@ -41,12 +39,8 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
-        </p>
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">{i18n.t("errors.errorTitle")}</h1>
+        <p className="mt-2 text-sm text-muted-foreground">{i18n.t("errors.errorBody")}</p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
             onClick={() => {
@@ -55,13 +49,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             }}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Try again
+            {i18n.t("common.tryAgain")}
           </button>
           <a
             href="/"
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
-            Go home
+            {i18n.t("common.goHome")}
           </a>
         </div>
       </div>
@@ -112,6 +106,13 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  // Workers runtime keeps the i18next singleton between requests, so the
+  // language can leak across users. Re-pin to "en" on SSR / first client
+  // render to keep hydration consistent — I18nClient switches it after.
+  if (typeof window === "undefined" && i18n.language !== "en") {
+    i18n.changeLanguage("en");
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
