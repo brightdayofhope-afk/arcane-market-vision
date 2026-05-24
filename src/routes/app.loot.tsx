@@ -28,7 +28,10 @@ const filters: [string, string][] = [
 function LootPage() {
   return (
     <div>
-      <PageHeader title="Loot Database" subtitle="Items catalogued with sources, professions and live opportunities." />
+      <PageHeader
+        title="Loot Database"
+        subtitle="Searchable Azeroth item catalogue with drop source, profession use and live market signal."
+      />
 
       <Panel className="mb-4">
         <div className="relative mb-3">
