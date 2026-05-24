@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Activity, TrendingUp, LineChart, Sparkles, Coins, Zap, ShieldAlert, Star } from "lucide-react";
-import { Badge, BarRow, DataTable, LiveTicker, MultiLineChart, PageHeader, Panel, SelectorChip, Sparkline, StatCard } from "@/components/ami/widgets";
+import { Badge, BarRow, DataTable, LiveTicker, MultiLineChart, PageHeader, Panel, Sparkline, StatCard } from "@/components/ami/widgets";
 import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/app/")({
