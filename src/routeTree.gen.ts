@@ -13,11 +13,14 @@ import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppWatchlistRouteImport } from './routes/app.watchlist'
+import { Route as AppStreamsRouteImport } from './routes/app.streams'
 import { Route as AppSignalsRouteImport } from './routes/app.signals'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppRealmsRouteImport } from './routes/app.realms'
 import { Route as AppProfessionsRouteImport } from './routes/app.professions'
 import { Route as AppPricingRouteImport } from './routes/app.pricing'
+import { Route as AppPartnersRouteImport } from './routes/app.partners'
+import { Route as AppNewsRouteImport } from './routes/app.news'
 import { Route as AppLootRouteImport } from './routes/app.loot'
 import { Route as AppForecastRouteImport } from './routes/app.forecast'
 import { Route as AppDiscordRouteImport } from './routes/app.discord'
@@ -45,6 +48,11 @@ const AppWatchlistRoute = AppWatchlistRouteImport.update({
   path: '/watchlist',
   getParentRoute: () => AppRoute,
 } as any)
+const AppStreamsRoute = AppStreamsRouteImport.update({
+  id: '/streams',
+  path: '/streams',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppSignalsRoute = AppSignalsRouteImport.update({
   id: '/signals',
   path: '/signals',
@@ -68,6 +76,16 @@ const AppProfessionsRoute = AppProfessionsRouteImport.update({
 const AppPricingRoute = AppPricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPartnersRoute = AppPartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNewsRoute = AppNewsRouteImport.update({
+  id: '/news',
+  path: '/news',
   getParentRoute: () => AppRoute,
 } as any)
 const AppLootRoute = AppLootRouteImport.update({
@@ -110,11 +128,14 @@ export interface FileRoutesByFullPath {
   '/app/discord': typeof AppDiscordRoute
   '/app/forecast': typeof AppForecastRoute
   '/app/loot': typeof AppLootRoute
+  '/app/news': typeof AppNewsRoute
+  '/app/partners': typeof AppPartnersRoute
   '/app/pricing': typeof AppPricingRoute
   '/app/professions': typeof AppProfessionsRoute
   '/app/realms': typeof AppRealmsRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/signals': typeof AppSignalsRoute
+  '/app/streams': typeof AppStreamsRoute
   '/app/watchlist': typeof AppWatchlistRoute
   '/app/': typeof AppIndexRoute
 }
@@ -126,11 +147,14 @@ export interface FileRoutesByTo {
   '/app/discord': typeof AppDiscordRoute
   '/app/forecast': typeof AppForecastRoute
   '/app/loot': typeof AppLootRoute
+  '/app/news': typeof AppNewsRoute
+  '/app/partners': typeof AppPartnersRoute
   '/app/pricing': typeof AppPricingRoute
   '/app/professions': typeof AppProfessionsRoute
   '/app/realms': typeof AppRealmsRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/signals': typeof AppSignalsRoute
+  '/app/streams': typeof AppStreamsRoute
   '/app/watchlist': typeof AppWatchlistRoute
   '/app': typeof AppIndexRoute
 }
@@ -144,11 +168,14 @@ export interface FileRoutesById {
   '/app/discord': typeof AppDiscordRoute
   '/app/forecast': typeof AppForecastRoute
   '/app/loot': typeof AppLootRoute
+  '/app/news': typeof AppNewsRoute
+  '/app/partners': typeof AppPartnersRoute
   '/app/pricing': typeof AppPricingRoute
   '/app/professions': typeof AppProfessionsRoute
   '/app/realms': typeof AppRealmsRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/signals': typeof AppSignalsRoute
+  '/app/streams': typeof AppStreamsRoute
   '/app/watchlist': typeof AppWatchlistRoute
   '/app/': typeof AppIndexRoute
 }
@@ -163,11 +190,14 @@ export interface FileRouteTypes {
     | '/app/discord'
     | '/app/forecast'
     | '/app/loot'
+    | '/app/news'
+    | '/app/partners'
     | '/app/pricing'
     | '/app/professions'
     | '/app/realms'
     | '/app/settings'
     | '/app/signals'
+    | '/app/streams'
     | '/app/watchlist'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
@@ -179,11 +209,14 @@ export interface FileRouteTypes {
     | '/app/discord'
     | '/app/forecast'
     | '/app/loot'
+    | '/app/news'
+    | '/app/partners'
     | '/app/pricing'
     | '/app/professions'
     | '/app/realms'
     | '/app/settings'
     | '/app/signals'
+    | '/app/streams'
     | '/app/watchlist'
     | '/app'
   id:
@@ -196,11 +229,14 @@ export interface FileRouteTypes {
     | '/app/discord'
     | '/app/forecast'
     | '/app/loot'
+    | '/app/news'
+    | '/app/partners'
     | '/app/pricing'
     | '/app/professions'
     | '/app/realms'
     | '/app/settings'
     | '/app/signals'
+    | '/app/streams'
     | '/app/watchlist'
     | '/app/'
   fileRoutesById: FileRoutesById
@@ -240,6 +276,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppWatchlistRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/streams': {
+      id: '/app/streams'
+      path: '/streams'
+      fullPath: '/app/streams'
+      preLoaderRoute: typeof AppStreamsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/signals': {
       id: '/app/signals'
       path: '/signals'
@@ -273,6 +316,20 @@ declare module '@tanstack/react-router' {
       path: '/pricing'
       fullPath: '/app/pricing'
       preLoaderRoute: typeof AppPricingRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/partners': {
+      id: '/app/partners'
+      path: '/partners'
+      fullPath: '/app/partners'
+      preLoaderRoute: typeof AppPartnersRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/news': {
+      id: '/app/news'
+      path: '/news'
+      fullPath: '/app/news'
+      preLoaderRoute: typeof AppNewsRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/loot': {
@@ -327,11 +384,14 @@ interface AppRouteChildren {
   AppDiscordRoute: typeof AppDiscordRoute
   AppForecastRoute: typeof AppForecastRoute
   AppLootRoute: typeof AppLootRoute
+  AppNewsRoute: typeof AppNewsRoute
+  AppPartnersRoute: typeof AppPartnersRoute
   AppPricingRoute: typeof AppPricingRoute
   AppProfessionsRoute: typeof AppProfessionsRoute
   AppRealmsRoute: typeof AppRealmsRoute
   AppSettingsRoute: typeof AppSettingsRoute
   AppSignalsRoute: typeof AppSignalsRoute
+  AppStreamsRoute: typeof AppStreamsRoute
   AppWatchlistRoute: typeof AppWatchlistRoute
   AppIndexRoute: typeof AppIndexRoute
 }
@@ -343,11 +403,14 @@ const AppRouteChildren: AppRouteChildren = {
   AppDiscordRoute: AppDiscordRoute,
   AppForecastRoute: AppForecastRoute,
   AppLootRoute: AppLootRoute,
+  AppNewsRoute: AppNewsRoute,
+  AppPartnersRoute: AppPartnersRoute,
   AppPricingRoute: AppPricingRoute,
   AppProfessionsRoute: AppProfessionsRoute,
   AppRealmsRoute: AppRealmsRoute,
   AppSettingsRoute: AppSettingsRoute,
   AppSignalsRoute: AppSignalsRoute,
+  AppStreamsRoute: AppStreamsRoute,
   AppWatchlistRoute: AppWatchlistRoute,
   AppIndexRoute: AppIndexRoute,
 }
@@ -361,3 +424,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
