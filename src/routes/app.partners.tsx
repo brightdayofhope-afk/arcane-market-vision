@@ -90,14 +90,15 @@ function MarketContributorBlock() {
   return (
     <Panel
       className="mt-4 relative overflow-hidden"
-      title={
-        <span className="inline-flex items-center gap-2">
+    >
+      <header className="flex items-center justify-between mb-4">
+        <h3 className="text-sm font-semibold tracking-wide inline-flex items-center gap-2">
           <UploadCloud className="h-4 w-4 text-primary" />
           Become a Market Contributor
           <Badge tone="gold">Preview</Badge>
-        </span>
-      }
-    >
+        </h3>
+        <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Design only</span>
+      </header>
       <div
         aria-hidden
         className="pointer-events-none absolute -top-24 -right-20 h-72 w-72 rounded-full opacity-30 blur-3xl"
