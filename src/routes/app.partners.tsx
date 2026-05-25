@@ -7,6 +7,7 @@ import {
   CheckCircle2, Database, Copy, AlertTriangle, Crown, Lock, Clock, Hash,
 } from "lucide-react";
 import { ConfidenceBar } from "@/components/ami/access";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/app/partners")({
   head: () => ({ meta: [{ title: "Partner Program · AMI" }] }),
