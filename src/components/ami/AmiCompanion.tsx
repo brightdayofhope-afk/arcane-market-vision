@@ -267,8 +267,8 @@ function AskRail() {
           <MessageSquare className="h-3.5 w-3.5" /> {t("assistant.companion.ask")}
         </AskAmiLink>
       </div>
-      <div className="mt-2 text-[10px] text-muted-foreground">
-        {t("assistant.companion.respectsLayout")}
+      <div className="mt-2 text-[10px] text-muted-foreground leading-snug">
+        {t("assistant.companion.opensSeparatePage")}
       </div>
       {route.actions.length > 0 && (
         <ul className="mt-2 space-y-1">
